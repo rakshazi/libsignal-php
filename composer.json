@@ -1,7 +1,11 @@
 {
     "name": "rakshazi/libsignal-php",
     "type": "library",
-    "description": "Fork of mgt25/libsignal-php. This is a php port of libsignal-java originally written by Moxie Marlinspike",
+    "license": "GPL-3.0-only",
+    "description": "Fork of mgp25/libsignal-php. This is a php port of libsignal-java originally written by Moxie Marlinspike",
+    "replace": {
+        "mgp25/libsignal-php": "dev-master"
+    },
     "require": {
         "php": ">= 5.6",
         "ext-curve25519": "*",
