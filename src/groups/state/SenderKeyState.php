@@ -24,7 +24,7 @@ class SenderKeyState
         /*if(!(($id && $iteration && $chainKey) || ($senderKeyStateStructure ^ ($signatureKeyPublic || $signatureKeyPair))
          || ($signatureKeyPublic ^ $signatureKeyPair)))
         {
-            throw new Exception("Missing required arguments");
+            throw new \Exception("Missing required arguments");
         }*/
 
         if ($senderKeyStateStructure) {

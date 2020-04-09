@@ -309,7 +309,7 @@ class CryptoCounter
     {
         $this->val = $init_val;
         if (!\in_array($size, [128, 192, 256], true)) {
-            throw new Exception('Counter size cannot be other than 128,192 or 256 bits');
+            throw new \Exception('Counter size cannot be other than 128,192 or 256 bits');
         }
         $this->size = $size / 8;
     }

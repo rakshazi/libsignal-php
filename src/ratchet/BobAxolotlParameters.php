@@ -31,7 +31,7 @@ class BobAxolotlParameters
         if ((null === $ourIdentityKey) || (null === $ourSignedPreKey)
              || (null === $ourRatchetKey)
              || (null === $theirIdentityKey) || (null === $theirBaseKey)) {
-            throw new Exception('Null values!');
+            throw new \Exception('Null values!');
         }
     }
 

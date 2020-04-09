@@ -28,7 +28,7 @@ class AliceAxolotlParameters
         $this->theirOneTimePreKey = $theirOneTimePreKey;
         if ((null === $ourIdentityKey) || (null === $ourBaseKey)
             || (null === $theirIdentityKey) || (null === $theirSignedPreKey) || (null === $theirRatchetKey)) {
-            throw new Exception('Null values!');
+            throw new \Exception('Null values!');
         }
     }
 

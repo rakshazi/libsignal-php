@@ -22,8 +22,8 @@ class PreKeyRecord
         } else {
             try {
                 $this->structure->parseFromString($serialized);
-            } catch (Exception $ex) {
-                throw new Exception('Cannot unserialize PreKEyRecordStructure');
+            } catch (\Exception $ex) {
+                throw new \Exception('Cannot unserialize PreKEyRecordStructure');
             }
         }
     }

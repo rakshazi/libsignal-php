@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Libsignal;
 
-use Exception;
 use Libsignal\ecc\Curve;
 use Libsignal\exceptions\InvalidKeyException;
 use Libsignal\exceptions\StaleKeyExchangeException;
@@ -62,7 +61,7 @@ class SessionBuilder
         } elseif (3 === $messageVersion) {
             $unsignedPreKeyId = $this->processV3($sessionRecord, $message);
         } else {
-            throw new Exception('Unkown version '.$messageVersion);
+            throw new \Exception('Unkown version '.$messageVersion);
         }
 
         $this->identityKeyStore->saveIdentity($this->recipientId, $theirIdentityKey);
@@ -334,7 +333,7 @@ class SessionBuilder
             return new KeyExchangeMessage(2, $sequence, $flags, $baseKey->getPublicKey(), $baseKeySignature,
                                       $ratchetKey->getPublicKey(), $identityKey->getPublicKey());
         } catch (InvalidKeyException $ex) {
-            throw new Exception($ex->getMessage());
+            throw new \Exception($ex->getMessage());
         }
     }
 }

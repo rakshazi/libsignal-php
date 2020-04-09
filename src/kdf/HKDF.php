@@ -16,7 +16,7 @@ class HKDF
         if (3 === $version) {
             return new HKDFv3();
         }
-        throw new Exception("Unknown version $version");
+        throw new \Exception("Unknown version $version");
     }
 
     public function deriveSecrets($inputKey, $info, $outputLength, $salt = null)

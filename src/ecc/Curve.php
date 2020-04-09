@@ -72,6 +72,6 @@ class Curve
         if ($strong) {
             return $rand;
         }
-        throw new Exception('Cannot generate secure random bytes');
+        throw new \Exception('Cannot generate secure random bytes');
     }
 }
