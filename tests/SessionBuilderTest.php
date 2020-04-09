@@ -1,16 +1,21 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\Tests;
+
 // coding=utf-8
-use Libsignal\SessionBuilder;
-use Libsignal\protocol\KeyExchangeMessage;
 use Libsignal\exceptions\UntrustedIdentityException;
-use Libsignal\SessionCipher;
 use Libsignal\protocol\CiphertextMessage;
-use Libsignal\protocol\WhisperMessage;
+use Libsignal\protocol\KeyExchangeMessage;
 use Libsignal\protocol\PreKeyWhisperMessage;
+use Libsignal\protocol\WhisperMessage;
+use Libsignal\SessionBuilder;
+use Libsignal\SessionCipher;
 use Libsignal\state\PreKeyBundle;
 use Libsignal\state\PreKeyRecord;
 use Libsignal\state\SignedPreKeyRecord;
+
 //use Libsignal\ecc\Curve;
 
 class SessionBuilderTest extends TestCase
@@ -226,54 +231,51 @@ class SessionBuilderTest extends TestCase
 
 */
 
-    public function testBasicKeyExchange()
+    public function testBasicKeyExchange(): void
     {
-        $aliceStore                 = new InMemoryAxolotlStore();
-        $aliceSessionBuilder        = new SessionBuilder($aliceStore, $aliceStore, $aliceStore, $aliceStore, self::BOB_RECIPIENT_ID, 1);
-        $bobStore                   = new InMemoryAxolotlStore();
-        $bobSessionBuilder          = new SessionBuilder($bobStore, $bobStore, $bobStore, $bobStore, self::ALICE_RECIPIENT_ID, 1);
-        $aliceKeyExchangeMessage    = $aliceSessionBuilder->processInitKeyExchangeMessage();
+        $aliceStore = new InMemoryAxolotlStore();
+        $aliceSessionBuilder = new SessionBuilder($aliceStore, $aliceStore, $aliceStore, $aliceStore, self::BOB_RECIPIENT_ID, 1);
+        $bobStore = new InMemoryAxolotlStore();
+        $bobSessionBuilder = new SessionBuilder($bobStore, $bobStore, $bobStore, $bobStore, self::ALICE_RECIPIENT_ID, 1);
+        $aliceKeyExchangeMessage = $aliceSessionBuilder->processInitKeyExchangeMessage();
 
-        $this->assertTrue($aliceKeyExchangeMessage != null);
+        $this->assertTrue(null !== $aliceKeyExchangeMessage);
 
         $aliceKeyExchangeMessageBytes = $aliceKeyExchangeMessage->serialize();
-        $bobKeyExchangeMessage      = $bobSessionBuilder->processKeyExchangeMessage(new KeyExchangeMessage(null, null, null, null, null, null, null, $aliceKeyExchangeMessageBytes));
+        $bobKeyExchangeMessage = $bobSessionBuilder->processKeyExchangeMessage(new KeyExchangeMessage(null, null, null, null, null, null, null, $aliceKeyExchangeMessageBytes));
 
-        $this->assertTrue($bobKeyExchangeMessage != null);
+        $this->assertTrue(null !== $bobKeyExchangeMessage);
 
-        define('TEST', true);
-        
+        \define('TEST', true);
+
         $bobKeyExchangeMessageBytes = $bobKeyExchangeMessage->serialize();
-        $response                   = $aliceSessionBuilder->processKeyExchangeMessage(new KeyExchangeMessage(null, null, null, null, null, null, null, $bobKeyExchangeMessageBytes));
+        $response = $aliceSessionBuilder->processKeyExchangeMessage(new KeyExchangeMessage(null, null, null, null, null, null, null, $bobKeyExchangeMessageBytes));
 
-        $this->assertTrue($response == null);
+        $this->assertTrue(null === $response);
         $this->assertTrue($aliceStore->containsSession(self::BOB_RECIPIENT_ID, 1));
         $this->assertTrue($bobStore->containsSession(self::ALICE_RECIPIENT_ID, 1));
 
         $this->runInteraction($aliceStore, $bobStore);
 
-        $aliceStore                 = new InMemoryAxolotlStore();
-        $aliceSessionBuilder        = new SessionBuilder($aliceStore, $aliceStore, $aliceStore, $aliceStore, self::BOB_RECIPIENT_ID, 1);
-        $aliceKeyExchangeMessage    = $aliceSessionBuilder->processInitKeyExchangeMessage();
+        $aliceStore = new InMemoryAxolotlStore();
+        $aliceSessionBuilder = new SessionBuilder($aliceStore, $aliceStore, $aliceStore, $aliceStore, self::BOB_RECIPIENT_ID, 1);
+        $aliceKeyExchangeMessage = $aliceSessionBuilder->processInitKeyExchangeMessage();
 
-        try
-        {
+        try {
             $bobKeyExchangeMessage = $bobSessionBuilder->processKeyExchangeMessage($aliceKeyExchangeMessage);
             throw new AssertionError("This identity shouldn't be trusted!");
-        }
-        catch (UntrustedIdentityException $ex)
-        {
+        } catch (UntrustedIdentityException $ex) {
             $bobStore->saveIdentity(self::ALICE_RECIPIENT_ID, $aliceKeyExchangeMessage->getIdentityKey());
         }
 
         $bobKeyExchangeMessage = $bobSessionBuilder->processKeyExchangeMessage($aliceKeyExchangeMessage);
 
-        $this->assertTrue($aliceSessionBuilder->processKeyExchangeMessage($bobKeyExchangeMessage) == null);
+        $this->assertTrue(null === $aliceSessionBuilder->processKeyExchangeMessage($bobKeyExchangeMessage));
 
         self::runInteraction($aliceStore, $bobStore);
     }
 
-    public function runInteraction($aliceStore, $bobStore)
+    public function runInteraction($aliceStore, $bobStore): void
     {
         /*
         :type aliceStore: AxolotlStore
@@ -297,8 +299,7 @@ class SessionBuilderTest extends TestCase
         $plaintext = $aliceSessionCipher->decryptMsg(new WhisperMessage(null, null, null, null, null, null, null, null, $bobMessage->serialize()));
 //        $this->assertEquals($plaintext, $originalMessage);
 
-        for ($i = 0; $i < 10; $i++)
-        {
+        for ($i = 0; $i < 10; ++$i) {
             $loopingMessage = 'What do we mean by saying that existence precedes essence? '.
                              'We mean that man first of all exists, encounters himself, '.
                              'surges up in the world--and defines himself aftward. '.$i;
@@ -307,8 +308,7 @@ class SessionBuilderTest extends TestCase
 //            $this->assertEquals($loopingPlaintext, $loopingMessage);
         }
 
-        for ($i = 0; $i < 10; $i++)
-        {
+        for ($i = 0; $i < 10; ++$i) {
             $loopingMessage = 'What do we mean by saying that existence precedes essence? '.
                  'We mean that man first of all exists, encounters himself, '.
                  'surges up in the world--and defines himself aftward. '.$i;
@@ -320,8 +320,7 @@ class SessionBuilderTest extends TestCase
 
         $aliceOutOfOrderMessages = [];
 
-        for ($i = 0; $i < 10; $i++)
-        {
+        for ($i = 0; $i < 10; ++$i) {
             $loopingMessage = 'What do we mean by saying that existence precedes essence? '.
                  'We mean that man first of all exists, encounters himself, '.
                  'surges up in the world--and defines himself aftward. '.$i;
@@ -329,8 +328,7 @@ class SessionBuilderTest extends TestCase
             $aliceOutOfOrderMessages[] = [$loopingMessage, $aliceLoopingMessage];
         }
 
-        for ($i = 0; $i < 10; $i++)
-        {
+        for ($i = 0; $i < 10; ++$i) {
             $loopingMessage = 'What do we mean by saying that existence precedes essence? '.
                  'We mean that man first of all exists, encounters himself, '.
                  'surges up in the world--and defines himself aftward.'.$i;
@@ -339,8 +337,7 @@ class SessionBuilderTest extends TestCase
 //            $this->assertEquals($loopingPlaintext, $loopingMessage);
         }
 
-        for ($i = 0; $i < 10; $i++)
-        {
+        for ($i = 0; $i < 10; ++$i) {
             $loopingMessage = 'You can only desire based on what you know: '.$i;
             $bobLoopingMessage = $bobSessionCipher->encrypt($loopingMessage);
 
@@ -348,8 +345,7 @@ class SessionBuilderTest extends TestCase
 //            $this->assertEquals($loopingPlaintext, $loopingMessage);
         }
 
-        foreach ($aliceOutOfOrderMessages as $aliceOutOfOrderMessage)
-        {
+        foreach ($aliceOutOfOrderMessages as $aliceOutOfOrderMessage) {
             $outOfOrderPlaintext = $bobSessionCipher->decryptMsg(new WhisperMessage(null, null, null, null, null, null, null, null, $aliceOutOfOrderMessage[1]->serialize()));
 //            $this->assertEquals($outOfOrderPlaintext, $aliceOutOfOrderMessage[0]);
         }

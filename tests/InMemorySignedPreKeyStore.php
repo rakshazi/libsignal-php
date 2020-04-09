@@ -1,12 +1,15 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\Tests;
 
 //from axolotl.state.signedprekeystore import SignedPreKeyStore
 //from axolotl.state.signedprekeyrecord import SignedPreKeyRecord
 //from axolotl.invalidkeyidexception import InvalidKeyIdException
-use Libsignal\state\SignedPreKeyStore;
-use Libsignal\state\SignedPreKeyRecord;
 use Libsignal\exceptions\InvalidKeyIdException;
+use Libsignal\state\SignedPreKeyRecord;
+use Libsignal\state\SignedPreKeyStore;
 
 class InMemorySignedPreKeyStore extends SignedPreKeyStore
 {
@@ -36,7 +39,7 @@ class InMemorySignedPreKeyStore extends SignedPreKeyStore
         return $results;
     }
 
-    public function storeSignedPreKey($signedPreKeyId, $signedPreKeyRecord)
+    public function storeSignedPreKey($signedPreKeyId, $signedPreKeyRecord): void
     {
         $this->store[$signedPreKeyId] = $signedPreKeyRecord->serialize();
     }
@@ -46,7 +49,7 @@ class InMemorySignedPreKeyStore extends SignedPreKeyStore
         return isset($this->store[$signedPreKeyId]);
     }
 
-    public function removeSignedPreKey($signedPreKeyId)
+    public function removeSignedPreKey($signedPreKeyId): void
     {
         unset($this->store[$signedPreKeyId]);
     }

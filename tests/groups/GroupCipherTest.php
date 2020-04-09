@@ -1,9 +1,12 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\Tests\groups;
 
-use Libsignal\Tests\TestCase;
-use Libsignal\groups\GroupSessionBuilder;
 use Libsignal\groups\GroupCipher;
+use Libsignal\groups\GroupSessionBuilder;
+use Libsignal\Tests\TestCase;
 use Libsignal\util\KeyHelper;
 
 //require_once __DIR__.'/../../src/DuplicateMessageException.php';
@@ -11,11 +14,11 @@ use Libsignal\util\KeyHelper;
 
 class GroupCipherTest extends TestCase
 {
-    public function testBasicEncryptDecrypt()
+    public function testBasicEncryptDecrypt(): void
     {
-        $aliceStore = new InMemorySenderKeyStore;
-        $bobStore = new InMemorySenderKeyStore;
-        $charlieStore = new InMemorySenderKeyStore;
+        $aliceStore = new InMemorySenderKeyStore();
+        $bobStore = new InMemorySenderKeyStore();
+        $charlieStore = new InMemorySenderKeyStore();
 
         $aliceSessionBuilder = new GroupSessionBuilder($aliceStore);
         $bobSessionBuilder = new GroupSessionBuilder($bobStore);
@@ -47,93 +50,93 @@ class GroupCipherTest extends TestCase
         $this->assertEquals($plaintextFromAlice_Charlie, 'smert ze smert');
     }
 
-  /*  public function test_basicRatchet()
-    {
-        $aliceStore = new InMemorySenderKeyStore();
-        $bobStore   = new InMemorySenderKeyStore();
+    /*  public function test_basicRatchet()
+      {
+          $aliceStore = new InMemorySenderKeyStore();
+          $bobStore   = new InMemorySenderKeyStore();
 
-        $aliceSessionBuilder = new GroupSessionBuilder($aliceStore);
-        $bobSessionBuilder   = new GroupSessionBuilder($bobStore);
+          $aliceSessionBuilder = new GroupSessionBuilder($aliceStore);
+          $bobSessionBuilder   = new GroupSessionBuilder($bobStore);
 
-        $aliceGroupCipher = new GroupCipher($aliceStore, "groupWithBobInIt");
-        $bobGroupCipher   = new GroupCipher($bobStore, "groupWithBobInIt::aliceUserName");
+          $aliceGroupCipher = new GroupCipher($aliceStore, "groupWithBobInIt");
+          $bobGroupCipher   = new GroupCipher($bobStore, "groupWithBobInIt::aliceUserName");
 
-        $aliceSenderKey        = KeyHelper::generateSenderKey();
-        $aliceSenderSigningKey = KeyHelper::generateSenderSigningKey();
-        $aliceSenderKeyId      = KeyHelper::generateSenderKeyId();
+          $aliceSenderKey        = KeyHelper::generateSenderKey();
+          $aliceSenderSigningKey = KeyHelper::generateSenderSigningKey();
+          $aliceSenderKeyId      = KeyHelper::generateSenderKeyId();
 
-        $aliceDistributionMessage = $aliceSessionBuilder->process("groupWithBobInIt", $aliceSenderKeyId, 0,
-                                    $aliceSenderKey, $aliceSenderSigningKey);
+          $aliceDistributionMessage = $aliceSessionBuilder->process("groupWithBobInIt", $aliceSenderKeyId, 0,
+                                      $aliceSenderKey, $aliceSenderSigningKey);
 
-        $bobSessionBuilder->processSender("groupWithBobInIt::aliceUserName", $aliceDistributionMessage);
+          $bobSessionBuilder->processSender("groupWithBobInIt::aliceUserName", $aliceDistributionMessage);
 
-        $ciphertextFromAlice  = $aliceGroupCipher->encrypt("smert ze smert");
-        $ciphertextFromAlice2 = $aliceGroupCipher->encrypt("smert ze smert2");
-        $ciphertextFromAlice3 = $aliceGroupCipher->encrypt("smert ze smert3");
+          $ciphertextFromAlice  = $aliceGroupCipher->encrypt("smert ze smert");
+          $ciphertextFromAlice2 = $aliceGroupCipher->encrypt("smert ze smert2");
+          $ciphertextFromAlice3 = $aliceGroupCipher->encrypt("smert ze smert3");
 
-        $plaintextFromAlice   = $bobGroupCipher->decrypt($ciphertextFromAlice);
+          $plaintextFromAlice   = $bobGroupCipher->decrypt($ciphertextFromAlice);
 
-        try {
-          $bobGroupCipher->decrypt($ciphertextFromAlice);
-          throw new AssertionError("Should have ratcheted forward!");
-        } catch (DuplicateMessageException $dme) {
-            #good
-        }
+          try {
+            $bobGroupCipher->decrypt($ciphertextFromAlice);
+            throw new AssertionError("Should have ratcheted forward!");
+          } catch (DuplicateMessageException $dme) {
+              #good
+          }
 
-        $plaintextFromAlice2  = $bobGroupCipher->decrypt($ciphertextFromAlice2);
-        $plaintextFromAlice3  = $bobGroupCipher->decrypt($ciphertextFromAlice3);
+          $plaintextFromAlice2  = $bobGroupCipher->decrypt($ciphertextFromAlice2);
+          $plaintextFromAlice3  = $bobGroupCipher->decrypt($ciphertextFromAlice3);
 
-        $this->assertEquals($plaintextFromAlice,"smert ze smert");
-        $this->assertEquals($plaintextFromAlice2, "smert ze smert2");
-        $this->assertEquals($plaintextFromAlice3, "smert ze smert3");
+          $this->assertEquals($plaintextFromAlice,"smert ze smert");
+          $this->assertEquals($plaintextFromAlice2, "smert ze smert2");
+          $this->assertEquals($plaintextFromAlice3, "smert ze smert3");
 
-    }
-    public function test_outOfOrder()
-    {
+      }
+      public function test_outOfOrder()
+      {
 
-        $aliceStore = new InMemorySenderKeyStore();
-        $bobStore   = new InMemorySenderKeyStore();
+          $aliceStore = new InMemorySenderKeyStore();
+          $bobStore   = new InMemorySenderKeyStore();
 
-        $aliceSessionBuilder = new GroupSessionBuilder($aliceStore);
-        $bobSessionBuilder   = new GroupSessionBuilder($bobStore);
+          $aliceSessionBuilder = new GroupSessionBuilder($aliceStore);
+          $bobSessionBuilder   = new GroupSessionBuilder($bobStore);
 
-        $aliceGroupCipher = new GroupCipher($aliceStore, "groupWithBobInIt");
-        $bobGroupCipher   = new GroupCipher($bobStore, "groupWithBobInIt::aliceUserName");
+          $aliceGroupCipher = new GroupCipher($aliceStore, "groupWithBobInIt");
+          $bobGroupCipher   = new GroupCipher($bobStore, "groupWithBobInIt::aliceUserName");
 
-        $aliceSenderKey        = KeyHelper::generateSenderKey();
-        $aliceSenderSigningKey = KeyHelper::generateSenderSigningKey();
-        $aliceSenderKeyId      = KeyHelper::generateSenderKeyId();
+          $aliceSenderKey        = KeyHelper::generateSenderKey();
+          $aliceSenderSigningKey = KeyHelper::generateSenderSigningKey();
+          $aliceSenderKeyId      = KeyHelper::generateSenderKeyId();
 
-        $aliceDistributionMessage = $aliceSessionBuilder->process("groupWithBobInIt", $aliceSenderKeyId, 0,
-                                    $aliceSenderKey, $aliceSenderSigningKey);
+          $aliceDistributionMessage = $aliceSessionBuilder->process("groupWithBobInIt", $aliceSenderKeyId, 0,
+                                      $aliceSenderKey, $aliceSenderSigningKey);
 
-        $bobSessionBuilder->processSender("groupWithBobInIt::aliceUserName", $aliceDistributionMessage);
+          $bobSessionBuilder->processSender("groupWithBobInIt::aliceUserName", $aliceDistributionMessage);
 
-        $ciphertexts = [];
-        for ($i = 0; $i < 100; $i++)
-            $ciphertexts[] = $aliceGroupCipher->encrypt("up the punks");
-        while (count($ciphertexts) > 0)
-        {
-            $index = KeyHelper::getRandomSequence(2147483647) % count($ciphertexts);
-            $elements = array_splice($ciphertexts,$index,1);
-            $ciphertext = $elements[0];
-            $plaintext = $bobGroupCipher->decrypt($ciphertext);
-            $this->assertEquals($plaintext, "up the punks");
-        }
-    }
+          $ciphertexts = [];
+          for ($i = 0; $i < 100; $i++)
+              $ciphertexts[] = $aliceGroupCipher->encrypt("up the punks");
+          while (count($ciphertexts) > 0)
+          {
+              $index = KeyHelper::getRandomSequence(2147483647) % count($ciphertexts);
+              $elements = array_splice($ciphertexts,$index,1);
+              $ciphertext = $elements[0];
+              $plaintext = $bobGroupCipher->decrypt($ciphertext);
+              $this->assertEquals($plaintext, "up the punks");
+          }
+      }
 
-    public function test_encryptNoSession()
-    {
-        $aliceStore = new InMemorySenderKeyStore();
-        $aliceGroupCipher = new GroupCipher($aliceStore, "groupWithBobInIt");
-        try
-        {
-            $aliceGroupCipher->encrypt("up the punks");
-            throw new AssertionError("Should have failed!");
-        }
-        catch (NoSessionException $nse)
-        {
-            # good
-        }
-    }*/
+      public function test_encryptNoSession()
+      {
+          $aliceStore = new InMemorySenderKeyStore();
+          $aliceGroupCipher = new GroupCipher($aliceStore, "groupWithBobInIt");
+          try
+          {
+              $aliceGroupCipher->encrypt("up the punks");
+              throw new AssertionError("Should have failed!");
+          }
+          catch (NoSessionException $nse)
+          {
+              # good
+          }
+      }*/
 }

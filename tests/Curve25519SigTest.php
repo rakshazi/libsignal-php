@@ -1,13 +1,15 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\Tests;
 
-use Libsignal\Tests\TestCase;
 use Libsignal\ecc\Curve;
 use Libsignal\util\KeyHelper;
 
 class Curve25519SigTest extends TestCase
 {
-    public function testAgreement()
+    public function testAgreement(): void
     {
         $alicePublic = "\x05\x1b\xb7\x59\x66\xf2\xe9\x3a\x36\x91\xdf\xff\x94\x2b\xb2\xa4\x66\xa1\xc0\x8b\x8d\x78\xca\x3f\x4d\x6d\xf8\xb8\xbf\xa2\xe4\xee\x28";
 
@@ -32,9 +34,9 @@ class Curve25519SigTest extends TestCase
         $this->assertEquals($sharedTwo, $shared);
     }
 
-    public function testRandomAgreements()
+    public function testRandomAgreements(): void
     {
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 50; ++$i) {
             $alice = Curve::generateKeyPair();
             $bob = Curve::generateKeyPair();
             $sharedAlice = Curve::calculateAgreement($bob->getPublicKey(), $alice->getPrivateKey());
@@ -43,13 +45,13 @@ class Curve25519SigTest extends TestCase
         }
     }
 
-    public function testGensig()
+    public function testGensig(): void
     {
         $identityKeyPair = KeyHelper::generateIdentityKeyPair();
         KeyHelper::generateSignedPreKey($identityKeyPair, 0);
     }
 
-    public function testSignature()
+    public function testSignature(): void
     {
         $aliceIdentityPrivate = "\xc0\x97\x24\x84\x12\xe5\x8b\xf0\x5d\xf4\x87\x96\x82\x05\x13\x27\x94\x17\x8e\x36\x76\x37\xf5\x81\x8f\x81\xe0\xe6\xce\x73\xe8\x65";
 

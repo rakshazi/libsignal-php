@@ -1,5 +1,9 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\Tests;
+
 /*import unittest
 from axolotl.state.sessionrecord import SessionRecord
 from axolotl.ecc.curve import Curve
@@ -12,26 +16,19 @@ from axolotl.sessioncipher import SessionCipher
 from axolotl.protocol.whispermessage import WhisperMessage
 import time
 from random import shuffle*/
-use Libsignal\Tests\TestCase;
 use Libsignal\ecc\Curve;
-use Libsignal\ratchet\RootKey;
-use Libsignal\kdf\HKDF;
-use Libsignal\ratchet\ChainKey;
 use Libsignal\IdentityKey;
 use Libsignal\IdentityKeyPair;
+use Libsignal\protocol\WhisperMessage;
 use Libsignal\ratchet\AliceAxolotlParameters;
 use Libsignal\ratchet\BobAxolotlParameters;
-use Libsignal\state\SessionState;
-use Libsignal\state\SessionRecord;
 use Libsignal\ratchet\RatchetingSession;
-use Libsignal\state\SignedPreKeyStore;
 use Libsignal\SessionCipher;
-use Libsignal\SessionBuilder;
-use Libsignal\protocol\WhisperMessage;
+use Libsignal\state\SessionRecord;
 
 class SessionCipherTest extends TestCase
 {
-    public function testBasicSessionV2()
+    public function testBasicSessionV2(): void
     {
         $aliceSessionRecord = new SessionRecord();
         $bobSessionRecord = new SessionRecord();
@@ -39,7 +36,7 @@ class SessionCipherTest extends TestCase
         $this->runInteraction($aliceSessionRecord, $bobSessionRecord);
     }
 
-    public function testBasicSessionV3()
+    public function testBasicSessionV3(): void
     {
         $aliceSessionRecord = new SessionRecord();
         $bobSessionRecord = new SessionRecord();
@@ -47,7 +44,7 @@ class SessionCipherTest extends TestCase
         $this->runInteraction($aliceSessionRecord, $bobSessionRecord);
     }
 
-    protected function runInteraction($aliceSessionRecord, $bobSessionRecord)
+    protected function runInteraction($aliceSessionRecord, $bobSessionRecord): void
     {
         $aliceStore = new InMemoryAxolotlStore();
         $bobStore = new InMemoryAxolotlStore();
@@ -73,27 +70,27 @@ class SessionCipherTest extends TestCase
         $aliceCiphertextMessages = [];
         $alicePlaintextMessages = [];
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 50; ++$i) {
             $alicePlaintextMessages[] = 'смерть за смерть '.$i;
             $aliceCiphertextMessages[] = $aliceCipher->encrypt("смерть за смерть $i");
         }
         //shuffle(aliceCiphertextMessages)
         //shuffle(alicePlaintextMessages)
 
-        for ($i = 0; $i < count($aliceCiphertextMessages) / 2; $i++) {
+        for ($i = 0; $i < \count($aliceCiphertextMessages) / 2; ++$i) {
             $receivedPlaintext = $bobCipher->decryptMsg(new WhisperMessage(null, null, null, null, null, null, null, null, $aliceCiphertextMessages[$i]->serialize()));
             $this->assertEquals($receivedPlaintext, $alicePlaintextMessages[$i]);
         }
     }
 
-     /*   """
+    /*   """
 
     List<CiphertextMessage> bobCiphertextMessages = new ArrayList<>();
     List<byte[]>            bobPlaintextMessages  = new ArrayList<>();
 
     for (int i=0;i<20;i++) {
-      bobPlaintextMessages.add(("смерть за смерть " + i).getBytes());
-      bobCiphertextMessages.add(bobCipher.encrypt(("смерть за смерть " + i).getBytes()));
+     bobPlaintextMessages.add(("смерть за смерть " + i).getBytes());
+     bobCiphertextMessages.add(bobCipher.encrypt(("смерть за смерть " + i).getBytes()));
     }
 
     seed = System.currentTimeMillis();
@@ -102,28 +99,28 @@ class SessionCipherTest extends TestCase
     Collections.shuffle(bobPlaintextMessages, new Random(seed));
 
     for (int i=0;i<bobCiphertextMessages.size() / 2;i++) {
-      byte[] receivedPlaintext = aliceCipher.decrypt(new WhisperMessage(bobCiphertextMessages.get(i).serialize()));
-      assertTrue(Arrays.equals(receivedPlaintext, bobPlaintextMessages.get(i)));
+     byte[] receivedPlaintext = aliceCipher.decrypt(new WhisperMessage(bobCiphertextMessages.get(i).serialize()));
+     assertTrue(Arrays.equals(receivedPlaintext, bobPlaintextMessages.get(i)));
     }
 
     for (int i=aliceCiphertextMessages.size()/2;i<aliceCiphertextMessages.size();i++) {
-      byte[] receivedPlaintext = bobCipher.decrypt(new WhisperMessage(aliceCiphertextMessages.get(i).serialize()));
-      assertTrue(Arrays.equals(receivedPlaintext, alicePlaintextMessages.get(i)));
+     byte[] receivedPlaintext = bobCipher.decrypt(new WhisperMessage(aliceCiphertextMessages.get(i).serialize()));
+     assertTrue(Arrays.equals(receivedPlaintext, alicePlaintextMessages.get(i)));
     }
 
     for (int i=bobCiphertextMessages.size() / 2;i<bobCiphertextMessages.size();i++) {
-      byte[] receivedPlaintext = aliceCipher.decrypt(new WhisperMessage(bobCiphertextMessages.get(i).serialize()));
-      assertTrue(Arrays.equals(receivedPlaintext, bobPlaintextMessages.get(i)));
+     byte[] receivedPlaintext = aliceCipher.decrypt(new WhisperMessage(bobCiphertextMessages.get(i).serialize()));
+     assertTrue(Arrays.equals(receivedPlaintext, bobPlaintextMessages.get(i)));
     }
-        """
+       """
 */
 
-    protected function initializeSessionsV2($aliceSessionState, $bobSessionState)
+    protected function initializeSessionsV2($aliceSessionState, $bobSessionState): void
     {
-        $aliceIdentityKeyPair   = Curve::generateKeyPair();
-        $aliceIdentityKey       = new IdentityKeyPair(new IdentityKey($aliceIdentityKeyPair->getPublicKey()), $aliceIdentityKeyPair->getPrivateKey());
-        $aliceBaseKey           = Curve::generateKeyPair();
-        $aliceEphemeralKey      = Curve::generateKeyPair();
+        $aliceIdentityKeyPair = Curve::generateKeyPair();
+        $aliceIdentityKey = new IdentityKeyPair(new IdentityKey($aliceIdentityKeyPair->getPublicKey()), $aliceIdentityKeyPair->getPrivateKey());
+        $aliceBaseKey = Curve::generateKeyPair();
+        $aliceEphemeralKey = Curve::generateKeyPair();
 
 //        $bobIdentityKeyPair     = Curve::generateKeyPair();
 //        $bobIdentityKey         = new IdentityKeyPair(new IdentityKey($bobIdentityKeyPair->getPublicKey()), $bobIdentityKeyPair->getPrivateKey());
@@ -154,19 +151,19 @@ class SessionCipherTest extends TestCase
 //        RatchetingSession::initializeSessionAsBob($bobSessionState, 2, $bobParameters);
     }
 
-    protected function initializeSessionsV3($aliceSessionState, $bobSessionState)
+    protected function initializeSessionsV3($aliceSessionState, $bobSessionState): void
     {
-        $aliceIdentityKeyPair   = Curve::generateKeyPair();
-        $aliceIdentityKey       = new IdentityKeyPair(new IdentityKey($aliceIdentityKeyPair->getPublicKey()), $aliceIdentityKeyPair->getPrivateKey());
-        $aliceBaseKey           = Curve::generateKeyPair();
-        $aliceEphemeralKey      = Curve::generateKeyPair();
+        $aliceIdentityKeyPair = Curve::generateKeyPair();
+        $aliceIdentityKey = new IdentityKeyPair(new IdentityKey($aliceIdentityKeyPair->getPublicKey()), $aliceIdentityKeyPair->getPrivateKey());
+        $aliceBaseKey = Curve::generateKeyPair();
+        $aliceEphemeralKey = Curve::generateKeyPair();
 
         $alicePreKey = $aliceBaseKey;
 
-        $bobIdentityKeyPair     = Curve::generateKeyPair();
-        $bobIdentityKey         = new IdentityKeyPair(new IdentityKey($bobIdentityKeyPair->getPublicKey()),  $bobIdentityKeyPair->getPrivateKey());
-        $bobBaseKey             = Curve::generateKeyPair();
-        $bobEphemeralKey        = $bobBaseKey;
+        $bobIdentityKeyPair = Curve::generateKeyPair();
+        $bobIdentityKey = new IdentityKeyPair(new IdentityKey($bobIdentityKeyPair->getPublicKey()), $bobIdentityKeyPair->getPrivateKey());
+        $bobBaseKey = Curve::generateKeyPair();
+        $bobEphemeralKey = $bobBaseKey;
 
         $bobPreKey = Curve::generateKeyPair();
 

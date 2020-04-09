@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\Tests;
 
 use Libsignal\state\AxolotlStore;
@@ -12,10 +15,10 @@ class InMemoryAxolotlStore extends AxolotlStore
 
     public function __construct()
     {
-        $this->identityKeyStore     = new InMemoryIdentityKeyStore;
-        $this->preKeyStore          = new InMemoryPreKeyStore;
-        $this->signedPreKeyStore    = new InMemorySignedPreKeyStore;
-        $this->sessionStore         = new InMemorySessionStore;
+        $this->identityKeyStore = new InMemoryIdentityKeyStore();
+        $this->preKeyStore = new InMemoryPreKeyStore();
+        $this->signedPreKeyStore = new InMemorySignedPreKeyStore();
+        $this->sessionStore = new InMemorySessionStore();
     }
 
     public function getIdentityKeyPair()
@@ -28,7 +31,7 @@ class InMemoryAxolotlStore extends AxolotlStore
         return $this->identityKeyStore->getLocalRegistrationId();
     }
 
-    public function saveIdentity($recepientId, $identityKey)
+    public function saveIdentity($recepientId, $identityKey): void
     {
         $this->identityKeyStore->saveIdentity($recepientId, $identityKey);
     }
@@ -43,7 +46,7 @@ class InMemoryAxolotlStore extends AxolotlStore
         return $this->preKeyStore->loadPreKey($preKeyId);
     }
 
-    public function storePreKey($preKeyId, $preKeyRecord)
+    public function storePreKey($preKeyId, $preKeyRecord): void
     {
         $this->preKeyStore->storePreKey($preKeyId, $preKeyRecord);
     }
@@ -53,7 +56,7 @@ class InMemoryAxolotlStore extends AxolotlStore
         return $this->preKeyStore->containsPreKey($preKeyId);
     }
 
-    public function removePreKey($preKeyId)
+    public function removePreKey($preKeyId): void
     {
         $this->preKeyStore->removePreKey($preKeyId);
     }
@@ -68,7 +71,7 @@ class InMemoryAxolotlStore extends AxolotlStore
         return $this->sessionStore->getSubDeviceSessions($recepientId);
     }
 
-    public function storeSession($recepientId, $deviceId, $sessionRecord)
+    public function storeSession($recepientId, $deviceId, $sessionRecord): void
     {
         $this->sessionStore->storeSession($recepientId, $deviceId, $sessionRecord);
     }
@@ -78,12 +81,12 @@ class InMemoryAxolotlStore extends AxolotlStore
         return $this->sessionStore->containsSession($recepientId, $deviceId);
     }
 
-    public function deleteSession($recepientId, $deviceId)
+    public function deleteSession($recepientId, $deviceId): void
     {
         $this->sessionStore->deleteSession($recepientId, $deviceId);
     }
 
-    public function deleteAllSessions($recepientId)
+    public function deleteAllSessions($recepientId): void
     {
         $this->sessionStore->deleteAllSessions($recepientId);
     }
@@ -98,7 +101,7 @@ class InMemoryAxolotlStore extends AxolotlStore
         return $this->signedPreKeyStore->loadSignedPreKeys();
     }
 
-    public function storeSignedPreKey($signedPreKeyId, $signedPreKeyRecord)
+    public function storeSignedPreKey($signedPreKeyId, $signedPreKeyRecord): void
     {
         $this->signedPreKeyStore->storeSignedPreKey($signedPreKeyId, $signedPreKeyRecord);
     }

@@ -1,11 +1,15 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\Tests;
+
 //from axolotl.state.prekeystore import PreKeyStore
 //from axolotl.state.prekeyrecord import PreKeyRecord
 //from axolotl.invalidkeyidexception import InvalidKeyIdException
-use Libsignal\state\PreKeyStore;
-use Libsignal\state\PreKeyRecord;
 use Libsignal\exceptions\InvalidKeyIdException;
+use Libsignal\state\PreKeyRecord;
+use Libsignal\state\PreKeyStore;
 
 class InMemoryPreKeyStore extends PreKeyStore
 {
@@ -18,15 +22,14 @@ class InMemoryPreKeyStore extends PreKeyStore
 
     public function loadPreKey($preKeyId)
     {
-        if (!isset($this->store[$preKeyId]))
-        {
+        if (!isset($this->store[$preKeyId])) {
             throw new InvalidKeyIdException('No such prekeyRecord!');
         }
 
         return new PreKeyRecord(null, null, $this->store[$preKeyId]);
     }
 
-    public function storePreKey($preKeyId, $preKeyRecord)
+    public function storePreKey($preKeyId, $preKeyRecord): void
     {
         $this->store[$preKeyId] = $preKeyRecord->serialize();
     }
@@ -36,10 +39,9 @@ class InMemoryPreKeyStore extends PreKeyStore
         return isset($this->store[$preKeyId]);
     }
 
-    public function removePreKey($preKeyId)
+    public function removePreKey($preKeyId): void
     {
-        if (isset($this->store[$preKeyId]))
-        {
+        if (isset($this->store[$preKeyId])) {
             unset($this->store[$preKeyId]);
         }
     }

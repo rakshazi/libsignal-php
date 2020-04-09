@@ -1,12 +1,15 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\Tests\kdf;
 
-use Libsignal\Tests\TestCase;
 use Libsignal\kdf\HKDF;
+use Libsignal\Tests\TestCase;
 
 class HKDFTest extends TestCase
 {
-    public function testVectorV3()
+    public function testVectorV3(): void
     {
         $ikm = "\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b";
 
@@ -20,7 +23,7 @@ class HKDFTest extends TestCase
         $this->assertEquals($okm, $actualOutput);
     }
 
-    public function testVectorLongV3()
+    public function testVectorLongV3(): void
     {
         $ikm = "\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f\x40\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f";
 
@@ -34,7 +37,7 @@ class HKDFTest extends TestCase
         $this->assertEquals($okm, $actualOutput);
     }
 
-    public function testVectorV2()
+    public function testVectorV2(): void
     {
         $ikm = "\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b";
 

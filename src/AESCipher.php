@@ -107,27 +107,27 @@ class AESCipher
         {
             if ($this->version >= 3)
             {
-    
+
                 Log::info(json_encode(["action" => "decode1", "enc" => bin2hex($enc), "key" => bin2hex($this->key), "iv" => bin2hex($this->iv)]));
-    
+
     //            $result = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $this->key, $enc, MCRYPT_MODE_CBC, $this->iv);
-    
-    
+
+
                 $result = openssl_decrypt( $enc, "AES-256-CBC", $this->key, OPENSSL_RAW_DATA, $this->iv);
     //                    openssl_decrypt($data, $method, $password, $options = 1, $iv = "", $tag = "",  $aad = "")
     //                    ($cipher, $key, $data, $mode, $iv = null)
-    
+
                 //  openssl_error_string ()
-    
-    
+
+
                 $unpaded = $this->unpad($result);
                 $last_unpadded = $unpaded[strlen($unpaded) - 1];
                 $double_padding = substr($unpaded, -1 * (ord($last_unpadded) - 1));
-    
+
                 if (ord($last_unpadded) - 1 == strlen($double_padding))
                 {
                     $has_dp = true;
-    
+
                     for ($x = 0; $x < strlen($double_padding); $x++)
                     {
                         if ($double_padding[$x] != $last_unpadded)
@@ -141,19 +141,19 @@ class AESCipher
                 {
                     $has_dp = false;
                 }
-    
+
                 if ($has_dp)
                 {
                     $unpaded = $this->unpad($unpaded, 1);
                 }
-    
+
                 return $unpaded;
             }
             else
             {
     //            $decrypted = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $this->key, $enc, 'ctr', $this->counter->Next());
                 $decrypted = openssl_decrypt( $enc, "AES-256-CBC", $this->key, OPENSSL_RAW_DATA, $this->counter->Next());
-    
+
                 return $decrypted;
             }
         }*/
