@@ -19,11 +19,10 @@ class InMemoryIdentityKeyStore extends IdentityKeyStore
 
     public function __construct()
     {
-        $this->trustedKeys = [];
-        $identityKeyPairKeys = Curve::generateKeyPair();
-        $this->identityKeyPair = new IdentityKeyPair(new IdentityKey($identityKeyPairKeys->getPublicKey()),
-                                               $identityKeyPairKeys->getPrivateKey());
-        $this->localRegistrationId = KeyHelper::generateRegistrationId();
+        $this->trustedKeys          = [];
+        $identityKeyPairKeys        = Curve::generateKeyPair();
+        $this->identityKeyPair      = new IdentityKeyPair(new IdentityKey($identityKeyPairKeys->getPublicKey()), $identityKeyPairKeys->getPrivateKey());
+        $this->localRegistrationId  = KeyHelper::generateRegistrationId();
     }
 
     public function getIdentityKeyPair()
@@ -43,9 +42,12 @@ class InMemoryIdentityKeyStore extends IdentityKeyStore
 
     public function isTrustedIdentity($recepientId, $identityKey)
     {
-        if (!isset($this->trustedKeys[$recepientId])) {
+        if (!isset($this->trustedKeys[$recepientId]))
+        {
             return true;
         }
+
+//        dd(["trusted" => $this->trustedKeys[$recepientId], "vadim's" => $identityKey]);
 
         return $this->trustedKeys[$recepientId] == $identityKey;
     }

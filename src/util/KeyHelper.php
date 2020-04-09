@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\util;
 
 use Libsignal\ecc\Curve;
@@ -19,9 +22,9 @@ class KeyHelper
     {
         $keyPair = Curve::generateKeyPair();
         $publicKey = new IdentityKey($keyPair->getPublicKey());
-        $serialized = '0a21056e8936e8367f768a7bba008ade7cf58407bdc7a6aae293e2cb7c06668dcd7d5e12205011524f0c15467100dd6'.
-                     '03e0d6020f4d293edfbcd82129b14a88791ac81365c';
-        $serialized = pack('H*', $serialized);
+//        $serialized = '0a21056e8936e8367f768a7bba008ade7cf58407bdc7a6aae293e2cb7c06668dcd7d5e12205011524f0c15467100dd6'.
+//                     '03e0d6020f4d293edfbcd82129b14a88791ac81365c';
+//        $serialized = pack('H*', $serialized);
         $identityKeyPair = new IdentityKeyPair($publicKey, $keyPair->getPrivateKey());
 
         return $identityKeyPair;
@@ -42,11 +45,11 @@ class KeyHelper
 
     public static function getRandomSequence($max = 4294967296)
     {
-        $size = (int) ((log($max) / log(2)) / 8);
-        $rand = openssl_random_pseudo_bytes((int) $size);
-        $randh = unpack('H*', $rand);
+        $size = (int) ((\log($max) / \log(2)) / 8);
+        $rand = \openssl_random_pseudo_bytes((int) $size);
+        $randh = \unpack('H*', $rand);
 
-        return intval($randh[1], 16);
+        return \intval($randh[1], 16);
     }
 
     /*
@@ -60,24 +63,25 @@ class KeyHelper
     @return the list of generated PreKeyRecords.
    */
 
-   public static function generatePreKeys($start, $count)
-   {
-       $results = [];
-       $start -= 1;
-       for ($i = 0; $i < $count; $i++) {
-           $preKeyId = (($start + $i) % (Medium::MAX_VALUE - 1)) + 1;
-           $results[] = (new PreKeyRecord($preKeyId, Curve::generateKeyPair()));
-       }
+    public static function generatePreKeys($start, $count)
+    {
+        $results = [];
+        --$start;
 
-       return $results;
-   }
+        for ($i = 0; $i < $count; ++$i) {
+            $preKeyId = (($start + $i) % (Medium::MAX_VALUE - 1)) + 1;
+            $results[] = (new PreKeyRecord($preKeyId, Curve::generateKeyPair()));
+        }
+
+        return $results;
+    }
 
     public static function generateSignedPreKey($identityKeyPair, $signedPreKeyId)
     {
         $keyPair = Curve::generateKeyPair();
         $signature = Curve::calculateSignature($identityKeyPair->getPrivateKey(), $keyPair->getPublicKey()->serialize());
 
-        $spk = new SignedPreKeyRecord($signedPreKeyId, (int) round(time() * 1000), $keyPair, $signature);
+        $spk = new SignedPreKeyRecord($signedPreKeyId, (int) \round(\time() * 1000), $keyPair, $signature);
 
         return $spk;
     }
@@ -89,7 +93,7 @@ class KeyHelper
 
     public static function generateSenderKey()
     {
-        return openssl_random_pseudo_bytes(32);
+        return \openssl_random_pseudo_bytes(32);
     }
 
     public static function generateSenderKeyId()

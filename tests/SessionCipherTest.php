@@ -120,56 +120,53 @@ class SessionCipherTest extends TestCase
 
     protected function initializeSessionsV2($aliceSessionState, $bobSessionState)
     {
-        $aliceIdentityKeyPair = Curve::generateKeyPair();
-        $aliceIdentityKey = new IdentityKeyPair(new IdentityKey($aliceIdentityKeyPair->getPublicKey()),
-                                                               $aliceIdentityKeyPair->getPrivateKey());
-        $aliceBaseKey = Curve::generateKeyPair();
-        $aliceEphemeralKey = Curve::generateKeyPair();
+        $aliceIdentityKeyPair   = Curve::generateKeyPair();
+        $aliceIdentityKey       = new IdentityKeyPair(new IdentityKey($aliceIdentityKeyPair->getPublicKey()), $aliceIdentityKeyPair->getPrivateKey());
+        $aliceBaseKey           = Curve::generateKeyPair();
+        $aliceEphemeralKey      = Curve::generateKeyPair();
 
-        $bobIdentityKeyPair = Curve::generateKeyPair();
-        $bobIdentityKey = new IdentityKeyPair(new IdentityKey($bobIdentityKeyPair->getPublicKey()),
-                                                               $bobIdentityKeyPair->getPrivateKey());
-        $bobBaseKey = Curve::generateKeyPair();
-        $bobEphemeralKey = $bobBaseKey;
+//        $bobIdentityKeyPair     = Curve::generateKeyPair();
+//        $bobIdentityKey         = new IdentityKeyPair(new IdentityKey($bobIdentityKeyPair->getPublicKey()), $bobIdentityKeyPair->getPrivateKey());
+//        $bobBaseKey             = Curve::generateKeyPair();
+//        $bobEphemeralKey        = $bobBaseKey;
 
         $aliceParameters = AliceAxolotlParameters::newBuilder();
 
         $aliceParameters->setOurIdentityKey($aliceIdentityKey)
-        ->setOurBaseKey($aliceBaseKey)
-        ->setTheirIdentityKey($bobIdentityKey->getPublicKey())
-        ->setTheirSignedPreKey($bobEphemeralKey->getPublicKey())
-        ->setTheirRatchetKey($bobEphemeralKey->getPublicKey())
-        ->setTheirOneTimePreKey(null);
+                        ->setOurBaseKey($aliceBaseKey)
+                        ->setTheirIdentityKey($bobIdentityKey->getPublicKey())
+                        ->setTheirSignedPreKey($bobEphemeralKey->getPublicKey())
+                        ->setTheirRatchetKey($bobEphemeralKey->getPublicKey())
+                        ->setTheirOneTimePreKey(null);
+
         $aliceParameters = $aliceParameters->create();
 
-        $bobParameters = BobAxolotlParameters::newBuilder();
-        $bobParameters->setOurIdentityKey($bobIdentityKey)
-            ->setOurOneTimePreKey(null)
-            ->setOurRatchetKey($bobEphemeralKey)
-            ->setOurSignedPreKey($bobBaseKey)
-            ->setTheirBaseKey($aliceBaseKey->getPublicKey())
-            ->setTheirIdentityKey($aliceIdentityKey->getPublicKey());
-        $bobParameters = $bobParameters->create();
+//        $bobParameters = BobAxolotlParameters::newBuilder();
+//        $bobParameters->setOurIdentityKey($bobIdentityKey)
+//            ->setOurOneTimePreKey(null)
+//            ->setOurRatchetKey($bobEphemeralKey)
+//            ->setOurSignedPreKey($bobBaseKey)
+//            ->setTheirBaseKey($aliceBaseKey->getPublicKey())
+//            ->setTheirIdentityKey($aliceIdentityKey->getPublicKey());
+//        $bobParameters = $bobParameters->create();
 
         RatchetingSession::initializeSessionAsAlice($aliceSessionState, 2, $aliceParameters);
-        RatchetingSession::initializeSessionAsBob($bobSessionState, 2, $bobParameters);
+//        RatchetingSession::initializeSessionAsBob($bobSessionState, 2, $bobParameters);
     }
 
     protected function initializeSessionsV3($aliceSessionState, $bobSessionState)
     {
-        $aliceIdentityKeyPair = Curve::generateKeyPair();
-        $aliceIdentityKey = new IdentityKeyPair(new IdentityKey($aliceIdentityKeyPair->getPublicKey()),
-                                                               $aliceIdentityKeyPair->getPrivateKey());
-        $aliceBaseKey = Curve::generateKeyPair();
-        $aliceEphemeralKey = Curve::generateKeyPair();
+        $aliceIdentityKeyPair   = Curve::generateKeyPair();
+        $aliceIdentityKey       = new IdentityKeyPair(new IdentityKey($aliceIdentityKeyPair->getPublicKey()), $aliceIdentityKeyPair->getPrivateKey());
+        $aliceBaseKey           = Curve::generateKeyPair();
+        $aliceEphemeralKey      = Curve::generateKeyPair();
 
         $alicePreKey = $aliceBaseKey;
 
-        $bobIdentityKeyPair = Curve::generateKeyPair();
-        $bobIdentityKey = new IdentityKeyPair(new IdentityKey($bobIdentityKeyPair->getPublicKey()),
-                                                               $bobIdentityKeyPair->getPrivateKey());
-        $bobBaseKey = Curve::generateKeyPair();
-        $bobEphemeralKey = $bobBaseKey;
+        $bobIdentityKeyPair     = Curve::generateKeyPair();
+        $bobIdentityKey         = new IdentityKeyPair(new IdentityKey($bobIdentityKeyPair->getPublicKey()),  $bobIdentityKeyPair->getPrivateKey());
+        $bobBaseKey             = Curve::generateKeyPair();
+        $bobEphemeralKey        = $bobBaseKey;
 
         $bobPreKey = Curve::generateKeyPair();
 

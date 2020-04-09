@@ -1,17 +1,19 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57
+ * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57.
  *
  * localstorage package
  */
 
 namespace Localstorage {
 /**
- * SessionStructure message
+ * SessionStructure message.
  */
 class SessionStructure extends \ProtobufMessage
 {
-    /* Field index constants */
+    // Field index constants
     const SESSIONVERSION = 1;
     const LOCALIDENTITYPUBLIC = 2;
     const REMOTEIDENTITYPUBLIC = 3;
@@ -26,77 +28,77 @@ class SessionStructure extends \ProtobufMessage
     const NEEDSREFRESH = 12;
     const ALICEBASEKEY = 13;
 
-    /* @var array Field descriptors */
-    protected static $fields = array(
-        self::SESSIONVERSION => array(
+    // @var array Field descriptors
+    protected static $fields = [
+        self::SESSIONVERSION => [
             'name' => 'sessionVersion',
             'required' => false,
             'type' => 5,
-        ),
-        self::LOCALIDENTITYPUBLIC => array(
+        ],
+        self::LOCALIDENTITYPUBLIC => [
             'name' => 'localIdentityPublic',
             'required' => false,
             'type' => 7,
-        ),
-        self::REMOTEIDENTITYPUBLIC => array(
+        ],
+        self::REMOTEIDENTITYPUBLIC => [
             'name' => 'remoteIdentityPublic',
             'required' => false,
             'type' => 7,
-        ),
-        self::ROOTKEY => array(
+        ],
+        self::ROOTKEY => [
             'name' => 'rootKey',
             'required' => false,
             'type' => 7,
-        ),
-        self::PREVIOUSCOUNTER => array(
+        ],
+        self::PREVIOUSCOUNTER => [
             'name' => 'previousCounter',
             'required' => false,
             'type' => 5,
-        ),
-        self::SENDERCHAIN => array(
+        ],
+        self::SENDERCHAIN => [
             'name' => 'senderChain',
             'required' => false,
-            'type' => '\Localstorage\SessionStructure\Chain'
-        ),
-        self::RECEIVERCHAINS => array(
+            'type' => '\Localstorage\SessionStructure\Chain',
+        ],
+        self::RECEIVERCHAINS => [
             'name' => 'receiverChains',
             'repeated' => true,
-            'type' => '\Localstorage\SessionStructure\Chain'
-        ),
-        self::PENDINGKEYEXCHANGE => array(
+            'type' => '\Localstorage\SessionStructure\Chain',
+        ],
+        self::PENDINGKEYEXCHANGE => [
             'name' => 'pendingKeyExchange',
             'required' => false,
-            'type' => '\Localstorage\SessionStructure\PendingKeyExchange'
-        ),
-        self::PENDINGPREKEY => array(
+            'type' => '\Localstorage\SessionStructure\PendingKeyExchange',
+        ],
+        self::PENDINGPREKEY => [
             'name' => 'pendingPreKey',
             'required' => false,
-            'type' => '\Localstorage\SessionStructure\PendingPreKey'
-        ),
-        self::REMOTEREGISTRATIONID => array(
+            'type' => '\Localstorage\SessionStructure\PendingPreKey',
+        ],
+        self::REMOTEREGISTRATIONID => [
             'name' => 'remoteRegistrationId',
             'required' => false,
             'type' => 5,
-        ),
-        self::LOCALREGISTRATIONID => array(
+        ],
+        self::LOCALREGISTRATIONID => [
             'name' => 'localRegistrationId',
             'required' => false,
             'type' => 5,
-        ),
-        self::NEEDSREFRESH => array(
+        ],
+        self::NEEDSREFRESH => [
             'name' => 'needsRefresh',
             'required' => false,
             'type' => 8,
-        ),
-        self::ALICEBASEKEY => array(
+        ],
+        self::ALICEBASEKEY => [
             'name' => 'aliceBaseKey',
             'required' => false,
             'type' => 7,
-        ),
-    );
+        ],
+    ];
 
     /**
-     * Constructs new message container and clears its internal state
+     * Constructs new message container and clears its internal state.
      *
      * @return null
      */
@@ -106,7 +108,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones
+     * Clears message values and sets default ones.
      *
      * @return null
      */
@@ -118,7 +120,7 @@ class SessionStructure extends \ProtobufMessage
         $this->values[self::ROOTKEY] = null;
         $this->values[self::PREVIOUSCOUNTER] = null;
         $this->values[self::SENDERCHAIN] = null;
-        $this->values[self::RECEIVERCHAINS] = array();
+        $this->values[self::RECEIVERCHAINS] = [];
         $this->values[self::PENDINGKEYEXCHANGE] = null;
         $this->values[self::PENDINGPREKEY] = null;
         $this->values[self::REMOTEREGISTRATIONID] = null;
@@ -128,7 +130,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors
+     * Returns field descriptors.
      *
      * @return array
      */
@@ -138,7 +140,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'sessionVersion' property
+     * Sets value of 'sessionVersion' property.
      *
      * @param int $value Property value
      *
@@ -150,7 +152,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'sessionVersion' property
+     * Returns value of 'sessionVersion' property.
      *
      * @return int
      */
@@ -160,7 +162,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'localIdentityPublic' property
+     * Sets value of 'localIdentityPublic' property.
      *
      * @param string $value Property value
      *
@@ -172,7 +174,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'localIdentityPublic' property
+     * Returns value of 'localIdentityPublic' property.
      *
      * @return string
      */
@@ -182,7 +184,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'remoteIdentityPublic' property
+     * Sets value of 'remoteIdentityPublic' property.
      *
      * @param string $value Property value
      *
@@ -194,7 +196,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'remoteIdentityPublic' property
+     * Returns value of 'remoteIdentityPublic' property.
      *
      * @return string
      */
@@ -204,7 +206,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'rootKey' property
+     * Sets value of 'rootKey' property.
      *
      * @param string $value Property value
      *
@@ -216,7 +218,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'rootKey' property
+     * Returns value of 'rootKey' property.
      *
      * @return string
      */
@@ -226,7 +228,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'previousCounter' property
+     * Sets value of 'previousCounter' property.
      *
      * @param int $value Property value
      *
@@ -238,7 +240,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'previousCounter' property
+     * Returns value of 'previousCounter' property.
      *
      * @return int
      */
@@ -248,7 +250,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'senderChain' property
+     * Sets value of 'senderChain' property.
      *
      * @param \Localstorage\SessionStructure\Chain $value Property value
      *
@@ -260,7 +262,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'senderChain' property
+     * Returns value of 'senderChain' property.
      *
      * @return \Localstorage\SessionStructure\Chain
      */
@@ -270,7 +272,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Appends value to 'receiverChains' list
+     * Appends value to 'receiverChains' list.
      *
      * @param \Localstorage\SessionStructure\Chain $value Value to append
      *
@@ -282,7 +284,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Clears 'receiverChains' list
+     * Clears 'receiverChains' list.
      *
      * @return null
      */
@@ -292,7 +294,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns 'receiverChains' list
+     * Returns 'receiverChains' list.
      *
      * @return \Localstorage\SessionStructure\Chain[]
      */
@@ -302,7 +304,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns 'receiverChains' iterator
+     * Returns 'receiverChains' iterator.
      *
      * @return ArrayIterator
      */
@@ -312,7 +314,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns element from 'receiverChains' list at given offset
+     * Returns element from 'receiverChains' list at given offset.
      *
      * @param int $offset Position in list
      *
@@ -324,7 +326,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns count of 'receiverChains' list
+     * Returns count of 'receiverChains' list.
      *
      * @return int
      */
@@ -334,7 +336,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'pendingKeyExchange' property
+     * Sets value of 'pendingKeyExchange' property.
      *
      * @param \Localstorage\SessionStructure\PendingKeyExchange $value Property value
      *
@@ -346,7 +348,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'pendingKeyExchange' property
+     * Returns value of 'pendingKeyExchange' property.
      *
      * @return \Localstorage\SessionStructure\PendingKeyExchange
      */
@@ -356,7 +358,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'pendingPreKey' property
+     * Sets value of 'pendingPreKey' property.
      *
      * @param \Localstorage\SessionStructure\PendingPreKey $value Property value
      *
@@ -368,7 +370,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'pendingPreKey' property
+     * Returns value of 'pendingPreKey' property.
      *
      * @return \Localstorage\SessionStructure\PendingPreKey
      */
@@ -378,7 +380,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'remoteRegistrationId' property
+     * Sets value of 'remoteRegistrationId' property.
      *
      * @param int $value Property value
      *
@@ -390,7 +392,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'remoteRegistrationId' property
+     * Returns value of 'remoteRegistrationId' property.
      *
      * @return int
      */
@@ -400,7 +402,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'localRegistrationId' property
+     * Sets value of 'localRegistrationId' property.
      *
      * @param int $value Property value
      *
@@ -412,7 +414,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'localRegistrationId' property
+     * Returns value of 'localRegistrationId' property.
      *
      * @return int
      */
@@ -422,7 +424,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'needsRefresh' property
+     * Sets value of 'needsRefresh' property.
      *
      * @param bool $value Property value
      *
@@ -434,7 +436,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'needsRefresh' property
+     * Returns value of 'needsRefresh' property.
      *
      * @return bool
      */
@@ -444,7 +446,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'aliceBaseKey' property
+     * Sets value of 'aliceBaseKey' property.
      *
      * @param string $value Property value
      *
@@ -456,7 +458,7 @@ class SessionStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'aliceBaseKey' property
+     * Returns value of 'aliceBaseKey' property.
      *
      * @return string
      */
@@ -465,7 +467,7 @@ class SessionStructure extends \ProtobufMessage
         return $this->get(self::ALICEBASEKEY);
     }
 
-    public function clearPendingPreKey()
+    public function clearPendingPreKey(): void
     {
         $this->values[self::PENDINGPREKEY] = null;
     }

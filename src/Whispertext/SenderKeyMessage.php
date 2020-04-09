@@ -1,42 +1,44 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Auto generated from WhisperTextProtocol.proto at 2016-04-03 15:59:00
+ * Auto generated from WhisperTextProtocol.proto at 2016-04-03 15:59:00.
  *
  * whispertext package
  */
 
 namespace Whispertext {
 /**
- * SenderKeyMessage message
+ * SenderKeyMessage message.
  */
 class SenderKeyMessage extends \ProtobufMessage
 {
-    /* Field index constants */
+    // Field index constants
     const ID = 1;
     const ITERATION = 2;
     const CIPHERTEXT = 3;
 
-    /* @var array Field descriptors */
-    protected static $fields = array(
-        self::ID => array(
+    // @var array Field descriptors
+    protected static $fields = [
+        self::ID => [
             'name' => 'id',
             'required' => false,
             'type' => 5,
-        ),
-        self::ITERATION => array(
+        ],
+        self::ITERATION => [
             'name' => 'iteration',
             'required' => false,
             'type' => 5,
-        ),
-        self::CIPHERTEXT => array(
+        ],
+        self::CIPHERTEXT => [
             'name' => 'ciphertext',
             'required' => false,
             'type' => 7,
-        ),
-    );
+        ],
+    ];
 
     /**
-     * Constructs new message container and clears its internal state
+     * Constructs new message container and clears its internal state.
      *
      * @return null
      */
@@ -46,7 +48,7 @@ class SenderKeyMessage extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones
+     * Clears message values and sets default ones.
      *
      * @return null
      */
@@ -58,7 +60,7 @@ class SenderKeyMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors
+     * Returns field descriptors.
      *
      * @return array
      */
@@ -68,7 +70,7 @@ class SenderKeyMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'id' property
+     * Sets value of 'id' property.
      *
      * @param int $value Property value
      *
@@ -80,7 +82,7 @@ class SenderKeyMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'id' property
+     * Returns value of 'id' property.
      *
      * @return int
      */
@@ -90,7 +92,7 @@ class SenderKeyMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'iteration' property
+     * Sets value of 'iteration' property.
      *
      * @param int $value Property value
      *
@@ -102,7 +104,7 @@ class SenderKeyMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'iteration' property
+     * Returns value of 'iteration' property.
      *
      * @return int
      */
@@ -112,7 +114,7 @@ class SenderKeyMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'ciphertext' property
+     * Sets value of 'ciphertext' property.
      *
      * @param string $value Property value
      *
@@ -124,7 +126,7 @@ class SenderKeyMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'ciphertext' property
+     * Returns value of 'ciphertext' property.
      *
      * @return string
      */

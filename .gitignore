@@ -3,6 +3,7 @@
 /.idea
 /nbproject
 composer.phar
+.php_cs.cache
 .env.*.php
 .env.php
 .DS_Store

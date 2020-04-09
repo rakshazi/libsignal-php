@@ -1,36 +1,38 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57
+ * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57.
  *
  * localstorage package
  */
 
 namespace Localstorage {
 /**
- * IdentityKeyPairStructure message
+ * IdentityKeyPairStructure message.
  */
 class IdentityKeyPairStructure extends \ProtobufMessage
 {
-    /* Field index constants */
+    // Field index constants
     const PUBLICKEY = 1;
     const PRIVATEKEY = 2;
 
-    /* @var array Field descriptors */
-    protected static $fields = array(
-        self::PUBLICKEY => array(
+    // @var array Field descriptors
+    protected static $fields = [
+        self::PUBLICKEY => [
             'name' => 'publicKey',
             'required' => false,
             'type' => 7,
-        ),
-        self::PRIVATEKEY => array(
+        ],
+        self::PRIVATEKEY => [
             'name' => 'privateKey',
             'required' => false,
             'type' => 7,
-        ),
-    );
+        ],
+    ];
 
     /**
-     * Constructs new message container and clears its internal state
+     * Constructs new message container and clears its internal state.
      *
      * @return null
      */
@@ -40,7 +42,7 @@ class IdentityKeyPairStructure extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones
+     * Clears message values and sets default ones.
      *
      * @return null
      */
@@ -51,7 +53,7 @@ class IdentityKeyPairStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors
+     * Returns field descriptors.
      *
      * @return array
      */
@@ -61,7 +63,7 @@ class IdentityKeyPairStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'publicKey' property
+     * Sets value of 'publicKey' property.
      *
      * @param string $value Property value
      *
@@ -73,7 +75,7 @@ class IdentityKeyPairStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'publicKey' property
+     * Returns value of 'publicKey' property.
      *
      * @return string
      */
@@ -83,7 +85,7 @@ class IdentityKeyPairStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'privateKey' property
+     * Sets value of 'privateKey' property.
      *
      * @param string $value Property value
      *
@@ -95,7 +97,7 @@ class IdentityKeyPairStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'privateKey' property
+     * Returns value of 'privateKey' property.
      *
      * @return string
      */

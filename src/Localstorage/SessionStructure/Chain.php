@@ -1,48 +1,50 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57
+ * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57.
  *
  * localstorage package
  */
 
 namespace Localstorage\SessionStructure {
 /**
- * Chain message embedded in SessionStructure message
+ * Chain message embedded in SessionStructure message.
  */
 class Chain extends \ProtobufMessage
 {
-    /* Field index constants */
+    // Field index constants
     const SENDERRATCHETKEY = 1;
     const SENDERRATCHETKEYPRIVATE = 2;
     const CHAINKEY = 3;
     const MESSAGEKEYS = 4;
 
-    /* @var array Field descriptors */
-    protected static $fields = array(
-        self::SENDERRATCHETKEY => array(
+    // @var array Field descriptors
+    protected static $fields = [
+        self::SENDERRATCHETKEY => [
             'name' => 'senderRatchetKey',
             'required' => false,
             'type' => 7,
-        ),
-        self::SENDERRATCHETKEYPRIVATE => array(
+        ],
+        self::SENDERRATCHETKEYPRIVATE => [
             'name' => 'senderRatchetKeyPrivate',
             'required' => false,
             'type' => 7,
-        ),
-        self::CHAINKEY => array(
+        ],
+        self::CHAINKEY => [
             'name' => 'chainKey',
             'required' => false,
-            'type' => '\Localstorage\SessionStructure\Chain\ChainKey'
-        ),
-        self::MESSAGEKEYS => array(
+            'type' => '\Localstorage\SessionStructure\Chain\ChainKey',
+        ],
+        self::MESSAGEKEYS => [
             'name' => 'messageKeys',
             'repeated' => true,
-            'type' => '\Localstorage\SessionStructure\Chain\MessageKey'
-        ),
-    );
+            'type' => '\Localstorage\SessionStructure\Chain\MessageKey',
+        ],
+    ];
 
     /**
-     * Constructs new message container and clears its internal state
+     * Constructs new message container and clears its internal state.
      *
      * @return null
      */
@@ -52,7 +54,7 @@ class Chain extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones
+     * Clears message values and sets default ones.
      *
      * @return null
      */
@@ -61,11 +63,11 @@ class Chain extends \ProtobufMessage
         $this->values[self::SENDERRATCHETKEY] = null;
         $this->values[self::SENDERRATCHETKEYPRIVATE] = null;
         $this->values[self::CHAINKEY] = null;
-        $this->values[self::MESSAGEKEYS] = array();
+        $this->values[self::MESSAGEKEYS] = [];
     }
 
     /**
-     * Returns field descriptors
+     * Returns field descriptors.
      *
      * @return array
      */
@@ -75,7 +77,7 @@ class Chain extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'senderRatchetKey' property
+     * Sets value of 'senderRatchetKey' property.
      *
      * @param string $value Property value
      *
@@ -87,7 +89,7 @@ class Chain extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'senderRatchetKey' property
+     * Returns value of 'senderRatchetKey' property.
      *
      * @return string
      */
@@ -97,7 +99,7 @@ class Chain extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'senderRatchetKeyPrivate' property
+     * Sets value of 'senderRatchetKeyPrivate' property.
      *
      * @param string $value Property value
      *
@@ -109,7 +111,7 @@ class Chain extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'senderRatchetKeyPrivate' property
+     * Returns value of 'senderRatchetKeyPrivate' property.
      *
      * @return string
      */
@@ -119,7 +121,7 @@ class Chain extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'chainKey' property
+     * Sets value of 'chainKey' property.
      *
      * @param \Localstorage\SessionStructure\Chain\ChainKey $value Property value
      *
@@ -131,7 +133,7 @@ class Chain extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'chainKey' property
+     * Returns value of 'chainKey' property.
      *
      * @return \Localstorage\SessionStructure\Chain\ChainKey
      */
@@ -141,7 +143,7 @@ class Chain extends \ProtobufMessage
     }
 
     /**
-     * Appends value to 'messageKeys' list
+     * Appends value to 'messageKeys' list.
      *
      * @param \Localstorage\SessionStructure\Chain\MessageKey $value Value to append
      *
@@ -153,7 +155,7 @@ class Chain extends \ProtobufMessage
     }
 
     /**
-     * Clears 'messageKeys' list
+     * Clears 'messageKeys' list.
      *
      * @return null
      */
@@ -163,7 +165,7 @@ class Chain extends \ProtobufMessage
     }
 
     /**
-     * Returns 'messageKeys' list
+     * Returns 'messageKeys' list.
      *
      * @return \Localstorage\SessionStructure\Chain\MessageKey[]
      */
@@ -173,7 +175,7 @@ class Chain extends \ProtobufMessage
     }
 
     /**
-     * Returns 'messageKeys' iterator
+     * Returns 'messageKeys' iterator.
      *
      * @return ArrayIterator
      */
@@ -183,7 +185,7 @@ class Chain extends \ProtobufMessage
     }
 
     /**
-     * Returns element from 'messageKeys' list at given offset
+     * Returns element from 'messageKeys' list at given offset.
      *
      * @param int $offset Position in list
      *
@@ -195,7 +197,7 @@ class Chain extends \ProtobufMessage
     }
 
     /**
-     * Returns count of 'messageKeys' list
+     * Returns count of 'messageKeys' list.
      *
      * @return int
      */

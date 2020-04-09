@@ -1,36 +1,38 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57
+ * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57.
  *
  * localstorage package
  */
 
 namespace Localstorage\SessionStructure\Chain {
 /**
- * ChainKey message embedded in Chain/SessionStructure message
+ * ChainKey message embedded in Chain/SessionStructure message.
  */
 class ChainKey extends \ProtobufMessage
 {
-    /* Field index constants */
+    // Field index constants
     const INDEX = 1;
     const KEY = 2;
 
-    /* @var array Field descriptors */
-    protected static $fields = array(
-        self::INDEX => array(
+    // @var array Field descriptors
+    protected static $fields = [
+        self::INDEX => [
             'name' => 'index',
             'required' => false,
             'type' => 5,
-        ),
-        self::KEY => array(
+        ],
+        self::KEY => [
             'name' => 'key',
             'required' => false,
             'type' => 7,
-        ),
-    );
+        ],
+    ];
 
     /**
-     * Constructs new message container and clears its internal state
+     * Constructs new message container and clears its internal state.
      *
      * @return null
      */
@@ -40,7 +42,7 @@ class ChainKey extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones
+     * Clears message values and sets default ones.
      *
      * @return null
      */
@@ -51,7 +53,7 @@ class ChainKey extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors
+     * Returns field descriptors.
      *
      * @return array
      */
@@ -61,7 +63,7 @@ class ChainKey extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'index' property
+     * Sets value of 'index' property.
      *
      * @param int $value Property value
      *
@@ -73,7 +75,7 @@ class ChainKey extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'index' property
+     * Returns value of 'index' property.
      *
      * @return int
      */
@@ -83,7 +85,7 @@ class ChainKey extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'key' property
+     * Sets value of 'key' property.
      *
      * @param string $value Property value
      *
@@ -95,7 +97,7 @@ class ChainKey extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'key' property
+     * Returns value of 'key' property.
      *
      * @return string
      */

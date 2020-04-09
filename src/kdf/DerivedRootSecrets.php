@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\kdf;
 
 use Libsignal\util\ByteUtil;

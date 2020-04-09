@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\logging;
 
 abstract class AxolotlLogger

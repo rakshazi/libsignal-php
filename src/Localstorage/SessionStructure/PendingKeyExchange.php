@@ -1,17 +1,19 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57
+ * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57.
  *
  * localstorage package
  */
 
 namespace Localstorage\SessionStructure {
 /**
- * PendingKeyExchange message embedded in SessionStructure message
+ * PendingKeyExchange message embedded in SessionStructure message.
  */
 class PendingKeyExchange extends \ProtobufMessage
 {
-    /* Field index constants */
+    // Field index constants
     const SEQUENCE = 1;
     const LOCALBASEKEY = 2;
     const LOCALBASEKEYPRIVATE = 3;
@@ -20,47 +22,47 @@ class PendingKeyExchange extends \ProtobufMessage
     const LOCALIDENTITYKEY = 7;
     const LOCALIDENTITYKEYPRIVATE = 8;
 
-    /* @var array Field descriptors */
-    protected static $fields = array(
-        self::SEQUENCE => array(
+    // @var array Field descriptors
+    protected static $fields = [
+        self::SEQUENCE => [
             'name' => 'sequence',
             'required' => false,
             'type' => 5,
-        ),
-        self::LOCALBASEKEY => array(
+        ],
+        self::LOCALBASEKEY => [
             'name' => 'localBaseKey',
             'required' => false,
             'type' => 7,
-        ),
-        self::LOCALBASEKEYPRIVATE => array(
+        ],
+        self::LOCALBASEKEYPRIVATE => [
             'name' => 'localBaseKeyPrivate',
             'required' => false,
             'type' => 7,
-        ),
-        self::LOCALRATCHETKEY => array(
+        ],
+        self::LOCALRATCHETKEY => [
             'name' => 'localRatchetKey',
             'required' => false,
             'type' => 7,
-        ),
-        self::LOCALRATCHETKEYPRIVATE => array(
+        ],
+        self::LOCALRATCHETKEYPRIVATE => [
             'name' => 'localRatchetKeyPrivate',
             'required' => false,
             'type' => 7,
-        ),
-        self::LOCALIDENTITYKEY => array(
+        ],
+        self::LOCALIDENTITYKEY => [
             'name' => 'localIdentityKey',
             'required' => false,
             'type' => 7,
-        ),
-        self::LOCALIDENTITYKEYPRIVATE => array(
+        ],
+        self::LOCALIDENTITYKEYPRIVATE => [
             'name' => 'localIdentityKeyPrivate',
             'required' => false,
             'type' => 7,
-        ),
-    );
+        ],
+    ];
 
     /**
-     * Constructs new message container and clears its internal state
+     * Constructs new message container and clears its internal state.
      *
      * @return null
      */
@@ -70,7 +72,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones
+     * Clears message values and sets default ones.
      *
      * @return null
      */
@@ -86,7 +88,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors
+     * Returns field descriptors.
      *
      * @return array
      */
@@ -96,7 +98,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'sequence' property
+     * Sets value of 'sequence' property.
      *
      * @param int $value Property value
      *
@@ -108,7 +110,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'sequence' property
+     * Returns value of 'sequence' property.
      *
      * @return int
      */
@@ -118,7 +120,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'localBaseKey' property
+     * Sets value of 'localBaseKey' property.
      *
      * @param string $value Property value
      *
@@ -130,7 +132,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'localBaseKey' property
+     * Returns value of 'localBaseKey' property.
      *
      * @return string
      */
@@ -140,7 +142,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'localBaseKeyPrivate' property
+     * Sets value of 'localBaseKeyPrivate' property.
      *
      * @param string $value Property value
      *
@@ -152,7 +154,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'localBaseKeyPrivate' property
+     * Returns value of 'localBaseKeyPrivate' property.
      *
      * @return string
      */
@@ -162,7 +164,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'localRatchetKey' property
+     * Sets value of 'localRatchetKey' property.
      *
      * @param string $value Property value
      *
@@ -174,7 +176,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'localRatchetKey' property
+     * Returns value of 'localRatchetKey' property.
      *
      * @return string
      */
@@ -184,7 +186,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'localRatchetKeyPrivate' property
+     * Sets value of 'localRatchetKeyPrivate' property.
      *
      * @param string $value Property value
      *
@@ -196,7 +198,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'localRatchetKeyPrivate' property
+     * Returns value of 'localRatchetKeyPrivate' property.
      *
      * @return string
      */
@@ -206,7 +208,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'localIdentityKey' property
+     * Sets value of 'localIdentityKey' property.
      *
      * @param string $value Property value
      *
@@ -218,7 +220,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'localIdentityKey' property
+     * Returns value of 'localIdentityKey' property.
      *
      * @return string
      */
@@ -228,7 +230,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'localIdentityKeyPrivate' property
+     * Sets value of 'localIdentityKeyPrivate' property.
      *
      * @param string $value Property value
      *
@@ -240,7 +242,7 @@ class PendingKeyExchange extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'localIdentityKeyPrivate' property
+     * Returns value of 'localIdentityKeyPrivate' property.
      *
      * @return string
      */

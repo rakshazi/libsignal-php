@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\state;
 
 use Localstorage\RecordStructure as Textsecure_RecordStructure;
@@ -17,14 +20,16 @@ class SessionRecord
         :type serialized: str
         */
         $this->previousStates = [];
-        if ($sessionState != null) {
+
+        if (null !== $sessionState) {
             $this->sessionState = $sessionState;
             $this->fresh = false;
-        } elseif ($serialized != null) {
+        } elseif (null !== $serialized) {
             $record = new Textsecure_RecordStructure();
             $record->parseFromString($serialized);
             $this->sessionState = new SessionState($record->getCurrentSession());
             $this->fresh = false;
+
             foreach ($record->getPreviousSessions() as $previousStructure) {
                 $this->previousStates[] = new SessionState($previousStructure);
             }
@@ -36,12 +41,12 @@ class SessionRecord
 
     public function hasSessionState($version, $aliceBaseKey)
     {
-        if ($this->sessionState->getSessionVersion() == $version && $aliceBaseKey == $this->sessionState->getAliceBaseKey()) {
+        if ($this->sessionState->getSessionVersion() === $version && $aliceBaseKey === $this->sessionState->getAliceBaseKey()) {
             return true;
         }
 
         foreach ($this->previousStates as $state) {
-            if ($state->getSessionVersion() == $version && $aliceBaseKey == $state->getAliceBaseKey()) {
+            if ($state->getSessionVersion() === $version && $aliceBaseKey === $state->getAliceBaseKey()) {
                 return true;
             }
         }
@@ -59,11 +64,11 @@ class SessionRecord
         return $this->previousStates;
     }
 
-    public function removePreviousSessionStateAt($i)
+    public function removePreviousSessionStateAt($i): void
     {
         if (isset($this->previousStates[$i])) {
             unset($this->previousStates[$i]);
-            $this->previousStates = array_values($this->previousStates);
+            $this->previousStates = \array_values($this->previousStates);
         }
     }
 
@@ -72,21 +77,21 @@ class SessionRecord
         return $this->fresh;
     }
 
-    public function archiveCurrentState()
+    public function archiveCurrentState(): void
     {
         $this->promoteState(new SessionState());
     }
 
-    public function promoteState($promotedState)
+    public function promoteState($promotedState): void
     {
-        array_unshift($this->previousStates, $this->sessionState);
+        \array_unshift($this->previousStates, $this->sessionState);
         $this->sessionState = $promotedState;
-        if (count($this->previousStates) > self::ARCHIVED_STATES_MAX_LENGTH) {
-            array_pop($this->previousStates);
+        if (\count($this->previousStates) > self::ARCHIVED_STATES_MAX_LENGTH) {
+            \array_pop($this->previousStates);
         }
     }
 
-    public function setState($sessionState)
+    public function setState($sessionState): void
     {
         $this->sessionState = $sessionState;
     }
@@ -94,9 +99,11 @@ class SessionRecord
     public function serialize()
     {
         $previousStructures = [];
+
         //previousState.getStructure() for previousState in self.previousStates
         $record = new Textsecure_RecordStructure();
         $record->setCurrentSession($this->sessionState->getStructure());
+
         foreach ($this->previousStates as $previousState) {
             $record->appendPreviousSessions($previousState->getStructure());
         }

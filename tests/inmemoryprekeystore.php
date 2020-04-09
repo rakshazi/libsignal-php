@@ -18,7 +18,8 @@ class InMemoryPreKeyStore extends PreKeyStore
 
     public function loadPreKey($preKeyId)
     {
-        if (!isset($this->store[$preKeyId])) {
+        if (!isset($this->store[$preKeyId]))
+        {
             throw new InvalidKeyIdException('No such prekeyRecord!');
         }
 
@@ -37,7 +38,8 @@ class InMemoryPreKeyStore extends PreKeyStore
 
     public function removePreKey($preKeyId)
     {
-        if (isset($this->store[$preKeyId])) {
+        if (isset($this->store[$preKeyId]))
+        {
             unset($this->store[$preKeyId]);
         }
     }

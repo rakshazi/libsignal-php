@@ -1,36 +1,38 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57
+ * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57.
  *
  * localstorage package
  */
 
 namespace Localstorage\SenderKeyStateStructure {
 /**
- * SenderSigningKey message embedded in SenderKeyStateStructure message
+ * SenderSigningKey message embedded in SenderKeyStateStructure message.
  */
 class SenderSigningKey extends \ProtobufMessage
 {
-    /* Field index constants */
+    // Field index constants
     const _PUBLIC = 1;
     const _PRIVATE = 2;
 
-    /* @var array Field descriptors */
-    protected static $fields = array(
-        self::_PUBLIC => array(
+    // @var array Field descriptors
+    protected static $fields = [
+        self::_PUBLIC => [
             'name' => 'public',
             'required' => false,
             'type' => 7,
-        ),
-        self::_PRIVATE => array(
+        ],
+        self::_PRIVATE => [
             'name' => 'private',
             'required' => false,
             'type' => 7,
-        ),
-    );
+        ],
+    ];
 
     /**
-     * Constructs new message container and clears its internal state
+     * Constructs new message container and clears its internal state.
      *
      * @return null
      */
@@ -40,7 +42,7 @@ class SenderSigningKey extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones
+     * Clears message values and sets default ones.
      *
      * @return null
      */
@@ -51,7 +53,7 @@ class SenderSigningKey extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors
+     * Returns field descriptors.
      *
      * @return array
      */
@@ -61,7 +63,7 @@ class SenderSigningKey extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'public' property
+     * Sets value of 'public' property.
      *
      * @param string $value Property value
      *
@@ -73,7 +75,7 @@ class SenderSigningKey extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'public' property
+     * Returns value of 'public' property.
      *
      * @return string
      */
@@ -83,7 +85,7 @@ class SenderSigningKey extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'private' property
+     * Sets value of 'private' property.
      *
      * @param string $value Property value
      *
@@ -95,7 +97,7 @@ class SenderSigningKey extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'private' property
+     * Returns value of 'private' property.
      *
      * @return string
      */

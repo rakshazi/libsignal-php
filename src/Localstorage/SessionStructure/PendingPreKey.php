@@ -1,42 +1,44 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57
+ * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57.
  *
  * localstorage package
  */
 
 namespace Localstorage\SessionStructure {
 /**
- * PendingPreKey message embedded in SessionStructure message
+ * PendingPreKey message embedded in SessionStructure message.
  */
 class PendingPreKey extends \ProtobufMessage
 {
-    /* Field index constants */
+    // Field index constants
     const PREKEYID = 1;
     const SIGNEDPREKEYID = 3;
     const BASEKEY = 2;
 
-    /* @var array Field descriptors */
-    protected static $fields = array(
-        self::PREKEYID => array(
+    // @var array Field descriptors
+    protected static $fields = [
+        self::PREKEYID => [
             'name' => 'preKeyId',
             'required' => false,
             'type' => 5,
-        ),
-        self::SIGNEDPREKEYID => array(
+        ],
+        self::SIGNEDPREKEYID => [
             'name' => 'signedPreKeyId',
             'required' => false,
             'type' => 5,
-        ),
-        self::BASEKEY => array(
+        ],
+        self::BASEKEY => [
             'name' => 'baseKey',
             'required' => false,
             'type' => 7,
-        ),
-    );
+        ],
+    ];
 
     /**
-     * Constructs new message container and clears its internal state
+     * Constructs new message container and clears its internal state.
      *
      * @return null
      */
@@ -46,7 +48,7 @@ class PendingPreKey extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones
+     * Clears message values and sets default ones.
      *
      * @return null
      */
@@ -58,7 +60,7 @@ class PendingPreKey extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors
+     * Returns field descriptors.
      *
      * @return array
      */
@@ -68,7 +70,7 @@ class PendingPreKey extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'preKeyId' property
+     * Sets value of 'preKeyId' property.
      *
      * @param int $value Property value
      *
@@ -80,7 +82,7 @@ class PendingPreKey extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'preKeyId' property
+     * Returns value of 'preKeyId' property.
      *
      * @return int
      */
@@ -90,7 +92,7 @@ class PendingPreKey extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'signedPreKeyId' property
+     * Sets value of 'signedPreKeyId' property.
      *
      * @param int $value Property value
      *
@@ -102,7 +104,7 @@ class PendingPreKey extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'signedPreKeyId' property
+     * Returns value of 'signedPreKeyId' property.
      *
      * @return int
      */
@@ -112,7 +114,7 @@ class PendingPreKey extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'baseKey' property
+     * Sets value of 'baseKey' property.
      *
      * @param string $value Property value
      *
@@ -124,7 +126,7 @@ class PendingPreKey extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'baseKey' property
+     * Returns value of 'baseKey' property.
      *
      * @return string
      */

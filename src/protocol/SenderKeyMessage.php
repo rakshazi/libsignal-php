@@ -1,13 +1,14 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\protocol;
 
-use Libsignal\protocol\CiphertextMessage;
-use Libsignal\ecc\ECPublicKey;
-use Libsignal\util\ByteUtil;
+use Libsignal\ecc\Curve;
 use Libsignal\exceptions\InvalidMessageException;
 use Libsignal\exceptions\LegacyMessageException;
+use Libsignal\util\ByteUtil;
 use Whispertext\SenderKeyMessage as Textsecure_SenderKeyMessage;
-use Libsignal\ecc\Curve;
 
 class SenderKeyMessage extends CiphertextMessage
 {
@@ -20,7 +21,7 @@ class SenderKeyMessage extends CiphertextMessage
 
     public function __construct($keyId = null, $iteration = null, $ciphertext = null, $signatureKey = null, $serialized = null)
     {
-        if ($serialized == null) {
+        if (null === $serialized) {
             $version = ByteUtil::intsToByteHighAndLow(self::CURRENT_VERSION, self::CURRENT_VERSION);
             $proto_message = new Textsecure_SenderKeyMessage();
             $proto_message->setId($keyId);
@@ -29,19 +30,19 @@ class SenderKeyMessage extends CiphertextMessage
 
             $message = $proto_message->serializeToString();
 
-            $signature = $this->getSignature($signatureKey, ByteUtil::combine([chr((int) $version), $message]));
+            $signature = $this->getSignature($signatureKey, ByteUtil::combine([\chr((int) $version), $message]));
 
-            $this->serialized = ByteUtil::combine([chr((int) $version), $message, $signature]);
+            $this->serialized = ByteUtil::combine([\chr((int) $version), $message, $signature]);
             $this->messageVersion = self::CURRENT_VERSION;
             $this->keyId = $keyId;
             $this->iteration = $iteration;
             $this->ciphertext = $ciphertext;
         } else {
             try {
-                $messageParts = ByteUtil::split($serialized, 1, strlen($serialized) - 1 - self::SIGNATURE_LENGTH,
+                $messageParts = ByteUtil::split($serialized, 1, \strlen($serialized) - 1 - self::SIGNATURE_LENGTH,
                                                   self::SIGNATURE_LENGTH);
 
-                $version = ord($messageParts[0][0]);
+                $version = \ord($messageParts[0][0]);
                 $message = $messageParts[1];
                 $signature = $messageParts[2];
                 if (ByteUtil::highBitsToInt($version) < 3) {
@@ -59,7 +60,7 @@ class SenderKeyMessage extends CiphertextMessage
                     throw new InvalidMessageException('Incomplete message');
                 }
 
-                if ($proto_message->getId() === null || $proto_message->getIteration() === null || $proto_message->getCiphertext() == null) {
+                if (null === $proto_message->getId() || null === $proto_message->getIteration() || null === $proto_message->getCiphertext()) {
                     throw new InvalidMessageException('Incomplete message');
                 }
 
@@ -89,24 +90,15 @@ class SenderKeyMessage extends CiphertextMessage
         return $this->ciphertext;
     }
 
-    public function verifySignature($signatureKey)
+    public function verifySignature($signatureKey): void
     {
         try {
-            $parts = ByteUtil::split($this->serialized, strlen($this->serialized) - self::SIGNATURE_LENGTH, self::SIGNATURE_LENGTH);
+            $parts = ByteUtil::split($this->serialized, \strlen($this->serialized) - self::SIGNATURE_LENGTH, self::SIGNATURE_LENGTH);
             if (!Curve::verifySignature($signatureKey, $parts[0], $parts[1])) {
                 throw new InvalidMessageException('Invalid signature!');
             }
         } catch (InvalidKeyException $ex) {
             throw new InvalidMessageException($ex->getMessage());
-        }
-    }
-
-    private function getSignature($signatureKey, $serialized)
-    {
-        try {
-            return Curve::calculateSignature($signatureKey, $serialized);
-        } catch (InvalidKeyException $ex) {
-            throw new \Exception($ex->getMessage());
         }
     }
 
@@ -118,5 +110,14 @@ class SenderKeyMessage extends CiphertextMessage
     public function getType()
     {
         return self::SENDERKEY_TYPE;
+    }
+
+    private function getSignature($signatureKey, $serialized)
+    {
+        try {
+            return Curve::calculateSignature($signatureKey, $serialized);
+        } catch (InvalidKeyException $ex) {
+            throw new \Exception($ex->getMessage());
+        }
     }
 }

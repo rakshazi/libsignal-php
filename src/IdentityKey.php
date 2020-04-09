@@ -1,16 +1,20 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal;
 
 use Libsignal\ecc\Curve;
+use Libsignal\ecc\DjbECPublicKey;
 use Libsignal\ecc\ECPublicKey;
 
-class IdentityKey
+class IdentityKey extends DjbECPublicKey
 {
     protected $publicKey;    // ECPublicKey
 
     public function __construct($publicKeyOrBytes, $offset = null) // [ECPublicKey publicKey]
     {
-        if ($offset === null) {
+        if (null === $offset) {
             $this->publicKey = $publicKeyOrBytes;
         } else {
             $this->publicKey = Curve::decodePoint($publicKeyOrBytes, $offset);
@@ -29,15 +33,15 @@ class IdentityKey
 
     public function getFingerprint()
     {
-        $hex = unpack('H*', $this->publicKey->serialize());
-        $hex = implode(' ', str_split($hex, 2));
+        $hex = \unpack('H*', $this->publicKey->serialize());
+        $hex = \implode(' ', \str_split($hex, 2));
 
         return $hex;
     }
 
     public function equals($other) // [Object other]
     {
-        if (($other == null)) {
+        if ((null === $other)) {
             return  false;
         }
         if (!($other instanceof self)) {

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\ecc;
 
 use Libsignal\exceptions\InvalidKeyException;
@@ -18,10 +21,11 @@ class Curve
 
     public static function decodePoint($bytes, $offset) // [byte[] bytes, int offset]
     {
-        $type = ((ord($bytes[$offset]) & 0xFF));
+        $type = ((\ord($bytes[$offset]) & 0xFF));
+
         switch ($type) {
             case self::DJB_TYPE:
-                $keyBytes = substr($bytes, $offset + 1); /* from: System.arraycopy(bytes, offset + 1, keyBytes, 0, keyBytes.length) -> php string == java byte array*/;
+                $keyBytes = \substr($bytes, $offset + 1); // from: System.arraycopy(bytes, offset + 1, keyBytes, 0, keyBytes.length) -> php string == java byte array
                 //foreach (range(0, (count($keyBytes) /*from: keyBytes.length*/ + 0)) as $_upto) $keyBytes[$_upto] = $bytes[$_upto - (0) + ($offset + 1)]; /* from: System.arraycopy(bytes, offset + 1, keyBytes, 0, keyBytes.length) */;
                 return new DjbECPublicKey($keyBytes);
             default:
@@ -36,41 +40,38 @@ class Curve
 
     public static function calculateAgreement($publicKey, $privateKey) // [ECPublicKey publicKey, ECPrivateKey privateKey]
     {
-        if (($publicKey->getType() != $privateKey->getType())) {
+        if (($publicKey->getType() !== $privateKey->getType())) {
             throw new InvalidKeyException('Public and private keys must be of the same type!');
         }
-        if (($publicKey->getType() == self::DJB_TYPE)) {
+        if ((self::DJB_TYPE === $publicKey->getType())) {
             return curve25519_shared($privateKey->getPrivateKey(), $publicKey->getPublicKey());
-        } else {
-            throw new InvalidKeyException('Unknown type: '.$publicKey->getType());
         }
+        throw new InvalidKeyException('Unknown type: '.$publicKey->getType());
     }
 
     public static function verifySignature($signingKey, $message, $signature) // [ECPublicKey signingKey, byte[] message, byte[] signature]
     {
-        if (($signingKey->getType() == self::DJB_TYPE)) {
-            return curve25519_verify($signingKey->getPublicKey(), $message, $signature) == 0;
-        } else {
-            throw new InvalidKeyException('Unknown type: '.$signingKey->getType());
+        if ((self::DJB_TYPE === $signingKey->getType())) {
+            return 0 === curve25519_verify($signingKey->getPublicKey(), $message, $signature);
         }
+
+        throw new InvalidKeyException('Unknown type: '.$signingKey->getType());
     }
 
     public static function calculateSignature($signingKey, $message) // [ECPrivateKey signingKey, byte[] message]
     {
-        if (($signingKey->getType() == self::DJB_TYPE)) {
+        if ((self::DJB_TYPE === $signingKey->getType())) {
             return curve25519_sign(self::getSecureRandom(64), $signingKey->getPrivateKey(), $message);
-        } else {
-            throw new InvalidKeyException('Unknown type: '.$signingKey->getType());
         }
+        throw new InvalidKeyException('Unknown type: '.$signingKey->getType());
     }
 
     protected static function getSecureRandom($len = 32)
     {
-        $rand = openssl_random_pseudo_bytes($len, $strong);
+        $rand = \openssl_random_pseudo_bytes($len, $strong);
         if ($strong) {
             return $rand;
-        } else {
-            throw new Exception('Cannot generate secure random bytes');
         }
+        throw new Exception('Cannot generate secure random bytes');
     }
 }

@@ -1,15 +1,17 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\protocol;
 
-use Libsignal\protocol\CiphertextMessage;
-use Libsignal\ecc\ECPublicKey;
-use Libsignal\util\ByteUtil;
+use Libsignal\ecc\Curve;
 use Libsignal\exceptions\InvalidMessageException;
 use Libsignal\exceptions\InvalidVersionException;
-use Libsignal\exceptions\LegacyMessageException;
 use Libsignal\IdentityKey;
+use Libsignal\util\ByteUtil;
 
 require_once __DIR__.'/../protocol/WhisperMessage.php';
+require_once __DIR__.'/../protocol/pb_proto_WhisperTextProtocol.php';
 
 class PreKeyWhisperMessage extends CiphertextMessage
 {
@@ -31,19 +33,24 @@ class PreKeyWhisperMessage extends CiphertextMessage
                                          $whisperMessage = null,
                                          $serialized = null)
     {
-        if ($serialized != null) {
+//        $preKeyId = 1;
+//        $signedPreKeyId = 1;
+        if (null !== $serialized) {
             $this->version = ByteUtil::highBitsToInt($serialized[0]);
-            if ($this->version  > self::CURRENT_VERSION) {
+
+            if ($this->version > self::CURRENT_VERSION) {
                 throw new InvalidVersionException('Unknown version '.$this->version);
             }
+
             $preKeyWhisperMessage = new Textsecure_PreKeyWhisperMessage();
 
-            $preKeyWhisperMessage->parseFromString(substr($serialized, 1));
-            if (($this->version == 2 && $preKeyWhisperMessage->getPreKeyId() == null) ||
-                ($this->version == 3 && $preKeyWhisperMessage->getSignedPreKeyId() == null) ||
-                $preKeyWhisperMessage->getBaseKey() == null ||
-                $preKeyWhisperMessage->getIdentityKey() == null ||
-                $preKeyWhisperMessage->getMessage() == null) {
+            $preKeyWhisperMessage->parseFromString(\substr($serialized, 1));
+
+            if ((2 === $this->version && null === $preKeyWhisperMessage->getPreKeyId()) ||
+                (3 === $this->version && null === $preKeyWhisperMessage->getSignedPreKeyId()) ||
+                null === $preKeyWhisperMessage->getBaseKey() ||
+                null === $preKeyWhisperMessage->getIdentityKey() ||
+                null === $preKeyWhisperMessage->getMessage()) {
                 throw new InvalidMessageException('Incomplete message');
             }
 
@@ -78,12 +85,12 @@ class PreKeyWhisperMessage extends CiphertextMessage
                 $builder->setIdentityKey($this->identityKey->serialize());
                 $builder->setMessage($whisperMessage->serialize());
                 $builder->setRegistrationId($this->registrationId);
-                if ($preKeyId != null) {
+                if (null !== $preKeyId) {
                     $builder->setPreKeyId($preKeyId);
                 }
                 $versionBytes = ByteUtil::intsToByteHighAndLow($this->version, self::CURRENT_VERSION);
                 $messageBytes = $builder->serializeToString();
-                $this->serialized = ByteUtil::combine([chr($versionBytes), $messageBytes]);
+                $this->serialized = ByteUtil::combine([\chr($versionBytes), $messageBytes]);
             } catch (Exception $ex) {
                 throw new InvalidMessageException($ex->getMessage().' - '.$ex->getLine().' - '.$ex->getFile());
             }

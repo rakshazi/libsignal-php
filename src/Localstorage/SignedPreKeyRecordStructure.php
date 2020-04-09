@@ -1,54 +1,56 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57
+ * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57.
  *
  * localstorage package
  */
 
 namespace Localstorage {
 /**
- * SignedPreKeyRecordStructure message
+ * SignedPreKeyRecordStructure message.
  */
 class SignedPreKeyRecordStructure extends \ProtobufMessage
 {
-    /* Field index constants */
+    // Field index constants
     const ID = 1;
     const PUBLICKEY = 2;
     const PRIVATEKEY = 3;
     const SIGNATURE = 4;
     const TIMESTAMP = 5;
 
-    /* @var array Field descriptors */
-    protected static $fields = array(
-        self::ID => array(
+    // @var array Field descriptors
+    protected static $fields = [
+        self::ID => [
             'name' => 'id',
             'required' => false,
             'type' => 5,
-        ),
-        self::PUBLICKEY => array(
+        ],
+        self::PUBLICKEY => [
             'name' => 'publicKey',
             'required' => false,
             'type' => 7,
-        ),
-        self::PRIVATEKEY => array(
+        ],
+        self::PRIVATEKEY => [
             'name' => 'privateKey',
             'required' => false,
             'type' => 7,
-        ),
-        self::SIGNATURE => array(
+        ],
+        self::SIGNATURE => [
             'name' => 'signature',
             'required' => false,
             'type' => 7,
-        ),
-        self::TIMESTAMP => array(
+        ],
+        self::TIMESTAMP => [
             'name' => 'timestamp',
             'required' => false,
             'type' => 3,
-        ),
-    );
+        ],
+    ];
 
     /**
-     * Constructs new message container and clears its internal state
+     * Constructs new message container and clears its internal state.
      *
      * @return null
      */
@@ -58,7 +60,7 @@ class SignedPreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones
+     * Clears message values and sets default ones.
      *
      * @return null
      */
@@ -72,7 +74,7 @@ class SignedPreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors
+     * Returns field descriptors.
      *
      * @return array
      */
@@ -82,7 +84,7 @@ class SignedPreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'id' property
+     * Sets value of 'id' property.
      *
      * @param int $value Property value
      *
@@ -94,7 +96,7 @@ class SignedPreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'id' property
+     * Returns value of 'id' property.
      *
      * @return int
      */
@@ -104,7 +106,7 @@ class SignedPreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'publicKey' property
+     * Sets value of 'publicKey' property.
      *
      * @param string $value Property value
      *
@@ -116,7 +118,7 @@ class SignedPreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'publicKey' property
+     * Returns value of 'publicKey' property.
      *
      * @return string
      */
@@ -126,7 +128,7 @@ class SignedPreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'privateKey' property
+     * Sets value of 'privateKey' property.
      *
      * @param string $value Property value
      *
@@ -138,7 +140,7 @@ class SignedPreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'privateKey' property
+     * Returns value of 'privateKey' property.
      *
      * @return string
      */
@@ -148,7 +150,7 @@ class SignedPreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'signature' property
+     * Sets value of 'signature' property.
      *
      * @param string $value Property value
      *
@@ -160,7 +162,7 @@ class SignedPreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'signature' property
+     * Returns value of 'signature' property.
      *
      * @return string
      */
@@ -170,7 +172,7 @@ class SignedPreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'timestamp' property
+     * Sets value of 'timestamp' property.
      *
      * @param int $value Property value
      *
@@ -182,7 +184,7 @@ class SignedPreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'timestamp' property
+     * Returns value of 'timestamp' property.
      *
      * @return int
      */

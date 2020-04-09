@@ -1,30 +1,32 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57
+ * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57.
  *
  * localstorage package
  */
 
 namespace Localstorage {
 /**
- * SenderKeyRecordStructure message
+ * SenderKeyRecordStructure message.
  */
 class SenderKeyRecordStructure extends \ProtobufMessage
 {
-    /* Field index constants */
+    // Field index constants
     const SENDERKEYSTATES = 1;
 
-    /* @var array Field descriptors */
-    protected static $fields = array(
-        self::SENDERKEYSTATES => array(
+    // @var array Field descriptors
+    protected static $fields = [
+        self::SENDERKEYSTATES => [
             'name' => 'senderKeyStates',
             'repeated' => true,
-            'type' => '\Localstorage\SenderKeyStateStructure'
-        ),
-    );
+            'type' => '\Localstorage\SenderKeyStateStructure',
+        ],
+    ];
 
     /**
-     * Constructs new message container and clears its internal state
+     * Constructs new message container and clears its internal state.
      *
      * @return null
      */
@@ -34,17 +36,17 @@ class SenderKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones
+     * Clears message values and sets default ones.
      *
      * @return null
      */
     public function reset()
     {
-        $this->values[self::SENDERKEYSTATES] = array();
+        $this->values[self::SENDERKEYSTATES] = [];
     }
 
     /**
-     * Returns field descriptors
+     * Returns field descriptors.
      *
      * @return array
      */
@@ -54,7 +56,7 @@ class SenderKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Appends value to 'senderKeyStates' list
+     * Appends value to 'senderKeyStates' list.
      *
      * @param \Localstorage\SenderKeyStateStructure $value Value to append
      *
@@ -66,7 +68,7 @@ class SenderKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Clears 'senderKeyStates' list
+     * Clears 'senderKeyStates' list.
      *
      * @return null
      */
@@ -76,7 +78,7 @@ class SenderKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns 'senderKeyStates' list
+     * Returns 'senderKeyStates' list.
      *
      * @return \Localstorage\SenderKeyStateStructure[]
      */
@@ -86,7 +88,7 @@ class SenderKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns 'senderKeyStates' iterator
+     * Returns 'senderKeyStates' iterator.
      *
      * @return ArrayIterator
      */
@@ -96,7 +98,7 @@ class SenderKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns element from 'senderKeyStates' list at given offset
+     * Returns element from 'senderKeyStates' list at given offset.
      *
      * @param int $offset Position in list
      *
@@ -108,7 +110,7 @@ class SenderKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns count of 'senderKeyStates' list
+     * Returns count of 'senderKeyStates' list.
      *
      * @return int
      */

@@ -16,9 +16,12 @@ class InMemorySessionStore extends SessionStore
 
     public function loadSession($recepientId, $deviceId)
     {
-        if ($this->containsSession($recepientId, $deviceId)) {
+        if ($this->containsSession($recepientId, $deviceId)) 
+        {
             return new SessionRecord(null, $this->sessions[$this->Key($recepientId, $deviceId)]);
-        } else {
+        } 
+        else 
+        {
             return new SessionRecord();
         }
     }

@@ -1,42 +1,44 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57
+ * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57.
  *
  * localstorage package
  */
 
 namespace Localstorage {
 /**
- * PreKeyRecordStructure message
+ * PreKeyRecordStructure message.
  */
 class PreKeyRecordStructure extends \ProtobufMessage
 {
-    /* Field index constants */
+    // Field index constants
     const ID = 1;
     const PUBLICKEY = 2;
     const PRIVATEKEY = 3;
 
-    /* @var array Field descriptors */
-    protected static $fields = array(
-        self::ID => array(
+    // @var array Field descriptors
+    protected static $fields = [
+        self::ID => [
             'name' => 'id',
             'required' => false,
             'type' => 5,
-        ),
-        self::PUBLICKEY => array(
+        ],
+        self::PUBLICKEY => [
             'name' => 'publicKey',
             'required' => false,
             'type' => 7,
-        ),
-        self::PRIVATEKEY => array(
+        ],
+        self::PRIVATEKEY => [
             'name' => 'privateKey',
             'required' => false,
             'type' => 7,
-        ),
-    );
+        ],
+    ];
 
     /**
-     * Constructs new message container and clears its internal state
+     * Constructs new message container and clears its internal state.
      *
      * @return null
      */
@@ -46,7 +48,7 @@ class PreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones
+     * Clears message values and sets default ones.
      *
      * @return null
      */
@@ -58,7 +60,7 @@ class PreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors
+     * Returns field descriptors.
      *
      * @return array
      */
@@ -68,7 +70,7 @@ class PreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'id' property
+     * Sets value of 'id' property.
      *
      * @param int $value Property value
      *
@@ -80,7 +82,7 @@ class PreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'id' property
+     * Returns value of 'id' property.
      *
      * @return int
      */
@@ -90,7 +92,7 @@ class PreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'publicKey' property
+     * Sets value of 'publicKey' property.
      *
      * @param string $value Property value
      *
@@ -102,7 +104,7 @@ class PreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'publicKey' property
+     * Returns value of 'publicKey' property.
      *
      * @return string
      */
@@ -112,7 +114,7 @@ class PreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'privateKey' property
+     * Sets value of 'privateKey' property.
      *
      * @param string $value Property value
      *
@@ -124,7 +126,7 @@ class PreKeyRecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'privateKey' property
+     * Returns value of 'privateKey' property.
      *
      * @return string
      */

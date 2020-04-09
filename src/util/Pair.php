@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\util;
 
 class Pair
@@ -6,11 +9,11 @@ class Pair
     protected $v1;    // T1
     protected $v2;    // T2
 
-    private function __init()
+    private function __init(): void
     { // default class members
     }
 
-    public static function __staticinit()
+    public static function __staticinit(): void
     { // static class members
     }
 
@@ -46,10 +49,10 @@ class Pair
 
     protected function equal($first, $second) // [Object first, Object second]
     {
-        if ((($first == null) && ($second == null))) {
+        if (((null === $first) && (null === $second))) {
             return  true;
         }
-        if ((($first == null) || ($second == null))) {
+        if (((null === $first) || (null === $second))) {
             return  false;
         }
 

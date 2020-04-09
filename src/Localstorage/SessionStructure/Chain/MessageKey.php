@@ -1,48 +1,50 @@
 <?php
+
+declare(strict_types=1);
 /**
- * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57
+ * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57.
  *
  * localstorage package
  */
 
 namespace Localstorage\SessionStructure\Chain {
 /**
- * MessageKey message embedded in Chain/SessionStructure message
+ * MessageKey message embedded in Chain/SessionStructure message.
  */
 class MessageKey extends \ProtobufMessage
 {
-    /* Field index constants */
+    // Field index constants
     const INDEX = 1;
     const CIPHERKEY = 2;
     const MACKEY = 3;
     const IV = 4;
 
-    /* @var array Field descriptors */
-    protected static $fields = array(
-        self::INDEX => array(
+    // @var array Field descriptors
+    protected static $fields = [
+        self::INDEX => [
             'name' => 'index',
             'required' => false,
             'type' => 5,
-        ),
-        self::CIPHERKEY => array(
+        ],
+        self::CIPHERKEY => [
             'name' => 'cipherKey',
             'required' => false,
             'type' => 7,
-        ),
-        self::MACKEY => array(
+        ],
+        self::MACKEY => [
             'name' => 'macKey',
             'required' => false,
             'type' => 7,
-        ),
-        self::IV => array(
+        ],
+        self::IV => [
             'name' => 'iv',
             'required' => false,
             'type' => 7,
-        ),
-    );
+        ],
+    ];
 
     /**
-     * Constructs new message container and clears its internal state
+     * Constructs new message container and clears its internal state.
      *
      * @return null
      */
@@ -52,7 +54,7 @@ class MessageKey extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones
+     * Clears message values and sets default ones.
      *
      * @return null
      */
@@ -65,7 +67,7 @@ class MessageKey extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors
+     * Returns field descriptors.
      *
      * @return array
      */
@@ -75,7 +77,7 @@ class MessageKey extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'index' property
+     * Sets value of 'index' property.
      *
      * @param int $value Property value
      *
@@ -87,7 +89,7 @@ class MessageKey extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'index' property
+     * Returns value of 'index' property.
      *
      * @return int
      */
@@ -97,7 +99,7 @@ class MessageKey extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'cipherKey' property
+     * Sets value of 'cipherKey' property.
      *
      * @param string $value Property value
      *
@@ -109,7 +111,7 @@ class MessageKey extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'cipherKey' property
+     * Returns value of 'cipherKey' property.
      *
      * @return string
      */
@@ -119,7 +121,7 @@ class MessageKey extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'macKey' property
+     * Sets value of 'macKey' property.
      *
      * @param string $value Property value
      *
@@ -131,7 +133,7 @@ class MessageKey extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'macKey' property
+     * Returns value of 'macKey' property.
      *
      * @return string
      */
@@ -141,7 +143,7 @@ class MessageKey extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'iv' property
+     * Sets value of 'iv' property.
      *
      * @param string $value Property value
      *
@@ -153,7 +155,7 @@ class MessageKey extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'iv' property
+     * Returns value of 'iv' property.
      *
      * @return string
      */

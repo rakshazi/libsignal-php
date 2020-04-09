@@ -1,10 +1,13 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\ecc;
 
 class DjbECPublicKey implements ECPublicKey
 {
-    protected $publicKey;    // byte[]
     const KEY_SIZE = 33;    // int
+    protected $publicKey;    // byte[]
 
     public function __construct($publicKey) // [byte[] publicKey]
     {
@@ -13,7 +16,7 @@ class DjbECPublicKey implements ECPublicKey
 
     public function serialize()
     {
-        return chr(Curve::DJB_TYPE).$this->publicKey;
+        return \chr(Curve::DJB_TYPE).$this->publicKey;
     }
 
     public function getType()
@@ -23,7 +26,7 @@ class DjbECPublicKey implements ECPublicKey
 
     public function equals($other) // [Object other]
     {
-        if (($other == null)) {
+        if ((null === $other)) {
             return  false;
         }
         if (!($other instanceof self)) {
@@ -31,12 +34,11 @@ class DjbECPublicKey implements ECPublicKey
         }
         $that = $other;
 
-        return $this->publicKey == $that->publicKey;
+        return $this->publicKey === $that->publicKey;
     }
 
     public function compareTo($another) // [ECPublicKey another]
     {
-
         //return new BigInteger($this->publicKey)::compareTo(new BigInteger(($another)::$publicKey));
         /*$current = unpack("H*",$this->publicKey);
         $current= $current[1];
@@ -44,10 +46,11 @@ class DjbECPublicKey implements ECPublicKey
         $other = unpack("H*",$another->publicKey);
         $other = $other[1];
         //$other = intval($other[1],16);*/
-        for ($x = 0; $x < strlen($this->publicKey); $x++) {
-            if (ord($this->publicKey[$x]) > ord($another->publicKey[$x])) {
+        for ($x = 0; $x < \strlen($this->publicKey); ++$x) {
+            if (\ord($this->publicKey[$x]) > \ord($another->publicKey[$x])) {
                 return 1;
-            } elseif (ord($this->publicKey[$x]) > ord($another->publicKey[$x])) {
+            }
+            if (\ord($this->publicKey[$x]) > \ord($another->publicKey[$x])) {
                 return -1;
             }
         }

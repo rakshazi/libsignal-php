@@ -12,10 +12,10 @@ class InMemoryAxolotlStore extends AxolotlStore
 
     public function __construct()
     {
-        $this->identityKeyStore = new InMemoryIdentityKeyStore;
-        $this->preKeyStore = new InMemoryPreKeyStore;
-        $this->signedPreKeyStore = new InMemorySignedPreKeyStore;
-        $this->sessionStore = new InMemorySessionStore;
+        $this->identityKeyStore     = new InMemoryIdentityKeyStore;
+        $this->preKeyStore          = new InMemoryPreKeyStore;
+        $this->signedPreKeyStore    = new InMemorySignedPreKeyStore;
+        $this->sessionStore         = new InMemorySessionStore;
     }
 
     public function getIdentityKeyPair()

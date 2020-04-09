@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\exceptions;
 
 class InvalidMessageException extends \Exception
@@ -6,7 +9,7 @@ class InvalidMessageException extends \Exception
     public function __construct($detailMessage, $throw = null) // [String detailMessage]
     {
         $this->message = $detailMessage;
-        if ($throw != null) {
+        if (null !== $throw) {
             $this->previous = $throw;
         }
     }

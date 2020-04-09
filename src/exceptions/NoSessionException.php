@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\exceptions;
 
 class NoSessionException extends \Exception

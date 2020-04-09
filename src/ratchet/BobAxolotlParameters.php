@@ -1,10 +1,13 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\ratchet;
 
-use Libsignal\IdentityKey;
-use Libsignal\IdentityKeyPair;
 use Libsignal\ecc\ECKeyPair;
 use Libsignal\ecc\ECPublicKey;
+use Libsignal\IdentityKey;
+use Libsignal\IdentityKeyPair;
 
 class BobAxolotlParameters
 {
@@ -25,9 +28,9 @@ class BobAxolotlParameters
         $this->ourOneTimePreKey = $ourOneTimePreKey;
         $this->theirIdentityKey = $theirIdentityKey;
         $this->theirBaseKey = $theirBaseKey;
-        if (($ourIdentityKey == null) || ($ourSignedPreKey == null)
-             || ($ourRatchetKey == null)
-             || ($theirIdentityKey == null) ||  ($theirBaseKey == null)) {
+        if ((null === $ourIdentityKey) || (null === $ourSignedPreKey)
+             || (null === $ourRatchetKey)
+             || (null === $theirIdentityKey) || (null === $theirBaseKey)) {
             throw new Exception('Null values!');
         }
     }

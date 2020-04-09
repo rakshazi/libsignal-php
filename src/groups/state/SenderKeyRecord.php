@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\groups\state;
 
-use Localstorage\SenderKeyRecordStructure as TextSecure_SenderKeyRecordStructure;
 use Libsignal\exceptions\InvalidKeyIdException;
+use Localstorage\SenderKeyRecordStructure as TextSecure_SenderKeyRecordStructure;
 
 class SenderKeyRecord
 {
@@ -12,7 +15,7 @@ class SenderKeyRecord
     {
         $this->senderKeyStates = [];
 
-        if ($serialized != null) {
+        if (null !== $serialized) {
             $senderKeyRecordStructure = new TextSecure_SenderKeyRecordStructure();
 
             $senderKeyRecordStructure->parseFromString($serialized);
@@ -25,28 +28,26 @@ class SenderKeyRecord
 
     public function getSenderKeyState($keyId = null)
     {
-        if (is_null($keyId)) {
-            if (count($this->senderKeyStates) > 0) {
+        if (null === $keyId) {
+            if (\count($this->senderKeyStates) > 0) {
                 return $this->senderKeyStates[0];
-            } else {
-                throw new InvalidKeyIdException('No key state in record');
             }
-        } else {
-            foreach ($this->senderKeyStates as $state) {
-                if ($state->getKeyId() == $keyId) {
-                    return $state;
-                }
-            }
-            throw new InvalidKeyIdException("No keys for: $keyId");
+            throw new InvalidKeyIdException('No key state in record');
         }
+        foreach ($this->senderKeyStates as $state) {
+            if ($state->getKeyId() === $keyId) {
+                return $state;
+            }
+        }
+        throw new InvalidKeyIdException("No keys for: $keyId");
     }
 
-    public function addSenderKeyState($id, $iteration, $chainKey, $signatureKey)
+    public function addSenderKeyState($id, $iteration, $chainKey, $signatureKey): void
     {
         $this->senderKeyStates[] = new SenderKeyState($id, $iteration, $chainKey, $signatureKey);
     }
 
-    public function setSenderKeyState($id, $iteration, $chainKey, $signatureKey)
+    public function setSenderKeyState($id, $iteration, $chainKey, $signatureKey): void
     {
         unset($this->senderKeyStates);
         $this->senderKeyStates = [];

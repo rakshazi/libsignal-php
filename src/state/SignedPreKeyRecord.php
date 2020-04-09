@@ -1,10 +1,11 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\state;
 
 use Libsignal\ecc\Curve;
 use Libsignal\ecc\ECKeyPair;
-use Libsignal\ecc\ECPrivateKey;
-use Libsignal\ecc\ECPublicKey;
 use Libsignal\exceptions\InvalidKeyException;
 use Localstorage\SignedPreKeyRecordStructure as Textsecure_SignedPreKeyRecordStructure;
 
@@ -15,7 +16,7 @@ class SignedPreKeyRecord
     public function __construct($id = null, $timestamp = null, $keyPair = null, $signature = null, $serialized = null) // [int id, long timestamp, ECKeyPair keyPair, byte[] signature]
     {
         $struct = new Textsecure_SignedPreKeyRecordStructure();
-        if ($serialized == null) {
+        if (null === $serialized) {
             $struct->setId($id);
             $struct->setPublicKey((string) $keyPair->getPublicKey()->serialize());
             $struct->setPrivateKey((string) $keyPair->getPrivateKey()->serialize());

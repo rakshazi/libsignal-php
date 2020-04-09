@@ -1,14 +1,15 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Libsignal\groups;
 
+use Libsignal\AESCipher;
+use Libsignal\exceptions\DuplicateMessageException;
 use Libsignal\exceptions\InvalidKeyException;
 use Libsignal\exceptions\InvalidMessageException;
-use Libsignal\exceptions\DuplicateMessageException;
 use Libsignal\exceptions\NoSessionException;
-use Libsignal\state\SenderKeyStore;
 use Libsignal\protocol\SenderKeyMessage;
-use Libsignal\SessionCipher;
-use Libsignal\AESCipher;
 
 class GroupCipher
 {
@@ -70,11 +71,8 @@ class GroupCipher
         if ($senderChainKey->getIteration() > $iteration) {
             if ($senderKeyState->hasSenderMessageKey($iteration)) {
                 return $senderKeyState->removeSenderMessageKey($iteration);
-            } else {
-                throw new DuplicateMessageException('Received message with old counter: '.
-                                              $senderChainKey->getIteration().' '.
-                                              $iteration);
             }
+            throw new DuplicateMessageException('Received message with old counter: '.$senderChainKey->getIteration().' '.$iteration);
         }
 
         if ($senderChainKey->getIteration() - $iteration > 2000) {
