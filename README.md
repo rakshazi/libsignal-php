@@ -7,18 +7,18 @@ This is used in [Chat API](https://github.com/WHAnonymous/Chat-API).
 Overview from original author's:
 
  > This is a ratcheting forward secrecy protocol that works in synchronous and asynchronous messaging environments. The protocol overview is available [here](https://github.com/trevp/axolotl/wiki), and the details of the wire format are available [here](https://github.com/trevp/axolotl/wiki).
- 
+
 Read rest of of details [here](https://github.com/WhisperSystems/libaxolotl-android/blob/master/README.md).
 
 # Overview
 
-This is a ratcheting forward secrecy protocol that works in synchronous and asynchronous messaging 
+This is a ratcheting forward secrecy protocol that works in synchronous and asynchronous messaging
 environments.  The protocol overview is available [here](https://github.com/trevp/axolotl/wiki),
 and the details of the wire format are available [here](https://github.com/WhisperSystems/TextSecure/wiki/ProtocolV2).
 
 ## PreKeys
 
-This protocol uses a concept called 'PreKeys'.  A PreKey is an ECPublicKey and an associated unique 
+This protocol uses a concept called 'PreKeys'.  A PreKey is an ECPublicKey and an associated unique
 ID which are stored together by a server.  PreKeys can also be signed.
 
 At install time, clients generate a single signed PreKey, as well as a large list of unsigned
@@ -73,8 +73,8 @@ prekeys.
 
 ## Building a session
 
-A libaxolotl client needs to implement four interfaces: IdentityKeyStore, PreKeyStore, 
-SignedPreKeyStore, and SessionStore.  These will manage loading and storing of identity, 
+A libaxolotl client needs to implement four interfaces: IdentityKeyStore, PreKeyStore,
+SignedPreKeyStore, and SessionStore.  These will manage loading and storing of identity,
 prekeys, signed prekeys, and session state.
 
 Once those are implemented, building a session is fairly straightforward:
