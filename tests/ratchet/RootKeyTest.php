@@ -1,18 +1,16 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\Tests\ratchet;
 
-use Libsignal\ecc\Curve;
-use Libsignal\ecc\ECKeyPair;
-use Libsignal\kdf\HKDF;
-use Libsignal\ratchet\RootKey;
 use Libsignal\Tests\TestCase;
+use Libsignal\ecc\Curve;
+use Libsignal\ratchet\RootKey;
+use Libsignal\kdf\HKDF;
+use Libsignal\ratchet\ChainKey;
+use Libsignal\ecc\ECKeyPair;
 
 class RootKeyTest extends TestCase
 {
-    public function testRootKeyDerivationV2(): void
+    public function testRootKeyDerivationV2()
     {
         $rootKeySeed = "\x7b\xa6\xde\xbc\x2b\xc1\xbb\xf9\x1a\xbb\xc1\x36\x74\x04\x17\x6c\xa6\x23\x09\x5b\x7e\xc6\x6b\x45\xf6\x02\xd9\x35\x38\x94\x2d\xcc";
 

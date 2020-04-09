@@ -1,11 +1,8 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\state;
 
-use Libsignal\ecc\ECPublicKey;
 use Libsignal\IdentityKey;
+use Libsignal\ecc\ECPublicKey;
 
 class PreKeyBundle
 {
@@ -20,14 +17,14 @@ class PreKeyBundle
 
     public function __construct($registrationId, $deviceId, $preKeyId, $preKeyPublic, $signedPreKeyId, $signedPreKeyPublic, $signedPreKeySignature, $identityKey) // [int registrationId, int deviceId, int preKeyId, ECPublicKey preKeyPublic, int signedPreKeyId, ECPublicKey signedPreKeyPublic, byte[] signedPreKeySignature, IdentityKey identityKey]
     {
-        $this->registrationId = $registrationId;
-        $this->deviceId = $deviceId;
-        $this->preKeyId = $preKeyId;
-        $this->preKeyPublic = $preKeyPublic;
-        $this->signedPreKeyId = $signedPreKeyId;
-        $this->signedPreKeyPublic = $signedPreKeyPublic;
-        $this->signedPreKeySignature = $signedPreKeySignature;
-        $this->identityKey = $identityKey;
+        $this->registrationId           = $registrationId;
+        $this->deviceId                 = $deviceId;
+        $this->preKeyId                 = $preKeyId;
+        $this->preKeyPublic             = $preKeyPublic;
+        $this->signedPreKeyId           = $signedPreKeyId;
+        $this->signedPreKeyPublic       = $signedPreKeyPublic;
+        $this->signedPreKeySignature    = $signedPreKeySignature;
+        $this->identityKey              = $identityKey;
     }
 
     public function getDeviceId()

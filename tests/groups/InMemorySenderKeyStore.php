@@ -1,11 +1,8 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\Tests\groups;
 
-use Libsignal\groups\state\SenderKeyRecord;
 use Libsignal\groups\state\SenderKeyStore;
+use Libsignal\groups\state\SenderKeyRecord;
 
 class InMemorySenderKeyStore extends SenderKeyStore
 {
@@ -16,7 +13,7 @@ class InMemorySenderKeyStore extends SenderKeyStore
         $this->store = [];
     }
 
-    public function storeSenderKey($senderKeyId, $senderKeyRecord): void
+    public function storeSenderKey($senderKeyId, $senderKeyRecord)
     {
         $this->store[$senderKeyId] = $senderKeyRecord;
     }
@@ -27,6 +24,6 @@ class InMemorySenderKeyStore extends SenderKeyStore
             return new SenderKeyRecord($this->store[$senderKeyId]->serialize());
         }
 
-        return new SenderKeyRecord();
+        return new SenderKeyRecord;
     }
 }

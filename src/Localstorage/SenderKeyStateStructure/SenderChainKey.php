@@ -1,38 +1,36 @@
 <?php
-
-declare(strict_types=1);
 /**
- * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57.
+ * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57
  *
  * localstorage package
  */
 
 namespace Localstorage\SenderKeyStateStructure {
 /**
- * SenderChainKey message embedded in SenderKeyStateStructure message.
+ * SenderChainKey message embedded in SenderKeyStateStructure message
  */
 class SenderChainKey extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const ITERATION = 1;
     const SEED = 2;
 
-    // @var array Field descriptors
-    protected static $fields = [
-        self::ITERATION => [
+    /* @var array Field descriptors */
+    protected static $fields = array(
+        self::ITERATION => array(
             'name' => 'iteration',
             'required' => false,
             'type' => 5,
-        ],
-        self::SEED => [
+        ),
+        self::SEED => array(
             'name' => 'seed',
             'required' => false,
             'type' => 7,
-        ],
-    ];
+        ),
+    );
 
     /**
-     * Constructs new message container and clears its internal state.
+     * Constructs new message container and clears its internal state
      *
      * @return null
      */
@@ -42,7 +40,7 @@ class SenderChainKey extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones.
+     * Clears message values and sets default ones
      *
      * @return null
      */
@@ -53,7 +51,7 @@ class SenderChainKey extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors.
+     * Returns field descriptors
      *
      * @return array
      */
@@ -63,7 +61,7 @@ class SenderChainKey extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'iteration' property.
+     * Sets value of 'iteration' property
      *
      * @param int $value Property value
      *
@@ -75,7 +73,7 @@ class SenderChainKey extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'iteration' property.
+     * Returns value of 'iteration' property
      *
      * @return int
      */
@@ -85,7 +83,7 @@ class SenderChainKey extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'seed' property.
+     * Sets value of 'seed' property
      *
      * @param string $value Property value
      *
@@ -97,7 +95,7 @@ class SenderChainKey extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'seed' property.
+     * Returns value of 'seed' property
      *
      * @return string
      */

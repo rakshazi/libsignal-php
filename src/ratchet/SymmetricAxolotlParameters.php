@@ -1,13 +1,10 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\ratchet;
 
-use Libsignal\ecc\ECKeyPair;
-use Libsignal\ecc\ECPublicKey;
 use Libsignal\IdentityKey;
 use Libsignal\IdentityKeyPair;
+use Libsignal\ecc\ECKeyPair;
+use Libsignal\ecc\ECPublicKey;
 
 class SymmetricAxolotlParameters
 {
@@ -27,9 +24,9 @@ class SymmetricAxolotlParameters
         $this->theirRatchetKey = $theirRatchetKey;
         $this->theirIdentityKey = $theirIdentityKey;
 
-        if ((null === $ourBaseKey) || (null === $ourRatchetKey)
-            || (null === $ourIdentityKey) || (null === $theirBaseKey)
-            || (null === $theirRatchetKey) || (null === $theirIdentityKey)) {
+        if (($ourBaseKey == null) || ($ourRatchetKey == null)
+            || ($ourIdentityKey == null) || ($theirBaseKey == null)
+            || ($theirRatchetKey == null) || ($theirIdentityKey == null)) {
             throw new \Exception('Null values!');
         }
     }

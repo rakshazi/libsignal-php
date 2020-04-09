@@ -1,38 +1,36 @@
 <?php
-
-declare(strict_types=1);
 /**
- * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57.
+ * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57
  *
  * localstorage package
  */
 
 namespace Localstorage {
 /**
- * RecordStructure message.
+ * RecordStructure message
  */
 class RecordStructure extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const CURRENTSESSION = 1;
     const PREVIOUSSESSIONS = 2;
 
-    // @var array Field descriptors
-    protected static $fields = [
-        self::CURRENTSESSION => [
+    /* @var array Field descriptors */
+    protected static $fields = array(
+        self::CURRENTSESSION => array(
             'name' => 'currentSession',
             'required' => false,
-            'type' => '\Localstorage\SessionStructure',
-        ],
-        self::PREVIOUSSESSIONS => [
+            'type' => '\Localstorage\SessionStructure'
+        ),
+        self::PREVIOUSSESSIONS => array(
             'name' => 'previousSessions',
             'repeated' => true,
-            'type' => '\Localstorage\SessionStructure',
-        ],
-    ];
+            'type' => '\Localstorage\SessionStructure'
+        ),
+    );
 
     /**
-     * Constructs new message container and clears its internal state.
+     * Constructs new message container and clears its internal state
      *
      * @return null
      */
@@ -42,18 +40,18 @@ class RecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones.
+     * Clears message values and sets default ones
      *
      * @return null
      */
     public function reset()
     {
         $this->values[self::CURRENTSESSION] = null;
-        $this->values[self::PREVIOUSSESSIONS] = [];
+        $this->values[self::PREVIOUSSESSIONS] = array();
     }
 
     /**
-     * Returns field descriptors.
+     * Returns field descriptors
      *
      * @return array
      */
@@ -63,7 +61,7 @@ class RecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'currentSession' property.
+     * Sets value of 'currentSession' property
      *
      * @param \Localstorage\SessionStructure $value Property value
      *
@@ -75,7 +73,7 @@ class RecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'currentSession' property.
+     * Returns value of 'currentSession' property
      *
      * @return \Localstorage\SessionStructure
      */
@@ -85,7 +83,7 @@ class RecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Appends value to 'previousSessions' list.
+     * Appends value to 'previousSessions' list
      *
      * @param \Localstorage\SessionStructure $value Value to append
      *
@@ -97,7 +95,7 @@ class RecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Clears 'previousSessions' list.
+     * Clears 'previousSessions' list
      *
      * @return null
      */
@@ -107,7 +105,7 @@ class RecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns 'previousSessions' list.
+     * Returns 'previousSessions' list
      *
      * @return \Localstorage\SessionStructure[]
      */
@@ -117,7 +115,7 @@ class RecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns 'previousSessions' iterator.
+     * Returns 'previousSessions' iterator
      *
      * @return ArrayIterator
      */
@@ -127,7 +125,7 @@ class RecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns element from 'previousSessions' list at given offset.
+     * Returns element from 'previousSessions' list at given offset
      *
      * @param int $offset Position in list
      *
@@ -139,7 +137,7 @@ class RecordStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns count of 'previousSessions' list.
+     * Returns count of 'previousSessions' list
      *
      * @return int
      */

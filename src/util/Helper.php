@@ -1,18 +1,15 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\util;
 
 class Helper
 {
     public static function checkNotNull($reference, $message = null)
     {
-        if (null === $message) {
+        if ($message === null) {
             $message = 'Unallowed null in reference found.';
         }
 
-        if (null === $reference) {
+        if ($reference === null) {
             throw new \Exception($message);
         }
 

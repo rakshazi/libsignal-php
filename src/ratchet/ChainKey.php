@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\ratchet;
 
 use Libsignal\kdf\DerivedMessageSecrets;
@@ -49,9 +46,9 @@ class ChainKey
 
     public function getBaseMaterial($seedBytes)
     {
-        $mac = \hash_init('sha256', HASH_HMAC, $this->key);
-        \hash_update($mac, $seedBytes);
-        $data = \hash_final($mac, true);
+        $mac = hash_init('sha256', HASH_HMAC, $this->key);
+        hash_update($mac, $seedBytes);
+        $data = hash_final($mac, true);
 
         return $data;
     }

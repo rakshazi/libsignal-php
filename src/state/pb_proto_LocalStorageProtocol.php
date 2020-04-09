@@ -1,6 +1,4 @@
 <?php
-
-declare(strict_types=1);
 /**
  * Auto generated from LocalStorageProtocol.proto at 2015-09-10 23:19:03.
  *
@@ -12,21 +10,21 @@ declare(strict_types=1);
  */
 class Textsecure_SessionStructure_Chain_ChainKey extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const INDEX = 1;
     const KEY = 2;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::INDEX => [
-            'name' => 'index',
+            'name'     => 'index',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::KEY => [
-            'name' => 'key',
+            'name'     => 'key',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
     ];
 
@@ -111,33 +109,33 @@ class Textsecure_SessionStructure_Chain_ChainKey extends \ProtobufMessage
  */
 class Textsecure_SessionStructure_Chain_MessageKey extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const INDEX = 1;
     const CIPHERKEY = 2;
     const MACKEY = 3;
     const IV = 4;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::INDEX => [
-            'name' => 'index',
+            'name'     => 'index',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::CIPHERKEY => [
-            'name' => 'cipherKey',
+            'name'     => 'cipherKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::MACKEY => [
-            'name' => 'macKey',
+            'name'     => 'macKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::IV => [
-            'name' => 'iv',
+            'name'     => 'iv',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
     ];
 
@@ -268,33 +266,33 @@ class Textsecure_SessionStructure_Chain_MessageKey extends \ProtobufMessage
  */
 class Textsecure_SessionStructure_Chain extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const SENDERRATCHETKEY = 1;
     const SENDERRATCHETKEYPRIVATE = 2;
     const CHAINKEY = 3;
     const MESSAGEKEYS = 4;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::SENDERRATCHETKEY => [
-            'name' => 'senderRatchetKey',
+            'name'     => 'senderRatchetKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::SENDERRATCHETKEYPRIVATE => [
-            'name' => 'senderRatchetKeyPrivate',
+            'name'     => 'senderRatchetKeyPrivate',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::CHAINKEY => [
-            'name' => 'chainKey',
+            'name'     => 'chainKey',
             'required' => false,
-            'type' => 'Textsecure_SessionStructure_Chain_ChainKey',
+            'type'     => 'Textsecure_SessionStructure_Chain_ChainKey',
         ],
         self::MESSAGEKEYS => [
-            'name' => 'messageKeys',
+            'name'     => 'messageKeys',
             'repeated' => true,
-            'type' => 'Textsecure_SessionStructure_Chain_MessageKey',
+            'type'     => 'Textsecure_SessionStructure_Chain_MessageKey',
         ],
     ];
 
@@ -467,7 +465,7 @@ class Textsecure_SessionStructure_Chain extends \ProtobufMessage
  */
 class Textsecure_SessionStructure_PendingKeyExchange extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const SEQUENCE = 1;
     const LOCALBASEKEY = 2;
     const LOCALBASEKEYPRIVATE = 3;
@@ -476,42 +474,42 @@ class Textsecure_SessionStructure_PendingKeyExchange extends \ProtobufMessage
     const LOCALIDENTITYKEY = 7;
     const LOCALIDENTITYKEYPRIVATE = 8;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::SEQUENCE => [
-            'name' => 'sequence',
+            'name'     => 'sequence',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::LOCALBASEKEY => [
-            'name' => 'localBaseKey',
+            'name'     => 'localBaseKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::LOCALBASEKEYPRIVATE => [
-            'name' => 'localBaseKeyPrivate',
+            'name'     => 'localBaseKeyPrivate',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::LOCALRATCHETKEY => [
-            'name' => 'localRatchetKey',
+            'name'     => 'localRatchetKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::LOCALRATCHETKEYPRIVATE => [
-            'name' => 'localRatchetKeyPrivate',
+            'name'     => 'localRatchetKeyPrivate',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::LOCALIDENTITYKEY => [
-            'name' => 'localIdentityKey',
+            'name'     => 'localIdentityKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::LOCALIDENTITYKEYPRIVATE => [
-            'name' => 'localIdentityKeyPrivate',
+            'name'     => 'localIdentityKeyPrivate',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
     ];
 
@@ -711,27 +709,27 @@ class Textsecure_SessionStructure_PendingKeyExchange extends \ProtobufMessage
  */
 class Textsecure_SessionStructure_PendingPreKey extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const PREKEYID = 1;
     const SIGNEDPREKEYID = 3;
     const BASEKEY = 2;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::PREKEYID => [
-            'name' => 'preKeyId',
+            'name'     => 'preKeyId',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::SIGNEDPREKEYID => [
-            'name' => 'signedPreKeyId',
+            'name'     => 'signedPreKeyId',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::BASEKEY => [
-            'name' => 'baseKey',
+            'name'     => 'baseKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
     ];
 
@@ -839,7 +837,7 @@ class Textsecure_SessionStructure_PendingPreKey extends \ProtobufMessage
  */
 class Textsecure_SessionStructure extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const SESSIONVERSION = 1;
     const LOCALIDENTITYPUBLIC = 2;
     const REMOTEIDENTITYPUBLIC = 3;
@@ -854,72 +852,72 @@ class Textsecure_SessionStructure extends \ProtobufMessage
     const NEEDSREFRESH = 12;
     const ALICEBASEKEY = 13;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::SESSIONVERSION => [
-            'name' => 'sessionVersion',
+            'name'     => 'sessionVersion',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::LOCALIDENTITYPUBLIC => [
-            'name' => 'localIdentityPublic',
+            'name'     => 'localIdentityPublic',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::REMOTEIDENTITYPUBLIC => [
-            'name' => 'remoteIdentityPublic',
+            'name'     => 'remoteIdentityPublic',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::ROOTKEY => [
-            'name' => 'rootKey',
+            'name'     => 'rootKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::PREVIOUSCOUNTER => [
-            'name' => 'previousCounter',
+            'name'     => 'previousCounter',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::SENDERCHAIN => [
-            'name' => 'senderChain',
+            'name'     => 'senderChain',
             'required' => false,
-            'type' => 'Textsecure_SessionStructure_Chain',
+            'type'     => 'Textsecure_SessionStructure_Chain',
         ],
         self::RECEIVERCHAINS => [
-            'name' => 'receiverChains',
+            'name'     => 'receiverChains',
             'repeated' => true,
-            'type' => 'Textsecure_SessionStructure_Chain',
+            'type'     => 'Textsecure_SessionStructure_Chain',
         ],
         self::PENDINGKEYEXCHANGE => [
-            'name' => 'pendingKeyExchange',
+            'name'     => 'pendingKeyExchange',
             'required' => false,
-            'type' => 'Textsecure_SessionStructure_PendingKeyExchange',
+            'type'     => 'Textsecure_SessionStructure_PendingKeyExchange',
         ],
         self::PENDINGPREKEY => [
-            'name' => 'pendingPreKey',
+            'name'     => 'pendingPreKey',
             'required' => false,
-            'type' => 'Textsecure_SessionStructure_PendingPreKey',
+            'type'     => 'Textsecure_SessionStructure_PendingPreKey',
         ],
         self::REMOTEREGISTRATIONID => [
-            'name' => 'remoteRegistrationId',
+            'name'     => 'remoteRegistrationId',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::LOCALREGISTRATIONID => [
-            'name' => 'localRegistrationId',
+            'name'     => 'localRegistrationId',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::NEEDSREFRESH => [
-            'name' => 'needsRefresh',
+            'name'     => 'needsRefresh',
             'required' => false,
-            'type' => 8,
+            'type'     => 8,
         ],
         self::ALICEBASEKEY => [
-            'name' => 'aliceBaseKey',
+            'name'     => 'aliceBaseKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
     ];
 
@@ -1205,7 +1203,7 @@ class Textsecure_SessionStructure extends \ProtobufMessage
         return $this->get(self::PENDINGPREKEY);
     }
 
-    public function clearPendingPreKey(): void
+    public function clearPendingPreKey()
     {
         $this->values[self::PENDINGPREKEY] = null;
     }
@@ -1304,21 +1302,21 @@ class Textsecure_SessionStructure extends \ProtobufMessage
  */
 class Textsecure_RecordStructure extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const CURRENTSESSION = 1;
     const PREVIOUSSESSIONS = 2;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::CURRENTSESSION => [
-            'name' => 'currentSession',
+            'name'     => 'currentSession',
             'required' => false,
-            'type' => 'Textsecure_SessionStructure',
+            'type'     => 'Textsecure_SessionStructure',
         ],
         self::PREVIOUSSESSIONS => [
-            'name' => 'previousSessions',
+            'name'     => 'previousSessions',
             'repeated' => true,
-            'type' => 'Textsecure_SessionStructure',
+            'type'     => 'Textsecure_SessionStructure',
         ],
     ];
 
@@ -1445,27 +1443,27 @@ class Textsecure_RecordStructure extends \ProtobufMessage
  */
 class Textsecure_PreKeyRecordStructure extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const ID = 1;
     const PUBLICKEY = 2;
     const PRIVATEKEY = 3;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::ID => [
-            'name' => 'id',
+            'name'     => 'id',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::PUBLICKEY => [
-            'name' => 'publicKey',
+            'name'     => 'publicKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::PRIVATEKEY => [
-            'name' => 'privateKey',
+            'name'     => 'privateKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
     ];
 
@@ -1573,39 +1571,39 @@ class Textsecure_PreKeyRecordStructure extends \ProtobufMessage
  */
 class Textsecure_SignedPreKeyRecordStructure extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const ID = 1;
     const PUBLICKEY = 2;
     const PRIVATEKEY = 3;
     const SIGNATURE = 4;
     const TIMESTAMP = 5;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::ID => [
-            'name' => 'id',
+            'name'     => 'id',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::PUBLICKEY => [
-            'name' => 'publicKey',
+            'name'     => 'publicKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::PRIVATEKEY => [
-            'name' => 'privateKey',
+            'name'     => 'privateKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::SIGNATURE => [
-            'name' => 'signature',
+            'name'     => 'signature',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::TIMESTAMP => [
-            'name' => 'timestamp',
+            'name'     => 'timestamp',
             'required' => false,
-            'type' => 3,
+            'type'     => 3,
         ],
     ];
 
@@ -1759,21 +1757,21 @@ class Textsecure_SignedPreKeyRecordStructure extends \ProtobufMessage
  */
 class Textsecure_IdentityKeyPairStructure extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const PUBLICKEY = 1;
     const PRIVATEKEY = 2;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::PUBLICKEY => [
-            'name' => 'publicKey',
+            'name'     => 'publicKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::PRIVATEKEY => [
-            'name' => 'privateKey',
+            'name'     => 'privateKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
     ];
 
@@ -1858,21 +1856,21 @@ class Textsecure_IdentityKeyPairStructure extends \ProtobufMessage
  */
 class Textsecure_SenderKeyStateStructure_SenderChainKey extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const ITERATION = 1;
     const SEED = 2;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::ITERATION => [
-            'name' => 'iteration',
+            'name'     => 'iteration',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::SEED => [
-            'name' => 'seed',
+            'name'     => 'seed',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
     ];
 
@@ -1957,21 +1955,21 @@ class Textsecure_SenderKeyStateStructure_SenderChainKey extends \ProtobufMessage
  */
 class Textsecure_SenderKeyStateStructure_SenderMessageKey extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const ITERATION = 1;
     const SEED = 2;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::ITERATION => [
-            'name' => 'iteration',
+            'name'     => 'iteration',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::SEED => [
-            'name' => 'seed',
+            'name'     => 'seed',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
     ];
 
@@ -2056,21 +2054,21 @@ class Textsecure_SenderKeyStateStructure_SenderMessageKey extends \ProtobufMessa
  */
 class Textsecure_SenderKeyStateStructure_SenderSigningKey extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const _PUBLIC = 1;
     const _PRIVATE = 2;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::_PUBLIC => [
-            'name' => 'public',
+            'name'     => 'public',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::_PRIVATE => [
-            'name' => 'private',
+            'name'     => 'private',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
     ];
 
@@ -2155,33 +2153,33 @@ class Textsecure_SenderKeyStateStructure_SenderSigningKey extends \ProtobufMessa
  */
 class Textsecure_SenderKeyStateStructure extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const SENDERKEYID = 1;
     const SENDERCHAINKEY = 2;
     const SENDERSIGNINGKEY = 3;
     const SENDERMESSAGEKEYS = 4;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::SENDERKEYID => [
-            'name' => 'senderKeyId',
+            'name'     => 'senderKeyId',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::SENDERCHAINKEY => [
-            'name' => 'senderChainKey',
+            'name'     => 'senderChainKey',
             'required' => false,
-            'type' => 'Textsecure_SenderKeyStateStructure_SenderChainKey',
+            'type'     => 'Textsecure_SenderKeyStateStructure_SenderChainKey',
         ],
         self::SENDERSIGNINGKEY => [
-            'name' => 'senderSigningKey',
+            'name'     => 'senderSigningKey',
             'required' => false,
-            'type' => 'Textsecure_SenderKeyStateStructure_SenderSigningKey',
+            'type'     => 'Textsecure_SenderKeyStateStructure_SenderSigningKey',
         ],
         self::SENDERMESSAGEKEYS => [
-            'name' => 'senderMessageKeys',
+            'name'     => 'senderMessageKeys',
             'repeated' => true,
-            'type' => 'Textsecure_SenderKeyStateStructure_SenderMessageKey',
+            'type'     => 'Textsecure_SenderKeyStateStructure_SenderMessageKey',
         ],
     ];
 
@@ -2354,15 +2352,15 @@ class Textsecure_SenderKeyStateStructure extends \ProtobufMessage
  */
 class Textsecure_SenderKeyRecordStructure extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const SENDERKEYSTATES = 1;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::SENDERKEYSTATES => [
-            'name' => 'senderKeyStates',
+            'name'     => 'senderKeyStates',
             'repeated' => true,
-            'type' => 'Textsecure_SenderKeyStateStructure',
+            'type'     => 'Textsecure_SenderKeyStateStructure',
         ],
     ];
 

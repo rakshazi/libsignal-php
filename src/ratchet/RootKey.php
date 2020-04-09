@@ -1,11 +1,8 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\ratchet;
 
-use Libsignal\ecc\Curve;
 use Libsignal\kdf\DerivedRootSecrets;
+use Libsignal\ecc\Curve;
 
 class RootKey
 {

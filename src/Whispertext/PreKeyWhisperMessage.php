@@ -1,19 +1,17 @@
 <?php
-
-declare(strict_types=1);
 /**
- * Auto generated from WhisperTextProtocol.proto at 2016-04-03 15:59:00.
+ * Auto generated from WhisperTextProtocol.proto at 2016-04-03 15:59:00
  *
  * whispertext package
  */
 
 namespace Whispertext {
 /**
- * PreKeyWhisperMessage message.
+ * PreKeyWhisperMessage message
  */
 class PreKeyWhisperMessage extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const REGISTRATIONID = 5;
     const PREKEYID = 1;
     const SIGNEDPREKEYID = 6;
@@ -21,42 +19,42 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     const IDENTITYKEY = 3;
     const MESSAGE = 4;
 
-    // @var array Field descriptors
-    protected static $fields = [
-        self::REGISTRATIONID => [
+    /* @var array Field descriptors */
+    protected static $fields = array(
+        self::REGISTRATIONID => array(
             'name' => 'registrationId',
             'required' => false,
             'type' => 5,
-        ],
-        self::PREKEYID => [
+        ),
+        self::PREKEYID => array(
             'name' => 'preKeyId',
             'required' => false,
             'type' => 5,
-        ],
-        self::SIGNEDPREKEYID => [
+        ),
+        self::SIGNEDPREKEYID => array(
             'name' => 'signedPreKeyId',
             'required' => false,
             'type' => 5,
-        ],
-        self::BASEKEY => [
+        ),
+        self::BASEKEY => array(
             'name' => 'baseKey',
             'required' => false,
             'type' => 7,
-        ],
-        self::IDENTITYKEY => [
+        ),
+        self::IDENTITYKEY => array(
             'name' => 'identityKey',
             'required' => false,
             'type' => 7,
-        ],
-        self::MESSAGE => [
+        ),
+        self::MESSAGE => array(
             'name' => 'message',
             'required' => false,
             'type' => 7,
-        ],
-    ];
+        ),
+    );
 
     /**
-     * Constructs new message container and clears its internal state.
+     * Constructs new message container and clears its internal state
      *
      * @return null
      */
@@ -66,7 +64,7 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones.
+     * Clears message values and sets default ones
      *
      * @return null
      */
@@ -81,7 +79,7 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors.
+     * Returns field descriptors
      *
      * @return array
      */
@@ -91,7 +89,7 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'registrationId' property.
+     * Sets value of 'registrationId' property
      *
      * @param int $value Property value
      *
@@ -103,7 +101,7 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'registrationId' property.
+     * Returns value of 'registrationId' property
      *
      * @return int
      */
@@ -113,7 +111,7 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'preKeyId' property.
+     * Sets value of 'preKeyId' property
      *
      * @param int $value Property value
      *
@@ -125,7 +123,7 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'preKeyId' property.
+     * Returns value of 'preKeyId' property
      *
      * @return int
      */
@@ -135,7 +133,7 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'signedPreKeyId' property.
+     * Sets value of 'signedPreKeyId' property
      *
      * @param int $value Property value
      *
@@ -147,7 +145,7 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'signedPreKeyId' property.
+     * Returns value of 'signedPreKeyId' property
      *
      * @return int
      */
@@ -157,7 +155,7 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'baseKey' property.
+     * Sets value of 'baseKey' property
      *
      * @param string $value Property value
      *
@@ -169,7 +167,7 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'baseKey' property.
+     * Returns value of 'baseKey' property
      *
      * @return string
      */
@@ -179,7 +177,7 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'identityKey' property.
+     * Sets value of 'identityKey' property
      *
      * @param string $value Property value
      *
@@ -191,7 +189,7 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'identityKey' property.
+     * Returns value of 'identityKey' property
      *
      * @return string
      */
@@ -201,7 +199,7 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'message' property.
+     * Sets value of 'message' property
      *
      * @param string $value Property value
      *
@@ -213,7 +211,7 @@ class PreKeyWhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'message' property.
+     * Returns value of 'message' property
      *
      * @return string
      */

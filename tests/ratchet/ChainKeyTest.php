@@ -1,16 +1,13 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\Tests\ratchet;
 
-use Libsignal\kdf\HKDF;
-use Libsignal\ratchet\ChainKey;
 use Libsignal\Tests\TestCase;
+use Libsignal\ratchet\ChainKey;
+use Libsignal\kdf\HKDF;
 
 class ChainKeyTest extends TestCase
 {
-    public function test_chainKeyDerivationV2(): void
+    public function test_chainKeyDerivationV2()
     {
         $seed = "\x8a\xb7\x2d\x6f\x4c\xc5\xac\x0d\x38\x7e\xaf\x46\x33\x78\xdd\xb2\x8e\xdd\x07\x38\x5b\x1c\xb0\x12\x50\xc7\x15\x98\x2e\x7a\xd4\x8f";
 

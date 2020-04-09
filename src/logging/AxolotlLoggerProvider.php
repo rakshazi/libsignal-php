@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\logging;
 
 class AxolotlLoggerProvider
@@ -13,7 +10,7 @@ class AxolotlLoggerProvider
         return self::$provider;
     }
 
-    public static function setProvider($provider): void // [AxolotlLogger provider]
+    public static function setProvider($provider) // [AxolotlLogger provider]
     {
         self::$provider = $provider;
     }

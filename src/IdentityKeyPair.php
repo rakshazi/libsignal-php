@@ -1,11 +1,8 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal;
 
-use Libsignal\ecc\Curve;
 use Localstorage\IdentityKeyPairStructure as Textsecure_IdentityKeyPairStructure;
+use Libsignal\ecc\Curve;
 
 class IdentityKeyPair
 {
@@ -14,10 +11,13 @@ class IdentityKeyPair
 
     public function __construct($publicKey = null, $privateKey = null, $serialized = null) // [IdentityKey publicKey, ECPrivateKey privateKey]
     {
-        if (null === $serialized) {
+        if ($serialized == null)
+        {
             $this->publicKey = $publicKey;
             $this->privateKey = $privateKey;
-        } else {
+        }
+        else
+        {
             $structure = new Textsecure_IdentityKeyPairStructure();
             $structure->parseFromString($serialized);
             $this->publicKey = new IdentityKey($structure->getPublicKey(), 0);

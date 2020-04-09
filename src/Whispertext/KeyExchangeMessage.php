@@ -1,56 +1,54 @@
 <?php
-
-declare(strict_types=1);
 /**
- * Auto generated from WhisperTextProtocol.proto at 2016-04-03 15:59:00.
+ * Auto generated from WhisperTextProtocol.proto at 2016-04-03 15:59:00
  *
  * whispertext package
  */
 
 namespace Whispertext {
 /**
- * KeyExchangeMessage message.
+ * KeyExchangeMessage message
  */
 class KeyExchangeMessage extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const ID = 1;
     const BASEKEY = 2;
     const RATCHETKEY = 3;
     const IDENTITYKEY = 4;
     const BASEKEYSIGNATURE = 5;
 
-    // @var array Field descriptors
-    protected static $fields = [
-        self::ID => [
+    /* @var array Field descriptors */
+    protected static $fields = array(
+        self::ID => array(
             'name' => 'id',
             'required' => false,
             'type' => 5,
-        ],
-        self::BASEKEY => [
+        ),
+        self::BASEKEY => array(
             'name' => 'baseKey',
             'required' => false,
             'type' => 7,
-        ],
-        self::RATCHETKEY => [
+        ),
+        self::RATCHETKEY => array(
             'name' => 'ratchetKey',
             'required' => false,
             'type' => 7,
-        ],
-        self::IDENTITYKEY => [
+        ),
+        self::IDENTITYKEY => array(
             'name' => 'identityKey',
             'required' => false,
             'type' => 7,
-        ],
-        self::BASEKEYSIGNATURE => [
+        ),
+        self::BASEKEYSIGNATURE => array(
             'name' => 'baseKeySignature',
             'required' => false,
             'type' => 7,
-        ],
-    ];
+        ),
+    );
 
     /**
-     * Constructs new message container and clears its internal state.
+     * Constructs new message container and clears its internal state
      *
      * @return null
      */
@@ -60,7 +58,7 @@ class KeyExchangeMessage extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones.
+     * Clears message values and sets default ones
      *
      * @return null
      */
@@ -74,7 +72,7 @@ class KeyExchangeMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors.
+     * Returns field descriptors
      *
      * @return array
      */
@@ -84,7 +82,7 @@ class KeyExchangeMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'id' property.
+     * Sets value of 'id' property
      *
      * @param int $value Property value
      *
@@ -96,7 +94,7 @@ class KeyExchangeMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'id' property.
+     * Returns value of 'id' property
      *
      * @return int
      */
@@ -106,7 +104,7 @@ class KeyExchangeMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'baseKey' property.
+     * Sets value of 'baseKey' property
      *
      * @param string $value Property value
      *
@@ -118,7 +116,7 @@ class KeyExchangeMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'baseKey' property.
+     * Returns value of 'baseKey' property
      *
      * @return string
      */
@@ -128,7 +126,7 @@ class KeyExchangeMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'ratchetKey' property.
+     * Sets value of 'ratchetKey' property
      *
      * @param string $value Property value
      *
@@ -140,7 +138,7 @@ class KeyExchangeMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'ratchetKey' property.
+     * Returns value of 'ratchetKey' property
      *
      * @return string
      */
@@ -150,7 +148,7 @@ class KeyExchangeMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'identityKey' property.
+     * Sets value of 'identityKey' property
      *
      * @param string $value Property value
      *
@@ -162,7 +160,7 @@ class KeyExchangeMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'identityKey' property.
+     * Returns value of 'identityKey' property
      *
      * @return string
      */
@@ -172,7 +170,7 @@ class KeyExchangeMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'baseKeySignature' property.
+     * Sets value of 'baseKeySignature' property
      *
      * @param string $value Property value
      *
@@ -184,7 +182,7 @@ class KeyExchangeMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'baseKeySignature' property.
+     * Returns value of 'baseKeySignature' property
      *
      * @return string
      */

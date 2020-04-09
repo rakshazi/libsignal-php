@@ -1,15 +1,11 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\protocol;
 
+use Libsignal\util\ByteUtil;
 use Libsignal\ecc\ECPublicKey;
 use Libsignal\exceptions\InvalidMessageException;
 use Libsignal\exceptions\LegacyMessageException;
-use Libsignal\util\ByteUtil;
 use Whispertext\SenderKeyDistributionMessage as Textsecure_SenderKeyDistributionMessage;
-
 //require_once("com/google/protobuf/ByteString.php");
 
 class SenderKeyDistributionMessage extends CiphertextMessage
@@ -22,7 +18,7 @@ class SenderKeyDistributionMessage extends CiphertextMessage
 
     public function __construct($id = null, $iteration = null, $chainKey = null, $signatureKey = null, $serialized = null) // [int id, int iteration, byte[] chainKey, ECPublicKey signatureKey]
     {
-        if (null === $serialized) {
+        if ($serialized == null) {
             $version = ByteUtil::intsToByteHighAndLow(self::CURRENT_VERSION, self::CURRENT_VERSION);
             $this->id = $id;
             $this->iteration = $iteration;
@@ -34,10 +30,10 @@ class SenderKeyDistributionMessage extends CiphertextMessage
             $proto_skdm->setIteration($iteration);
             $proto_skdm->setChainKey((string) $chainKey);
             $proto_skdm->setSigningKey((string) ($signatureKey->serialize()));
-            $this->serialized = \chr($version).$proto_skdm->serializeToString();
+            $this->serialized = chr($version).$proto_skdm->serializeToString();
         } else {
-            $parts = ByteUtil::split($serialized, 1, \strlen($serialized) - 1);
-            $version = \ord($parts[0][0]);
+            $parts = ByteUtil::split($serialized, 1, strlen($serialized) - 1);
+            $version = ord($parts[0][0]);
             $message = $parts[1];
             if (ByteUtil::highBitsToInt($version) < self::CURRENT_VERSION) {
                 throw new LegacyMessageException('Legacy message: ' + ByteUtil::highBitsToInt($version));
@@ -51,10 +47,10 @@ class SenderKeyDistributionMessage extends CiphertextMessage
             } catch (Exception $ex) {
                 throw new InvalidMessageException('Incomplete message.');
             }
-            if (null === $proto_skdm->getId()
-                || null === $proto_skdm->getIteration()
-                || null === $proto_skdm->getChainKey()
-                || null === $proto_skdm->getSigningKey()) {
+            if ($proto_skdm->getId() === null
+                || $proto_skdm->getIteration() === null
+                || $proto_skdm->getChainKey() === null
+                || $proto_skdm->getSigningKey() === null) {
                 throw new InvalidMessageException('Incomplete message.');
             }
             $this->serialized = $serialized;

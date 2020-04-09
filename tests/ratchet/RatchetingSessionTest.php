@@ -1,21 +1,21 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\Tests\ratchet;
 
+use Libsignal\Tests\TestCase;
 use Libsignal\ecc\Curve;
-use Libsignal\ecc\ECKeyPair;
+use Libsignal\ratchet\RootKey;
+use Libsignal\kdf\HKDF;
+use Libsignal\ratchet\ChainKey;
 use Libsignal\IdentityKey;
 use Libsignal\IdentityKeyPair;
 use Libsignal\ratchet\BobAxolotlParameters;
-use Libsignal\ratchet\RatchetingSession;
 use Libsignal\state\SessionState;
-use Libsignal\Tests\TestCase;
+use Libsignal\ratchet\RatchetingSession;
+use Libsignal\ecc\ECKeyPair;
 
 class RatchetingSessionTest extends TestCase
 {
-    public function test_ratchetingSessionAsBob(): void
+    public function test_ratchetingSessionAsBob()
     {
         $bobPublic = "\x05\x2c\xb4\x97\x76\xb8\x77\x02\x05\x74\x5a\x3a\x6e\x24\xf5\x79\xcd\xb4\xba\x7a\x89\x04\x10\x05\x92\x8e\xbb\xad\xc9\xc0\x5a\xd4\x58";
 

@@ -1,50 +1,48 @@
 <?php
-
-declare(strict_types=1);
 /**
- * Auto generated from WhisperTextProtocol.proto at 2016-04-03 15:59:00.
+ * Auto generated from WhisperTextProtocol.proto at 2016-04-03 15:59:00
  *
  * whispertext package
  */
 
 namespace Whispertext {
 /**
- * WhisperMessage message.
+ * WhisperMessage message
  */
 class WhisperMessage extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const RATCHETKEY = 1;
     const COUNTER = 2;
     const PREVIOUSCOUNTER = 3;
     const CIPHERTEXT = 4;
 
-    // @var array Field descriptors
-    protected static $fields = [
-        self::RATCHETKEY => [
+    /* @var array Field descriptors */
+    protected static $fields = array(
+        self::RATCHETKEY => array(
             'name' => 'ratchetKey',
             'required' => false,
             'type' => 7,
-        ],
-        self::COUNTER => [
+        ),
+        self::COUNTER => array(
             'name' => 'counter',
             'required' => false,
             'type' => 5,
-        ],
-        self::PREVIOUSCOUNTER => [
+        ),
+        self::PREVIOUSCOUNTER => array(
             'name' => 'previousCounter',
             'required' => false,
             'type' => 5,
-        ],
-        self::CIPHERTEXT => [
+        ),
+        self::CIPHERTEXT => array(
             'name' => 'ciphertext',
             'required' => false,
             'type' => 7,
-        ],
-    ];
+        ),
+    );
 
     /**
-     * Constructs new message container and clears its internal state.
+     * Constructs new message container and clears its internal state
      *
      * @return null
      */
@@ -54,7 +52,7 @@ class WhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones.
+     * Clears message values and sets default ones
      *
      * @return null
      */
@@ -67,7 +65,7 @@ class WhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors.
+     * Returns field descriptors
      *
      * @return array
      */
@@ -77,7 +75,7 @@ class WhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'ratchetKey' property.
+     * Sets value of 'ratchetKey' property
      *
      * @param string $value Property value
      *
@@ -89,7 +87,7 @@ class WhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'ratchetKey' property.
+     * Returns value of 'ratchetKey' property
      *
      * @return string
      */
@@ -99,7 +97,7 @@ class WhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'counter' property.
+     * Sets value of 'counter' property
      *
      * @param int $value Property value
      *
@@ -111,7 +109,7 @@ class WhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'counter' property.
+     * Returns value of 'counter' property
      *
      * @return int
      */
@@ -121,7 +119,7 @@ class WhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'previousCounter' property.
+     * Sets value of 'previousCounter' property
      *
      * @param int $value Property value
      *
@@ -133,7 +131,7 @@ class WhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'previousCounter' property.
+     * Returns value of 'previousCounter' property
      *
      * @return int
      */
@@ -143,7 +141,7 @@ class WhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'ciphertext' property.
+     * Sets value of 'ciphertext' property
      *
      * @param string $value Property value
      *
@@ -155,7 +153,7 @@ class WhisperMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'ciphertext' property.
+     * Returns value of 'ciphertext' property
      *
      * @return string
      */

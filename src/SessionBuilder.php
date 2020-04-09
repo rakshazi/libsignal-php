@@ -1,25 +1,34 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal;
 
 use Libsignal\ecc\Curve;
-use Libsignal\exceptions\InvalidKeyException;
-use Libsignal\exceptions\StaleKeyExchangeException;
-use Libsignal\exceptions\UntrustedIdentityException;
-use Libsignal\logging\Log;
+use Libsignal\ecc\ECKeyPair;
+use Libsignal\ecc\ECPublicKey;
 use Libsignal\protocol\CiphertextMessage;
 use Libsignal\protocol\KeyExchangeMessage;
 use Libsignal\protocol\PreKeyWhisperMessage;
+use Libsignal\state\AxolotlStore;
+use Libsignal\state\IdentityKeyStore;
+use Libsignal\state\PreKeyBundle;
+use Libsignal\state\PreKeyStore;
+use Libsignal\state\SessionRecord;
+use Libsignal\state\SessionState;
+use Libsignal\state\SessionStore;
+use Libsignal\state\SignedPreKeyStore;
+use Libsignal\util\KeyHelper;
+use Libsignal\exceptions\InvalidKeyException, Exception;
+use Libsignal\ratchet\SymmetricBuilder;
+use Libsignal\ratchet\RatchetingSession;
+use Libsignal\ratchet\BobAxolotlParameters;
+use Libsignal\exceptions\StaleKeyExchangeException;
+use Libsignal\exceptions\UntrustedIdentityException;
+use Libsignal\ratchet\AliceAxolotlParameters;
+use Libsignal\ratchet\SymmetricAxolotlParameters;
+use Libsignal\util\Medium;
+use Libsignal\logging\Log;
 use Libsignal\ratchet\AliceBuilder;
 use Libsignal\ratchet\BobBuilder;
-use Libsignal\ratchet\RatchetingSession;
-use Libsignal\ratchet\SymmetricBuilder;
-use Libsignal\state\PreKeyBundle;
-use Libsignal\state\SessionRecord;
-use Libsignal\util\KeyHelper;
-use Libsignal\util\Medium;
+
 
 class SessionBuilder
 {
@@ -32,12 +41,13 @@ class SessionBuilder
 
     public function __construct($sessionStore, $preKeyStore, $signedPreKeyStore, $identityKeyStore, $recepientId, $deviceId)
     {
-        $this->sessionStore = $sessionStore;
-        $this->preKeyStore = $preKeyStore;
-        $this->signedPreKeyStore = $signedPreKeyStore;
-        $this->identityKeyStore = $identityKeyStore;
-        $this->recipientId = $recepientId;
-        $this->deviceId = $deviceId;
+        $this->sessionStore         = $sessionStore;
+        $this->preKeyStore          = $preKeyStore;
+        $this->signedPreKeyStore    = $signedPreKeyStore;
+        $this->identityKeyStore     = $identityKeyStore;
+        $this->recipientId          = $recepientId;
+        $this->deviceId             = $deviceId;
+
     }
 
     public function process($sessionRecord, $message)
@@ -48,20 +58,26 @@ class SessionBuilder
         :type message: PreKeyWhisperMessage
         */
 
-        $messageVersion = $message->getMessageVersion();
-        $theirIdentityKey = $message->getIdentityKey();
-        $unsignedPreKeyId = null;
+        $messageVersion     = $message->getMessageVersion();
+        $theirIdentityKey   = $message->getIdentityKey();
+        $unsignedPreKeyId   = null;
 
-        if (!$this->identityKeyStore->isTrustedIdentity($this->recipientId, $theirIdentityKey)) {
+        if (!$this->identityKeyStore->isTrustedIdentity($this->recipientId, $theirIdentityKey))
+        {
             throw new  UntrustedIdentityException('Untrusted identity!!');
         }
 
-        if (2 === $messageVersion) {
+        if ($messageVersion == 2)
+        {
             $unsignedPreKeyId = $this->processV2($sessionRecord, $message);
-        } elseif (3 === $messageVersion) {
+        }
+        elseif ($messageVersion == 3)
+        {
             $unsignedPreKeyId = $this->processV3($sessionRecord, $message);
-        } else {
-            throw new \Exception('Unkown version '.$messageVersion);
+        }
+        else
+        {
+            throw new Exception('Unkown version '.$messageVersion);
         }
 
         $this->identityKeyStore->saveIdentity($this->recipientId, $theirIdentityKey);
@@ -76,18 +92,20 @@ class SessionBuilder
         :type message: PreKeyWhisperMessage
         */
 
-        if (null === $message->getPreKeyId()) {
+        if ($message->getPreKeyId() == null)
+        {
             throw new InvalidKeyIdException('V2 message requires one time prekey id!');
         }
 
         if (!$this->preKeyStore->containsPreKey($message->getPreKeyId()) &&
-            $this->sessionStore->containsSession($this->recipientId, $this->deviceId)) {
+            $this->sessionStore->containsSession($this->recipientId, $this->deviceId))
+        {
             Log::warn('v2', "We've already processed the prekey part of this V2 session, letting bundled message fall through...");
 
             return;
         }
 
-        $ourPreKey = $this->preKeyStore->loadPreKey($message->getPreKeyId())->getKeyPair();
+        $ourPreKey  = $this->preKeyStore->loadPreKey($message->getPreKeyId())->getKeyPair();
         $parameters = (new BobBuilder());
 
         $parameters->setOurIdentityKey($this->identityKeyStore->getIdentityKeyPair())
@@ -97,7 +115,8 @@ class SessionBuilder
                   ->setTheirIdentityKey($message->getIdentityKey())
                   ->setTheirBaseKey($message->getBaseKey());
 
-        if (!$sessionRecord->isFresh()) {
+        if (!$sessionRecord->isFresh())
+        {
             $sessionRecord->archiveCurrentState();
         }
 
@@ -107,8 +126,13 @@ class SessionBuilder
         $sessionRecord->getSessionState()->setRemoteRegistrationId($message->getRegistrationId());
         $sessionRecord->getSessionState()->setAliceBaseKey($message->getBaseKey()->serialize());
 
-        if (Medium::MAX_VALUE !== $message->getPreKeyId()) {
+        if ($message->getPreKeyId() != Medium::MAX_VALUE)
+        {
             return $message->getPreKeyId();
+        }
+        else
+        {
+            return;
         }
     }
 
@@ -120,14 +144,15 @@ class SessionBuilder
         :type message: PreKeyWhisperMessage
         :return:
         */
-        if ($sessionRecord->hasSessionState($message->getMessageVersion(), $message->getBaseKey()->serialize())) {
+        if ($sessionRecord->hasSessionState($message->getMessageVersion(), $message->getBaseKey()->serialize()))
+        {
             Log::warn('v3', "We've already setup a session for this V3 message, letting bundled message fall through...");
 
             return;
         }
 
-        $ourSignedPreKey = $this->signedPreKeyStore->loadSignedPreKey($message->getSignedPreKeyId())->getKeyPair();
-        $parameters = new BobBuilder();
+        $ourSignedPreKey    = $this->signedPreKeyStore->loadSignedPreKey($message->getSignedPreKeyId())->getKeyPair();
+        $parameters         = new BobBuilder();
 
         $parameters->setTheirBaseKey($message->getBaseKey())
             ->setTheirIdentityKey($message->getIdentityKey())
@@ -135,13 +160,17 @@ class SessionBuilder
             ->setOurSignedPreKey($ourSignedPreKey)
             ->setOurRatchetKey($ourSignedPreKey);
 
-        if (null !== $message->getPreKeyId()) {
+        if ($message->getPreKeyId() != null)
+        {
             $parameters->setOurOneTimePreKey($this->preKeyStore->loadPreKey($message->getPreKeyId())->getKeyPair());
-        } else {
+        }
+        else
+        {
             $parameters->setOurOneTimePreKey(null);
         }
 
-        if (!$sessionRecord->isFresh()) {
+        if (!$sessionRecord->isFresh())
+        {
             $sessionRecord->archiveCurrentState();
         }
 
@@ -150,35 +179,45 @@ class SessionBuilder
         $sessionRecord->getSessionState()->setRemoteRegistrationId($message->getRegistrationId());
         $sessionRecord->getSessionState()->setAliceBaseKey($message->getBaseKey()->serialize());
 
-        if (null !== $message->getPreKeyId() && Medium::MAX_VALUE !== $message->getPreKeyId()) {
+        if ($message->getPreKeyId() != null && $message->getPreKeyId() != Medium::MAX_VALUE)
+        {
             return $message->getPreKeyId();
+        }
+        else
+        {
+            return;
         }
     }
 
-    public function processPreKeyBundle($preKey): void
+    public function processPreKeyBundle($preKey)
     {
-        // :type preKey: PreKeyBundle
-        if (!$this->identityKeyStore->isTrustedIdentity($this->recipientId, $preKey->getIdentityKey())) {
+        /*
+        :type preKey: PreKeyBundle
+        */
+        if (!$this->identityKeyStore->isTrustedIdentity($this->recipientId, $preKey->getIdentityKey()))
+        {
             throw new  UntrustedIdentityException();
         }
-
-        if (null !== $preKey->getSignedPreKey() &&
+        
+	if ($preKey->getSignedPreKey() != null &&
             !Curve::verifySignature($preKey->getIdentityKey()->getPublicKey(),
                                       $preKey->getSignedPreKey()->serialize(),
-                                      $preKey->getSignedPreKeySignature())) {
+                                      $preKey->getSignedPreKeySignature()))
+        {
             throw new InvalidKeyException('Invalid signature on device key!');
         }
 
-        if (null === $preKey->getSignedPreKey() && null === $preKey->getPreKey()) {
+        if ($preKey->getSignedPreKey() == null && $preKey->getPreKey() == null)
+        {
             throw new InvalidKeyException('Both signed and unsigned prekeys are absent!');
         }
 
-        $supportsV3 = null !== $preKey->getSignedPreKey();
+        $supportsV3 = $preKey->getSignedPreKey() != null;
         $sessionRecord = $this->sessionStore->loadSession($this->recipientId, $this->deviceId);
         $ourBaseKey = Curve::generateKeyPair();
         $theirSignedPreKey = $supportsV3 ? $preKey->getSignedPreKey() : $preKey->getPreKey();
         $theirOneTimePreKey = $preKey->getPreKey();
-        $theirOneTimePreKeyId = null !== $theirOneTimePreKey ? $preKey->getPreKeyId() : null;
+        $theirOneTimePreKeyId = $theirOneTimePreKey != null ? $preKey->getPreKeyId() : null;
 
         $parameters = new AliceBuilder();
 
@@ -189,7 +228,8 @@ class SessionBuilder
                 ->setTheirRatchetKey($theirSignedPreKey)
                 ->setTheirOneTimePreKey($supportsV3 ? $theirOneTimePreKey : null);
 
-        if (!$sessionRecord->isFresh()) {
+        if (!$sessionRecord->isFresh())
+        {
             $sessionRecord->archiveCurrentState();
         }
 
@@ -207,15 +247,19 @@ class SessionBuilder
 
     public function processKeyExchangeMessage($keyExchangeMessage)
     {
-        if (!$this->identityKeyStore->isTrustedIdentity($this->recipientId, $keyExchangeMessage->getIdentityKey())) {
+        if (!$this->identityKeyStore->isTrustedIdentity($this->recipientId, $keyExchangeMessage->getIdentityKey()))
+        {
             throw new UntrustedIdentityException();
         }
 
         $responseMessage = null;
 
-        if ($keyExchangeMessage->isInitiate()) {
+        if ($keyExchangeMessage->isInitiate())
+        {
             $responseMessage = $this->processInitiate($keyExchangeMessage);
-        } else {
+        }
+        else
+        {
             $this->processResponse($keyExchangeMessage);
         }
 
@@ -230,17 +274,21 @@ class SessionBuilder
         if ($keyExchangeMessage->getVersion() >= 3 && !Curve::verifySignature(
                 $keyExchangeMessage->getIdentityKey()->getPublicKey(),
                 $keyExchangeMessage->getBaseKey()->serialize(),
-                $keyExchangeMessage->getBaseKeySignature())) {
+                $keyExchangeMessage->getBaseKeySignature()))
+        {
             throw new InvalidKeyException('Bad signature!');
         }
 
         $builder = new SymmetricBuilder();
 
-        if (!$sessionRecord->getSessionState()->hasPendingKeyExchange()) {
+        if (!$sessionRecord->getSessionState()->hasPendingKeyExchange())
+        {
             $builder->setOurIdentityKey($this->identityKeyStore->getIdentityKeyPair())
                 ->setOurBaseKey(Curve::generateKeyPair())
                 ->setOurRatchetKey(Curve::generateKeyPair());
-        } else {
+        } 
+        else
+        {
             $builder->setOurIdentityKey($sessionRecord->getSessionState()->getPendingKeyExchangeIdentityKey())
                 ->setOurBaseKey($sessionRecord->getSessionState()->getPendingKeyExchangeBaseKey())
                 ->setOurRatchetKey($sessionRecord->getSessionState()->getPendingKeyExchangeRatchetKey());
@@ -253,11 +301,12 @@ class SessionBuilder
 
         $parameters = $builder->create();
 
-        if (!$sessionRecord->isFresh()) {
+        if (!$sessionRecord->isFresh())
+        {
             $sessionRecord->archiveCurrentState();
         }
 
-        RatchetingSession::initializeSession($sessionRecord->getSessionState(), \min($keyExchangeMessage->getMaxVersion(), CiphertextMessage::CURRENT_VERSION), $parameters);
+        RatchetingSession::initializeSession($sessionRecord->getSessionState(), min($keyExchangeMessage->getMaxVersion(), CiphertextMessage::CURRENT_VERSION), $parameters);
 
         $this->sessionStore->storeSession($this->recipientId, $this->deviceId, $sessionRecord);
         $this->identityKeyStore->saveIdentity($this->recipientId, $keyExchangeMessage->getIdentityKey());
@@ -271,7 +320,7 @@ class SessionBuilder
                                   $parameters->getOurIdentityKey()->getPublicKey());
     }
 
-    public function processResponse($keyExchangeMessage): void
+    public function processResponse($keyExchangeMessage)
     {
         $sessionRecord = $this->sessionStore->loadSession($this->recipientId, $this->deviceId);
 
@@ -279,13 +328,13 @@ class SessionBuilder
         $hasPendingKeyExchange = $sessionState->hasPendingKeyExchange();
         $isSimultaneousInitiateResponse = $keyExchangeMessage->isResponseForSimultaneousInitiate();
 
-        if (!$hasPendingKeyExchange || $sessionState->getPendingKeyExchangeSequence() !== $keyExchangeMessage->getSequence()) {
+        if (!$hasPendingKeyExchange || $sessionState->getPendingKeyExchangeSequence() != $keyExchangeMessage->getSequence()) {
             Log::warn('procResponse', 'No matching sequence for response. Is simultaneous initiate response:'.($isSimultaneousInitiateResponse ? 'true' : 'false'));
             if (!$isSimultaneousInitiateResponse) {
                 throw new StaleKeyExchangeException();
+            } else {
+                return;
             }
-
-            return;
         }
 
         $parameters = new SymmetricBuilder();
@@ -302,7 +351,7 @@ class SessionBuilder
         }
 
         RatchetingSession::initializeSession($sessionRecord->getSessionState(),
-                                        \min($keyExchangeMessage->getMaxVersion(), CiphertextMessage::CURRENT_VERSION),
+                                        min($keyExchangeMessage->getMaxVersion(), CiphertextMessage::CURRENT_VERSION),
                                         $parameters->create());
 
         if ($sessionRecord->getSessionState()->getSessionVersion() >= 3 && !Curve::verifySignature(
@@ -319,7 +368,7 @@ class SessionBuilder
     public function processInitKeyExchangeMessage()
     {
         try {
-            $sequence = 1; //KeyHelper::getRandomSequence(65534) + 1;
+            $sequence = 1;//KeyHelper::getRandomSequence(65534) + 1;
             $flags = KeyExchangeMessage::INITIATE_FLAG;
             $baseKey = Curve::generateKeyPair();
             $ratchetKey = Curve::generateKeyPair();
@@ -333,7 +382,7 @@ class SessionBuilder
             return new KeyExchangeMessage(2, $sequence, $flags, $baseKey->getPublicKey(), $baseKeySignature,
                                       $ratchetKey->getPublicKey(), $identityKey->getPublicKey());
         } catch (InvalidKeyException $ex) {
-            throw new \Exception($ex->getMessage());
+            throw new Exception($ex->getMessage());
         }
     }
 }

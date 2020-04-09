@@ -1,19 +1,17 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\ratchet;
 
 use Libsignal\ecc\Curve;
 use Libsignal\ecc\ECKeyPair;
 use Libsignal\ecc\ECPublicKey;
-use Libsignal\kdf\HKDF;
-use Libsignal\state\SessionState;
 use Libsignal\util\ByteUtil;
+use Libsignal\kdf\HKDF;
+use Libsignal\exceptions\InvalidKeyException;
+use Libsignal\state\SessionState;
 
 class RatchetingSession
 {
-    public static function initializeSession(SessionState $sessionState, $sessionVersion, $parameters): void
+    public static function initializeSession(SessionState $sessionState, $sessionVersion, $parameters)
     {
         /*
         :type sessionState: SessionState
@@ -42,7 +40,7 @@ class RatchetingSession
         }
     }
 
-    public static function initializeSessionAsAlice($sessionState, $sessionVersion, $parameters): void
+    public static function initializeSessionAsAlice($sessionState, $sessionVersion, $parameters)
     {
         /*
         :type sessionState: SessionState
@@ -56,7 +54,8 @@ class RatchetingSession
         $sendingRatchetKey = Curve::generateKeyPair();
 
         $secrets = '';
-        if ($sessionVersion >= 3) {
+        if ($sessionVersion >= 3)
+        {
             $secrets .= self::getDiscontinuityBytes();
         }
 
@@ -66,7 +65,8 @@ class RatchetingSession
         $secrets .= Curve::calculateAgreement($parameters->getTheirIdentityKey()->getPublicKey(), $parameters->getOurBaseKey()->getPrivateKey());
         $secrets .= Curve::calculateAgreement($parameters->getTheirSignedPreKey(), $parameters->getOurBaseKey()->getPrivateKey());
 
-        if ($sessionVersion >= 3 && null !== $parameters->getTheirOneTimePreKey()) {
+        if ($sessionVersion >= 3 && $parameters->getTheirOneTimePreKey() != null)
+        {
             $secrets .= Curve::calculateAgreement($parameters->getTheirOneTimePreKey(), $parameters->getOurBaseKey()->getPrivateKey());
         }
 
@@ -78,7 +78,7 @@ class RatchetingSession
         $sessionState->setRootKey($sendingChain[0]);
     }
 
-    public static function initializeSessionAsBob($sessionState, $sessionVersion, $parameters): void
+    public static function initializeSessionAsBob($sessionState, $sessionVersion, $parameters)
     {
         /*
         :type sessionState: SessionState
@@ -92,7 +92,8 @@ class RatchetingSession
 
         $secrets = '';
 
-        if ($sessionVersion >= 3) {
+        if ($sessionVersion >= 3)
+        {
             $secrets .= self::getDiscontinuityBytes();
         }
 
@@ -100,7 +101,8 @@ class RatchetingSession
         $secrets .= Curve::calculateAgreement($parameters->getTheirBaseKey(), $parameters->getOurIdentityKey()->getPrivateKey());
         $secrets .= Curve::calculateAgreement($parameters->getTheirBaseKey(), $parameters->getOurSignedPreKey()->getPrivateKey());
 
-        if ($sessionVersion >= 3 && null !== $parameters->getOurOneTimePreKey()) {
+        if ($sessionVersion >= 3 && $parameters->getOurOneTimePreKey() != null)
+        {
             $secrets .= Curve::calculateAgreement($parameters->getTheirBaseKey(), $parameters->getOurOneTimePreKey()->getPrivateKey());
         }
 
@@ -111,7 +113,7 @@ class RatchetingSession
 
     public static function getDiscontinuityBytes()
     {
-        return \str_repeat("\xFF", 32);
+        return str_repeat("\xFF", 32);
     }
 
     public static function calculateDerivedKeys($sessionVersion, $masterSecret)
@@ -130,7 +132,7 @@ class RatchetingSession
         :type ourKey: ECPublicKey
         :type theirKey: ECPublicKey
         */
-        return -1 === $ourKey->compareTo($theirKey);
+        return $ourKey->compareTo($theirKey)  == -1;
     }
 }
 

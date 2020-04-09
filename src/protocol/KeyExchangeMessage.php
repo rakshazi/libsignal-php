@@ -1,17 +1,14 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\protocol;
 
-use Libsignal\ecc\Curve;
 use Libsignal\ecc\ECPublicKey;
-use Libsignal\exceptions\InvalidKeyException;
-use Libsignal\exceptions\InvalidMessageException;
-use Libsignal\exceptions\InvalidVersionException;
-use Libsignal\exceptions\LegacyMessageException;
-use Libsignal\IdentityKey;
 use Libsignal\util\ByteUtil;
+use Libsignal\ecc\Curve;
+use Libsignal\IdentityKey;
+use Libsignal\exceptions\InvalidMessageException;
+use Libsignal\exceptions\LegacyMessageException;
+use Libsignal\exceptions\InvalidVersionException;
+use Libsignal\exceptions\InvalidKeyException;
 use Whispertext\KeyExchangeMessage as Textsecure_KeyExchangeMessage;
 
 class KeyExchangeMessage
@@ -45,7 +42,7 @@ class KeyExchangeMessage
     :type identityKey: IdentityKey
     :type serialized: bytearray
     */
-        if (null === $serialized) {
+        if ($serialized == null) {
             $this->supportedVersion = CiphertextMessage::CURRENT_VERSION;
             $this->version = $messageVersion;
             $this->sequence = $sequence;
@@ -56,7 +53,7 @@ class KeyExchangeMessage
             $this->identityKey = $identityKey;
 
             $version = ByteUtil::intsToByteHighAndLow($this->version, $this->supportedVersion);
-            $keyExchangeMessage = new Textsecure_KeyExchangeMessage();
+            $keyExchangeMessage = new Textsecure_KeyExchangeMessage;
             $keyExchangeMessage->setId(($this->sequence << 5) | $this->flags);
             $keyExchangeMessage->setBaseKey($baseKey->serialize());
             $keyExchangeMessage->setRatchetKey($ratchetKey->serialize());
@@ -66,12 +63,12 @@ class KeyExchangeMessage
                 $keyExchangeMessage->setBaseKeySignature($baseKeySignature);
             }
 
-            $this->serialized = ByteUtil::combine([\chr((int) $version), $keyExchangeMessage->serializeToString()]);
+            $this->serialized = ByteUtil::combine([chr((int) $version), $keyExchangeMessage->serializeToString()]);
         } else {
             try {
-                $parts = ByteUtil::split($serialized, 1, \strlen($serialized) - 1);
-                $this->version = ByteUtil::highBitsToInt(\ord($parts[0][0]));
-                $this->supportedVersion = ByteUtil::lowBitsToInt(\ord($parts[0][0]));
+                $parts = ByteUtil::split($serialized, 1, strlen($serialized) - 1);
+                $this->version = ByteUtil::highBitsToInt(ord($parts[0][0]));
+                $this->supportedVersion = ByteUtil::lowBitsToInt(ord($parts[0][0]));
                 if ($this->version <= CiphertextMessage::UNSUPPORTED_VERSION) {
                     throw new LegacyMessageException('Unsupported legacy version: '.$this->version);
                 }
@@ -81,9 +78,9 @@ class KeyExchangeMessage
                 $message = new Textsecure_KeyExchangeMessage();
                 $message->parseFromString($parts[1]);
 
-                if (null === $message->getId() || null === $message->getBaseKey() ||
-                   null === $message->getRatchetKey() || null === $message->getIdentityKey() ||
-                    ($this->version >= 3 && null === $message->getBaseKeySignature())) {
+                if ($message->getId() == null || $message->getBaseKey() == null ||
+                   $message->getRatchetKey() == null || $message->getIdentityKey() == null ||
+                    ($this->version >= 3 && $message->getBaseKeySignature() == null)) {
                     throw new InvalidMessageException('Some required fields are missing!');
                 }
 
@@ -137,17 +134,17 @@ class KeyExchangeMessage
 
     public function isResponse()
     {
-        return 0 !== ($this->flags & self::RESPONSE_FLAG);
+        return ($this->flags & self::RESPONSE_FLAG) != 0;
     }
 
     public function isInitiate()
     {
-        return 0 !== ($this->flags & self::INITIATE_FLAG);
+        return ($this->flags & self::INITIATE_FLAG) != 0;
     }
 
     public function isResponseForSimultaneousInitiate()
     {
-        return 0 !== ($this->flags & self::SIMULTANEOUS_INITIATE_FLAG);
+        return ($this->flags & self::SIMULTANEOUS_INITIATE_FLAG) != 0;
     }
 
     public function getFlags()

@@ -1,50 +1,48 @@
 <?php
-
-declare(strict_types=1);
 /**
- * Auto generated from WhisperTextProtocol.proto at 2016-04-03 15:59:00.
+ * Auto generated from WhisperTextProtocol.proto at 2016-04-03 15:59:00
  *
  * whispertext package
  */
 
 namespace Whispertext {
 /**
- * SenderKeyDistributionMessage message.
+ * SenderKeyDistributionMessage message
  */
 class SenderKeyDistributionMessage extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const ID = 1;
     const ITERATION = 2;
     const CHAINKEY = 3;
     const SIGNINGKEY = 4;
 
-    // @var array Field descriptors
-    protected static $fields = [
-        self::ID => [
+    /* @var array Field descriptors */
+    protected static $fields = array(
+        self::ID => array(
             'name' => 'id',
             'required' => false,
             'type' => 5,
-        ],
-        self::ITERATION => [
+        ),
+        self::ITERATION => array(
             'name' => 'iteration',
             'required' => false,
             'type' => 5,
-        ],
-        self::CHAINKEY => [
+        ),
+        self::CHAINKEY => array(
             'name' => 'chainKey',
             'required' => false,
             'type' => 7,
-        ],
-        self::SIGNINGKEY => [
+        ),
+        self::SIGNINGKEY => array(
             'name' => 'signingKey',
             'required' => false,
             'type' => 7,
-        ],
-    ];
+        ),
+    );
 
     /**
-     * Constructs new message container and clears its internal state.
+     * Constructs new message container and clears its internal state
      *
      * @return null
      */
@@ -54,7 +52,7 @@ class SenderKeyDistributionMessage extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones.
+     * Clears message values and sets default ones
      *
      * @return null
      */
@@ -67,7 +65,7 @@ class SenderKeyDistributionMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns field descriptors.
+     * Returns field descriptors
      *
      * @return array
      */
@@ -77,7 +75,7 @@ class SenderKeyDistributionMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'id' property.
+     * Sets value of 'id' property
      *
      * @param int $value Property value
      *
@@ -89,7 +87,7 @@ class SenderKeyDistributionMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'id' property.
+     * Returns value of 'id' property
      *
      * @return int
      */
@@ -99,7 +97,7 @@ class SenderKeyDistributionMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'iteration' property.
+     * Sets value of 'iteration' property
      *
      * @param int $value Property value
      *
@@ -111,7 +109,7 @@ class SenderKeyDistributionMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'iteration' property.
+     * Returns value of 'iteration' property
      *
      * @return int
      */
@@ -121,7 +119,7 @@ class SenderKeyDistributionMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'chainKey' property.
+     * Sets value of 'chainKey' property
      *
      * @param string $value Property value
      *
@@ -133,7 +131,7 @@ class SenderKeyDistributionMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'chainKey' property.
+     * Returns value of 'chainKey' property
      *
      * @return string
      */
@@ -143,7 +141,7 @@ class SenderKeyDistributionMessage extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'signingKey' property.
+     * Sets value of 'signingKey' property
      *
      * @param string $value Property value
      *
@@ -155,7 +153,7 @@ class SenderKeyDistributionMessage extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'signingKey' property.
+     * Returns value of 'signingKey' property
      *
      * @return string
      */

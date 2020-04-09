@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\util;
 
 class ByteUtil
@@ -19,10 +16,10 @@ class ByteUtil
     public static function split($input, $firstLength, $secondLength, $thirdLength = null) // [byte[] input, int firstLength, int secondLength]
     {
         $parts = [];
-        $parts[] = \substr($input, 0, $firstLength);
-        $parts[] = \substr($input, $firstLength, $secondLength);
-        if (\is_int($thirdLength)) {
-            $parts[] = \substr($input, $firstLength + $secondLength, $thirdLength);
+        $parts[] = substr($input, 0, $firstLength);
+        $parts[] = substr($input, $firstLength, $secondLength);
+        if (is_int($thirdLength)) {
+            $parts[] = substr($input, $firstLength + $secondLength, $thirdLength);
         }
 
         return $parts;
@@ -30,26 +27,26 @@ class ByteUtil
 
     public static function trim($input, $length) // [byte[] input, int length]
     {
-        return \substr($input, 0, $length);
+        return substr($input, 0, $length);
     }
 
     public static function copyFrom($input) // [byte[] input]
     {
         $output = [];
-        foreach (\range(0, (\count($output) /*from: output.length*/ + 0)) as $_upto) {
+        foreach (range(0, (count($output) /*from: output.length*/ + 0)) as $_upto) {
             $output[$_upto] = $input[$_upto - (0) + 0];
-        } // from: System.arraycopy(input, 0, output, 0, output.length)
+        } /* from: System.arraycopy(input, 0, output, 0, output.length) */;
 
         return $output;
     }
 
     public static function intsToByteHighAndLow($highValue, $lowValue) // [int highValue, int lowValue]
     {
-        if (\is_string($highValue)) {
-            $highValue = \ord($highValue[0]);
+        if (is_string($highValue)) {
+            $highValue = ord($highValue[0]);
         }
-        if (\is_string($lowValue)) {
-            $lowValue = \ord($lowValue[0]);
+        if (is_string($lowValue)) {
+            $lowValue = ord($lowValue[0]);
         }
 
         return ((($highValue << 4) | $lowValue)) & 0xFF;
@@ -57,8 +54,8 @@ class ByteUtil
 
     public static function highBitsToInt($value) // [byte value]
     {
-        if (\is_string($value)) {
-            $value = \ord($value[0]);
+        if (is_string($value)) {
+            $value = ord($value[0]);
         }
 
         return (($value & 0xFF)) >> 4;
@@ -66,8 +63,8 @@ class ByteUtil
 
     public static function lowBitsToInt($value) // [byte value]
     {
-        if (\is_string($value)) {
-            $value = \ord($value[0]);
+        if (is_string($value)) {
+            $value = ord($value[0]);
         }
 
         return $value & 0xF;
@@ -75,8 +72,8 @@ class ByteUtil
 
     public static function highBitsToMedium($value) // [int value]
     {
-        if (\is_string($value)) {
-            $value = \ord($value[0]);
+        if (is_string($value)) {
+            $value = ord($value[0]);
         }
 
         return $value >> 12;
@@ -138,7 +135,7 @@ class ByteUtil
 
     public static function intToByteArray_21c8b6ca(&$bytes, $offset, $value) // [byte[] bytes, int offset, int value]
     {
-        $bytes = \unpack('C*', \pack('L', $value));
+        $bytes = unpack('C*', pack('L', $value));
         //$bytes[$offset + 3] = $value;
         //$bytes[$offset + 2] = (($value >> 8));
         //$bytes[$offset + 1] = (($value >> 16));

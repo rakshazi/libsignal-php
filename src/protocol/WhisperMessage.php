@@ -1,15 +1,17 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\protocol;
 
-use Illuminate\Support\Facades\Log;
-use Libsignal\ecc\Curve;
+
+use Libsignal\protocol\CiphertextMessage;
+use Libsignal\ecc\ECPublicKey;
+use Libsignal\util\ByteUtil;
 use Libsignal\exceptions\InvalidMessageException;
 use Libsignal\exceptions\LegacyMessageException;
-use Libsignal\util\ByteUtil;
 use Whispertext\WhisperMessage as Textsecure_WhisperMessage;
+use Libsignal\ecc\Curve;
+
+
+use Illuminate\Support\Facades\Log;
 
 class WhisperMessage extends CiphertextMessage
 {
@@ -31,7 +33,8 @@ class WhisperMessage extends CiphertextMessage
                                     $receiverIdentityKey = null,
                                     $serialized = null)
     {
-        if (null === $serialized) {
+        if ($serialized == null)
+        {
             $version = ByteUtil::intsToByteHighAndLow($messageVersion, self::CURRENT_VERSION);
             $proto_message = new Textsecure_WhisperMessage();
             $proto_message->setRatchetKey((string) ($senderRatchetKey->serialize()));
@@ -40,47 +43,58 @@ class WhisperMessage extends CiphertextMessage
             $proto_message->setCiphertext($cipherText);
             $message = $proto_message->serializeToString();
 
-            $mac = $this->getMac($messageVersion, $senderIdentityKey, $receiverIdentityKey, $macKey, ByteUtil::combine([\chr((int) $version), $message]));
+            $mac = $this->getMac($messageVersion, $senderIdentityKey, $receiverIdentityKey, $macKey, ByteUtil::combine([chr((int) $version), $message]));
 
-            $this->serialized = ByteUtil::combine([\chr((int) $version), $message, $mac]);
+            $this->serialized       = ByteUtil::combine([chr((int) $version), $message, $mac]);
             $this->senderRatchetKey = $senderRatchetKey;
-            $this->counter = $counter;
-            $this->previousCounter = $previousCounter;
-            $this->cipherText = $cipherText;
-            $this->messageVersion = $messageVersion;
-        } else {
-            try {
-                $messageParts = ByteUtil::split($serialized, 1, \strlen($serialized) - 1 - self::MAC_LENGTH, self::MAC_LENGTH);
-                $version = \ord($messageParts[0][0]);
-                $message = $messageParts[1];
-                $mac = $messageParts[2];
+            $this->counter          = $counter;
+            $this->previousCounter  = $previousCounter;
+            $this->cipherText       = $cipherText;
+            $this->messageVersion   = $messageVersion;
+        }
+        else
+        {
+            try
+            {
+                $messageParts   = ByteUtil::split($serialized, 1, strlen($serialized) - 1 - self::MAC_LENGTH, self::MAC_LENGTH);
+                $version        = ord($messageParts[0][0]);
+                $message        = $messageParts[1];
+                $mac            = $messageParts[2];
 
-                if (ByteUtil::highBitsToInt($version) <= self::UNSUPPORTED_VERSION) {
+                if (ByteUtil::highBitsToInt($version) <= self::UNSUPPORTED_VERSION)
+                {
                     throw new LegacyMessageException('Legacy message '.ByteUtil::highBitsToInt($version));
                 }
-                if (ByteUtil::highBitsToInt($version) > self::CURRENT_VERSION) {
+                if (ByteUtil::highBitsToInt($version) > self::CURRENT_VERSION)
+                {
                     throw new InvalidMessageException('Unknown version: '.ByteUtil::highBitsToInt($version));
                 }
 
                 $proto_message = new Textsecure_WhisperMessage();
 
-                try {
+                try
+                {
                     $proto_message->parseFromString($message);
-                } catch (Exception $ex) {
+                }
+                catch (Exception $ex)
+                {
                     throw new InvalidMessageException('Incomplete message.');
                 }
 
-                if (null === $proto_message->getCiphertext() || null === $proto_message->getCounter() || null === $proto_message->getRatchetKey()) {
+                if ($proto_message->getCiphertext() === null || $proto_message->getCounter() === null || $proto_message->getRatchetKey() == null)
+                {
                     throw new InvalidMessageException('Incomplete message.');
                 }
 
-                $this->serialized = $serialized;
+                $this->serialized       = $serialized;
                 $this->senderRatchetKey = Curve::decodePoint($proto_message->getRatchetKey(), 0);
-                $this->messageVersion = ByteUtil::highBitsToInt($version);
-                $this->counter = $proto_message->getCounter();
-                $this->previousCounter = $proto_message->getPreviousCounter();
-                $this->cipherText = $proto_message->getCiphertext();
-            } catch (Exception $ex) {
+                $this->messageVersion   = ByteUtil::highBitsToInt($version);
+                $this->counter          = $proto_message->getCounter();
+                $this->previousCounter  = $proto_message->getPreviousCounter();
+                $this->cipherText       = $proto_message->getCiphertext();
+            }
+            catch (Exception $ex)
+            {
                 throw new InvalidMessageException($ex->getMessage());
             }
         }
@@ -118,18 +132,19 @@ class WhisperMessage extends CiphertextMessage
 
     public function isLegacy($message)
     {
-        return null !== $message && \strlen($message) >= 1 && ByteUtil::highBitsToInt($message[0]) <= self::UNSUPPORTED_VERSION;
+        return $message != null &&  strlen($message) >= 1 && ByteUtil::highBitsToInt($message[0]) <= self::UNSUPPORTED_VERSION;
     }
 
-    public function verifyMac($messageVersion, $senderIdentityKey, $receiverIdentityKey, $macKey): void
+    public function verifyMac($messageVersion, $senderIdentityKey, $receiverIdentityKey, $macKey)
     {
-        $parts = ByteUtil::split($this->serialized, \strlen($this->serialized) - self::MAC_LENGTH, self::MAC_LENGTH);
-        $ourMac = $this->getMac($messageVersion, $senderIdentityKey, $receiverIdentityKey, $macKey, $parts[0]);
-        $theirMac = $parts[1];
-
-        // Log::info(json_encode(["blog", "ourMac"=>base64_encode($ourMac),"theirMac"=>base64_encode($theirMac)]));
-
-        if (0 !== \strcmp($ourMac, $theirMac)) {
+        $parts      = ByteUtil::split($this->serialized, strlen($this->serialized) - self::MAC_LENGTH, self::MAC_LENGTH);
+        $ourMac     = $this->getMac($messageVersion, $senderIdentityKey, $receiverIdentityKey, $macKey, $parts[0]);
+        $theirMac   = $parts[1];
+        
+	// Log::info(json_encode(["blog", "ourMac"=>base64_encode($ourMac),"theirMac"=>base64_encode($theirMac)]));
+        
+	if (strcmp($ourMac, $theirMac) != 0)
+        {
             // @TODO: undo
             throw new InvalidMessageException('Bad Mac!');
         }
@@ -137,16 +152,17 @@ class WhisperMessage extends CiphertextMessage
 
     private function getMac($messageVersion, $senderIdentityKey, $receiverIdentityKey, $macKey, $serialized)
     {
-        $mac = \hash_init('sha256', HASH_HMAC, $macKey);
+        $mac = hash_init('sha256', HASH_HMAC, $macKey);
 
         // Log::info(json_encode(["blog", "version" => $messageVersion, "senderIdentityKey" => base64_encode($senderIdentityKey->getPublicKey()->serialize()), "receiverIdentityKey" => base64_encode($receiverIdentityKey->getPublicKey()->serialize())]));
 
-        if ($messageVersion >= 3) {
-            \hash_update($mac, $senderIdentityKey->getPublicKey()->serialize());
-            \hash_update($mac, $receiverIdentityKey->getPublicKey()->serialize());
+        if ($messageVersion >= 3)
+        {
+            hash_update($mac, $senderIdentityKey->getPublicKey()->serialize());
+            hash_update($mac, $receiverIdentityKey->getPublicKey()->serialize());
         }
-        \hash_update($mac, $serialized);
-        $result = \hash_final($mac, true);
+        hash_update($mac, $serialized);
+        $result = hash_final($mac, true);
 
         // Log::info(json_encode(["blog", "ourMac"=>base64_encode(ByteUtil::trim($result, self::MAC_LENGTH))]));
 

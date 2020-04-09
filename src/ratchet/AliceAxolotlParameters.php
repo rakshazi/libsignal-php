@@ -1,13 +1,10 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\ratchet;
 
-use Libsignal\ecc\ECKeyPair;
-use Libsignal\ecc\ECPublicKey;
 use Libsignal\IdentityKey;
 use Libsignal\IdentityKeyPair;
+use Libsignal\ecc\ECKeyPair;
+use Libsignal\ecc\ECPublicKey;
 
 class AliceAxolotlParameters
 {
@@ -26,9 +23,9 @@ class AliceAxolotlParameters
         $this->theirSignedPreKey = $theirSignedPreKey;
         $this->theirRatchetKey = $theirRatchetKey;
         $this->theirOneTimePreKey = $theirOneTimePreKey;
-        if ((null === $ourIdentityKey) || (null === $ourBaseKey)
-            || (null === $theirIdentityKey) || (null === $theirSignedPreKey) || (null === $theirRatchetKey)) {
-            throw new \Exception('Null values!');
+        if (($ourIdentityKey == null) || ($ourBaseKey == null)
+            || ($theirIdentityKey == null) || ($theirSignedPreKey == null) || ($theirRatchetKey == null)) {
+            throw new Exception('Null values!');
         }
     }
 
@@ -77,7 +74,7 @@ class AliceBuilder
     protected $theirRatchetKey;
     protected $theirOneTimePreKey;
 
-    public function AliceBuilder(): void
+    public function AliceBuilder()
     {
         $this->ourIdentityKey = null;
         $this->ourBaseKey = null;

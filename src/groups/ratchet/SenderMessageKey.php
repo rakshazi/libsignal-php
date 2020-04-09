@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\groups\ratchet;
 
 use Libsignal\kdf\HKDFv3;
@@ -18,7 +15,7 @@ class SenderMessageKey
     {
         $hkdf = new HKDFv3();
         $derivative = $hkdf->deriveSecrets($seed, 'WhisperGroup', 48);
-        // match: 21c8b6ca
+            /* match: 21c8b6ca */
         $parts = ByteUtil::split($derivative, 16, 32);
         $this->iteration = $iteration;
         $this->seed = $seed;

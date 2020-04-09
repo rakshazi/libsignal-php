@@ -1,23 +1,20 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\state;
 
-use Libsignal\ecc\Curve;
-use Libsignal\ecc\ECKeyPair;
 use Libsignal\IdentityKey;
-use Libsignal\IdentityKeyPair;
-use Libsignal\kdf\HKDF;
-use Libsignal\ratchet\ChainKey;
-use Libsignal\ratchet\MessageKeys;
-use Libsignal\ratchet\RootKey;
 use Localstorage\SessionStructure as Textsecure_SessionStructure;
 use Localstorage\SessionStructure\Chain as Textsecure_SessionStructure_Chain;
 use Localstorage\SessionStructure\Chain\ChainKey as Textsecure_SessionStructure_Chain_ChainKey;
 use Localstorage\SessionStructure\Chain\MessageKey as Textsecure_SessionStructure_Chain_MessageKey;
-use Localstorage\SessionStructure\PendingKeyExchange as Textsecure_SessionStructure_PendingKeyExchange;
 use Localstorage\SessionStructure\PendingPreKey as Textsecure_SessionStructure_PendingPreKey;
+use Localstorage\SessionStructure\PendingKeyExchange as Textsecure_SessionStructure_PendingKeyExchange;
+use Libsignal\ecc\Curve;
+use Libsignal\ecc\ECKeyPair;
+use Libsignal\IdentityKeyPair;
+use Libsignal\ratchet\ChainKey;
+use Libsignal\kdf\HKDF;
+use Libsignal\ratchet\RootKey;
+use Libsignal\ratchet\MessageKeys;
 
 class SessionState
 {
@@ -25,12 +22,17 @@ class SessionState
 
     public function __construct($session = null)
     {
-        if (null === $session) {
-            $this->sessionStructure = new Textsecure_SessionStructure();
-        } elseif ($session instanceof self) {
-            $this->sessionStructure = new Textsecure_SessionStructure();
+        if ($session == null)
+        {
+            $this->sessionStructure = new Textsecure_SessionStructure;
+        }
+        elseif ($session instanceof self)
+        {
+            $this->sessionStructure = new Textsecure_SessionStructure;
             $this->sessionStructure->parseFromString($session->getStructure()->serializeToString());
-        } else {
+        }
+        else
+        {
             $this->sessionStructure = $session;
         }
     }
@@ -45,12 +47,12 @@ class SessionState
         return $this->sessionStructure->getAliceBaseKey();
     }
 
-    public function setAliceBaseKey($aliceBaseKey): void
+    public function setAliceBaseKey($aliceBaseKey)
     {
         $this->sessionStructure->setAliceBaseKey($aliceBaseKey);
     }
 
-    public function setSessionVersion($version): void
+    public function setSessionVersion($version)
     {
         $this->sessionStructure->setSessionVersion($version);
     }
@@ -59,22 +61,22 @@ class SessionState
     {
         $sessionVersion = $this->sessionStructure->getSessionVersion();
 
-        return 0 === $sessionVersion ? 2 : $sessionVersion;
+        return $sessionVersion == 0 ? 2 : $sessionVersion;
     }
 
-    public function setRemoteIdentityKey($identityKey): void
+    public function setRemoteIdentityKey($identityKey)
     {
         $this->sessionStructure->setRemoteIdentityPublic($identityKey->serialize());
     }
 
-    public function setLocalIdentityKey($identityKey): void
+    public function setLocalIdentityKey($identityKey)
     {
         $this->sessionStructure->setLocalIdentityPublic($identityKey->serialize());
     }
 
     public function getRemoteIdentityKey()
     {
-        if (null === $this->sessionStructure->getRemoteIdentityPublic()) {
+        if ($this->sessionStructure->getRemoteIdentityPublic() == null) {
             return;
         }
 
@@ -91,7 +93,7 @@ class SessionState
         return $this->sessionStructure->getPreviousCounter();
     }
 
-    public function setPreviousCounter($previousCounter): void
+    public function setPreviousCounter($previousCounter)
     {
         $this->sessionStructure->setPreviousCounter($previousCounter);
     }
@@ -101,7 +103,7 @@ class SessionState
         return new RootKey(HKDF::createFor($this->getSessionVersion()), $this->sessionStructure->getRootKey());
     }
 
-    public function setRootKey($rootKey): void
+    public function setRootKey($rootKey)
     {
         $this->sessionStructure->setRootKey($rootKey->getKeyBytes());
     }
@@ -121,12 +123,12 @@ class SessionState
 
     public function hasReceiverChain($ECPublickKey_senderEphemeral)
     {
-        return null !== $this->getReceiverChain($ECPublickKey_senderEphemeral);
+        return $this->getReceiverChain($ECPublickKey_senderEphemeral) != null;
     }
 
     public function hasSenderChain()
     {
-        return null !== $this->sessionStructure->getSenderChain();
+        return $this->sessionStructure->getSenderChain() != null;
     }
 
     public function getReceiverChain($ECPublickKey_senderEphemeral)
@@ -135,14 +137,16 @@ class SessionState
 
         $index = 0;
 
-        foreach ($receiverChains as $receiverChain) {
+        foreach ($receiverChains as $receiverChain)
+        {
             $chainSenderRatchetKey = Curve::decodePoint($receiverChain->getSenderRatchetKey(), 0);
 
-            if ($chainSenderRatchetKey === $ECPublickKey_senderEphemeral) {
+            if ($chainSenderRatchetKey == $ECPublickKey_senderEphemeral)
+            {
                 return [$receiverChain, $index];
             }
 
-            ++$index;
+            $index += 1;
         }
     }
 
@@ -150,7 +154,7 @@ class SessionState
     {
         $receiverChainAndIndex = $this->getReceiverChain($ECPublicKey_senderEphemeral);
         $receiverChain = $receiverChainAndIndex[0];
-        if (null === $receiverChain) {
+        if ($receiverChain == null) {
             return;
         }
 
@@ -159,7 +163,7 @@ class SessionState
                         $receiverChain->getChainKey()->getIndex());
     }
 
-    public function addReceiverChain($ECPublickKey_senderRatchetKey, $chainKey): void
+    public function addReceiverChain($ECPublickKey_senderRatchetKey, $chainKey)
     {
         $senderRatchetKey = $ECPublickKey_senderRatchetKey;
 
@@ -171,9 +175,9 @@ class SessionState
 
         $this->sessionStructure->appendReceiverChains($chain);
 
-        if (\count($this->sessionStructure->getReceiverChains()) > 5) {
+        if (count($this->sessionStructure->getReceiverChains()) > 5) {
             $chains = $this->sessionStructure->getReceiverChains();
-            $chains = \array_slice($chains, 1);
+            $chains = array_slice($chains, 1);
             $this->sessionStructure->clearReceiverChains();
             foreach ($chains as $chain) {
                 $this->sessionStructure->appendReceiverChains($chain);
@@ -182,7 +186,7 @@ class SessionState
         }
     }
 
-    public function setSenderChain($ECKeyPair_senderRatchetKeyPair, $chainKey): void
+    public function setSenderChain($ECKeyPair_senderRatchetKeyPair, $chainKey)
     {
         $senderRatchetKeyPair = $ECKeyPair_senderRatchetKeyPair;
 
@@ -203,7 +207,7 @@ class SessionState
                         $chainKeyStructure->getKey(), $chainKeyStructure->getIndex());
     }
 
-    public function setSenderChainKey($ChainKey_nextChainKey): void
+    public function setSenderChainKey($ChainKey_nextChainKey)
     {
         $nextChainKey = $ChainKey_nextChainKey;
 
@@ -213,18 +217,21 @@ class SessionState
 
     public function hasMessageKeys($ECPublickKey_senderEphemeral, $counter)
     {
-        $senderEphemeral = $ECPublickKey_senderEphemeral;
-        $chainAndIndex = $this->getReceiverChain($senderEphemeral);
-        $chain = $chainAndIndex[0];
+        $senderEphemeral    = $ECPublickKey_senderEphemeral;
+        $chainAndIndex      = $this->getReceiverChain($senderEphemeral);
+        $chain              = $chainAndIndex[0];
 
-        if (null === $chain) {
+        if ($chain == null)
+        {
             return false;
         }
 
         $messageKeyList = $chain->getMessageKeys();
 
-        foreach ($messageKeyList as $messageKey) {
-            if ($messageKey->getIndex() === $counter) {
+        foreach ($messageKeyList as $messageKey)
+        {
+            if ($messageKey->getIndex() == $counter)
+            {
                 return true;
             }
         }
@@ -237,16 +244,16 @@ class SessionState
         $senderEphemeral = $ECPublicKey_senderEphemeral;
         $chainAndIndex = $this->getReceiverChain($senderEphemeral);
         $chain = $chainAndIndex[0];
-        if (null === $chain) {
+        if ($chain  == null) {
             return;
         }
 
         $messageKeyList = $chain->getMessageKeys();
         $result = null;
 
-        for ($i = 0; $i < \count($messageKeyList); ++$i) {
+        for ($i = 0; $i < count($messageKeyList); $i++) {
             $messageKey = $messageKeyList[$i];
-            if ($messageKey->getIndex() === $counter) {
+            if ($messageKey->getIndex() == $counter) {
                 $result = new MessageKeys($messageKey->getCipherKey(), $messageKey->getMacKey(), $messageKey->getIv(), $messageKey->getIndex());
                 unset($messageKeyList[$i]);
                 //del messageKeyList[i] <- 1. is a copy of the original array so go to 2
@@ -262,7 +269,7 @@ class SessionState
         return $result;
     }
 
-    public function setMessageKeys($ECPublicKey_senderEphemeral, $messageKeys): void
+    public function setMessageKeys($ECPublicKey_senderEphemeral, $messageKeys)
     {
         $senderEphemeral = $ECPublicKey_senderEphemeral;
         $chainAndIndex = $this->getReceiverChain($senderEphemeral);
@@ -279,7 +286,7 @@ class SessionState
         $this->sessionStructure->getReceiverChains()[$chainAndIndex[1]]->parseFromString($chain->serializeToString());
     }
 
-    public function setReceiverChainKey($ECPublicKey_senderEphemeral, $chainKey): void
+    public function setReceiverChainKey($ECPublicKey_senderEphemeral, $chainKey)
     {
         $senderEphemeral = $ECPublicKey_senderEphemeral;
         $chainAndIndex = $this->getReceiverChain($senderEphemeral);
@@ -291,7 +298,7 @@ class SessionState
         $this->sessionStructure->getReceiverChains()[$chainAndIndex[1]]->parseFromString($chain->serializeToString());
     }
 
-    public function setPendingKeyExchange($sequence, $ourBaseKey, $ourRatchetKey, $ourIdentityKey): void
+    public function setPendingKeyExchange($sequence, $ourBaseKey, $ourRatchetKey, $ourIdentityKey)
     {
         /*
         :type sequence: int
@@ -301,7 +308,7 @@ class SessionState
         */
 
         $structure = $this->sessionStructure->getPendingKeyExchange();
-        if (null === $structure) {
+        if ($structure == null) {
             $structure = new Textsecure_SessionStructure_PendingKeyExchange();
         }
         $structure->setSequence($sequence);
@@ -347,10 +354,10 @@ class SessionState
 
     public function hasPendingKeyExchange()
     {
-        return null !== $this->sessionStructure->getPendingKeyExchange();
+        return $this->sessionStructure->getPendingKeyExchange() != null;
     }
 
-    public function setUnacknowledgedPreKeyMessage($preKeyId, $signedPreKeyId, $baseKey): void
+    public function setUnacknowledgedPreKeyMessage($preKeyId, $signedPreKeyId, $baseKey)
     {
         /*
         :type preKeyId: int
@@ -363,20 +370,20 @@ class SessionState
         $this->sessionStructure->getPendingPreKey()->setSignedPreKeyId($signedPreKeyId);
         $this->sessionStructure->getPendingPreKey()->setBaseKey($baseKey->serialize());
 
-        if (null !== $preKeyId) {
+        if ($preKeyId != null) {
             $this->sessionStructure->getPendingPreKey()->setPreKeyId($preKeyId);
         }
     }
 
     public function hasUnacknowledgedPreKeyMessage()
     {
-        return null !== $this->sessionStructure->getPendingPreKey();
+        return $this->sessionStructure->getPendingPreKey() != null;
     }
 
     public function getUnacknowledgedPreKeyMessageItems()
     {
         $preKeyId = null;
-        if (null !== $this->sessionStructure->getPendingPreKey()->getPreKeyId()) {
+        if ($this->sessionStructure->getPendingPreKey()->getPreKeyId() != null) {
             $preKeyId = $this->sessionStructure->getPendingPreKey()->getPreKeyId();
         }
 
@@ -384,29 +391,28 @@ class SessionState
         $obj->set($preKeyId,
             $this->sessionStructure->getPendingPreKey()->getSignedPreKeyId(),
             Curve::decodePoint($this->sessionStructure->getPendingPreKey()->getBaseKey(), 0));
-
         return $obj;
     }
 
-    //FROM ALEKSEY
-    /*public function getUnacknowledgedPreKeyMessageItems()
-     {
-         $preKeyId = null;
-         if ($this->sessionStructure->getPendingPreKey()->getPreKeyId() != null) {
-             $preKeyId = $this->sessionStructure->getPendingPreKey()->getPreKeyId();
-         }
+        //FROM ALEKSEY
+   /*public function getUnacknowledgedPreKeyMessageItems()
+    {
+        $preKeyId = null;
+        if ($this->sessionStructure->getPendingPreKey()->getPreKeyId() != null) {
+            $preKeyId = $this->sessionStructure->getPendingPreKey()->getPreKeyId();
+        }
 
-         return new UnacknowledgedPreKeyMessageItems($preKeyId,
-             $this->sessionStructure->getPendingPreKey()->getSignedPreKeyId(),
-             Curve::decodePoint($this->sessionStructure->getPendingPreKey()->getBaseKey(), 0));
-     }*/
+        return new UnacknowledgedPreKeyMessageItems($preKeyId,
+            $this->sessionStructure->getPendingPreKey()->getSignedPreKeyId(),
+            Curve::decodePoint($this->sessionStructure->getPendingPreKey()->getBaseKey(), 0));
+    }*/
 
-    public function clearUnacknowledgedPreKeyMessage(): void
+    public function clearUnacknowledgedPreKeyMessage()
     {
         $this->sessionStructure->clearPendingPreKey();
     }
 
-    public function setRemoteRegistrationId($registrationId): void
+    public function setRemoteRegistrationId($registrationId)
     {
         $this->sessionStructure->setRemoteRegistrationId($registrationId);
     }
@@ -416,7 +422,7 @@ class SessionState
         return $this->sessionStructure->getRemoteRegistrationId();
     }
 
-    public function setLocalRegistrationId($registrationId): void
+    public function setLocalRegistrationId($registrationId)
     {
         $this->sessionStructure->setLocalRegistrationId($registrationId);
     }
@@ -433,11 +439,11 @@ class SessionState
 }
 class UnacknowledgedPreKeyMessageItems
 {
-    protected $preKeyId;
-    protected $signedPreKeyId;
-    protected $baseKey;
+        protected $preKeyId;
+        protected $signedPreKeyId;
+        protected $baseKey;
 
-    public function UnacknowledgedPreKeyMessageItems($preKeyId, $signedPreKeyId, $baseKey): void
+    public function UnacknowledgedPreKeyMessageItems($preKeyId, $signedPreKeyId, $baseKey)
     {
         /*
         :type preKeyId: int
@@ -464,8 +470,7 @@ class UnacknowledgedPreKeyMessageItems
         return $this->baseKey;
     }
 
-    public function set($preKeyId, $signedPreKeyId, $baseKey): void
-    {
+    public function set($preKeyId, $signedPreKeyId, $baseKey){
         $this->preKeyId = $preKeyId;
         $this->signedPreKeyId = $signedPreKeyId;
         $this->baseKey = $baseKey;

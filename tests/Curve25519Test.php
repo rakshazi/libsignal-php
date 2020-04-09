@@ -1,14 +1,12 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\Tests;
 
 use Libsignal\ecc\Curve;
+use Libsignal\Tests\TestCase;
 
 class Curve25519Test extends TestCase
 {
-    public function testAgreement(): void
+    public function testAgreement()
     {
         $alicePublic = "\x05\x1b\xb7\x59\x66\xf2\xe9\x3a\x36\x91\xdf\xff\x94\x2b\xb2\xa4\x66\xa1\xc0\x8b\x8d\x78\xca\x3f\x4d\x6d\xf8\xb8\xbf\xa2\xe4\xee\x28";
 
@@ -33,9 +31,9 @@ class Curve25519Test extends TestCase
         $this->assertEquals($sharedTwo, $shared);
     }
 
-    public function testRandomAgreements(): void
+    public function testRandomAgreements()
     {
-        for ($i = 0; $i < 50; ++$i) {
+        for ($i = 0; $i < 50; $i++) {
             $alice = Curve::generateKeyPair();
             $bob = Curve::generateKeyPair();
 
@@ -46,7 +44,7 @@ class Curve25519Test extends TestCase
         }
     }
 
-    public function testSignature(): void
+    public function testSignature()
     {
         $aliceIdentityPrivate = "\xc0\x97\x24\x84\x12\xe5\x8b\xf0\x5d\xf4\x87\x96\x82\x05\x13\x27\x94\x17\x8e\x36\x76\x37\xf5\x81\x8f\x81\xe0\xe6\xce\x73\xe8\x65";
         $aliceIdentityPublic = "\x05\xab\x7e\x71\x7d\x4a\x16\x3b\x7d\x9a\x1d\x80\x71\xdf\xe9\xdc\xf8\xcd\xcd\x1c\xea\x33\x39\xb6\x35\x6b\xe8\x4d\x88\x7e\x32\x2c\x64";
@@ -63,10 +61,10 @@ class Curve25519Test extends TestCase
             throw new \Exception('Sig verification failed!');
         }
 
-        for ($i = 0; $i < \strlen($aliceSignature); ++$i) {
+        for ($i = 0; $i < strlen($aliceSignature); $i++) {
             $modifiedSignature = (string) $aliceSignature;
 
-            $modifiedSignature[$i] = \chr(\ord($modifiedSignature[$i]) ^ 0x01);
+            $modifiedSignature[$i] = chr(ord($modifiedSignature[$i]) ^ 0x01);
             if (Curve::verifySignature($alicePublicKey, $aliceEphemeral->serialize(), $modifiedSignature)) {
                 throw new \Exception('Sig verification succeeded!');
             }

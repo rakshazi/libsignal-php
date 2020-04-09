@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\groups\ratchet;
 
 class SenderChainKey
@@ -39,9 +36,9 @@ class SenderChainKey
 
     public function getDerivative($seed, $key)
     {
-        $mac = \hash_init('sha256', HASH_HMAC, $key);
-        \hash_update($mac, $seed);
+        $mac = hash_init('sha256', HASH_HMAC, $key);
+        hash_update($mac, $seed);
 
-        return \hash_final($mac, true);
+        return hash_final($mac, true);
     }
 }

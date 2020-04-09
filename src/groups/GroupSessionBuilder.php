@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\groups;
 
 use Libsignal\groups\state\SenderKeyStore;
@@ -20,7 +17,7 @@ class GroupSessionBuilder
         $this->senderKeyStore = $senderKeyStore;
     }
 
-    public function processSender($sender, $senderKeyDistributionMessage): void
+    public function processSender($sender, $senderKeyDistributionMessage)
     {
         $senderKeyRecord = $this->senderKeyStore->loadSenderKey($sender);
 

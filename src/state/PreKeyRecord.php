@@ -1,11 +1,11 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Libsignal\state;
 
 use Libsignal\ecc\Curve;
 use Libsignal\ecc\ECKeyPair;
+use Libsignal\ecc\ECPrivateKey;
+use Libsignal\ecc\ECPublicKey;
+use Libsignal\exceptions\InvalidKeyException;
 
 require_once __DIR__.'/pb_proto_LocalStorageProtocol.php';
 
@@ -17,13 +17,19 @@ class PreKeyRecord
     {
         $this->structure = new Textsecure_PreKeyRecordStructure();
 
-        if (null === $serialized) {
+        if ($serialized == null)
+        {
             $this->structure->setId($id)->setPublicKey((string) $keyPair->getPublicKey()->serialize())->setPrivateKey((string) $keyPair->getPrivateKey()->serialize());
-        } else {
-            try {
+        }
+        else
+        {
+            try
+            {
                 $this->structure->parseFromString($serialized);
-            } catch (\Exception $ex) {
-                throw new \Exception('Cannot unserialize PreKEyRecordStructure');
+            }
+            catch (Exception $ex)
+            {
+                throw new Exception('Cannot unserialize PreKEyRecordStructure');
             }
         }
     }
@@ -47,29 +53,30 @@ class PreKeyRecord
     }
 }
 
+
 class Textsecure_PreKeyRecordStructure extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const ID = 1;
     const PUBLICKEY = 2;
     const PRIVATEKEY = 3;
 
-    // @var array Field descriptors
+    /* @var array Field descriptors */
     protected static $fields = [
         self::ID => [
-            'name' => 'id',
+            'name'     => 'id',
             'required' => false,
-            'type' => 5,
+            'type'     => 5,
         ],
         self::PUBLICKEY => [
-            'name' => 'publicKey',
+            'name'     => 'publicKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
         self::PRIVATEKEY => [
-            'name' => 'privateKey',
+            'name'     => 'privateKey',
             'required' => false,
-            'type' => 7,
+            'type'     => 7,
         ],
     ];
 

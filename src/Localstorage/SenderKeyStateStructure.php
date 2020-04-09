@@ -1,50 +1,48 @@
 <?php
-
-declare(strict_types=1);
 /**
- * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57.
+ * Auto generated from LocalStorageProtocol.proto at 2016-04-03 15:59:57
  *
  * localstorage package
  */
 
 namespace Localstorage {
 /**
- * SenderKeyStateStructure message.
+ * SenderKeyStateStructure message
  */
 class SenderKeyStateStructure extends \ProtobufMessage
 {
-    // Field index constants
+    /* Field index constants */
     const SENDERKEYID = 1;
     const SENDERCHAINKEY = 2;
     const SENDERSIGNINGKEY = 3;
     const SENDERMESSAGEKEYS = 4;
 
-    // @var array Field descriptors
-    protected static $fields = [
-        self::SENDERKEYID => [
+    /* @var array Field descriptors */
+    protected static $fields = array(
+        self::SENDERKEYID => array(
             'name' => 'senderKeyId',
             'required' => false,
             'type' => 5,
-        ],
-        self::SENDERCHAINKEY => [
+        ),
+        self::SENDERCHAINKEY => array(
             'name' => 'senderChainKey',
             'required' => false,
-            'type' => '\Localstorage\SenderKeyStateStructure\SenderChainKey',
-        ],
-        self::SENDERSIGNINGKEY => [
+            'type' => '\Localstorage\SenderKeyStateStructure\SenderChainKey'
+        ),
+        self::SENDERSIGNINGKEY => array(
             'name' => 'senderSigningKey',
             'required' => false,
-            'type' => '\Localstorage\SenderKeyStateStructure\SenderSigningKey',
-        ],
-        self::SENDERMESSAGEKEYS => [
+            'type' => '\Localstorage\SenderKeyStateStructure\SenderSigningKey'
+        ),
+        self::SENDERMESSAGEKEYS => array(
             'name' => 'senderMessageKeys',
             'repeated' => true,
-            'type' => '\Localstorage\SenderKeyStateStructure\SenderMessageKey',
-        ],
-    ];
+            'type' => '\Localstorage\SenderKeyStateStructure\SenderMessageKey'
+        ),
+    );
 
     /**
-     * Constructs new message container and clears its internal state.
+     * Constructs new message container and clears its internal state
      *
      * @return null
      */
@@ -54,7 +52,7 @@ class SenderKeyStateStructure extends \ProtobufMessage
     }
 
     /**
-     * Clears message values and sets default ones.
+     * Clears message values and sets default ones
      *
      * @return null
      */
@@ -63,11 +61,11 @@ class SenderKeyStateStructure extends \ProtobufMessage
         $this->values[self::SENDERKEYID] = null;
         $this->values[self::SENDERCHAINKEY] = null;
         $this->values[self::SENDERSIGNINGKEY] = null;
-        $this->values[self::SENDERMESSAGEKEYS] = [];
+        $this->values[self::SENDERMESSAGEKEYS] = array();
     }
 
     /**
-     * Returns field descriptors.
+     * Returns field descriptors
      *
      * @return array
      */
@@ -77,7 +75,7 @@ class SenderKeyStateStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'senderKeyId' property.
+     * Sets value of 'senderKeyId' property
      *
      * @param int $value Property value
      *
@@ -89,7 +87,7 @@ class SenderKeyStateStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'senderKeyId' property.
+     * Returns value of 'senderKeyId' property
      *
      * @return int
      */
@@ -99,7 +97,7 @@ class SenderKeyStateStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'senderChainKey' property.
+     * Sets value of 'senderChainKey' property
      *
      * @param \Localstorage\SenderKeyStateStructure\SenderChainKey $value Property value
      *
@@ -111,7 +109,7 @@ class SenderKeyStateStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'senderChainKey' property.
+     * Returns value of 'senderChainKey' property
      *
      * @return \Localstorage\SenderKeyStateStructure\SenderChainKey
      */
@@ -121,7 +119,7 @@ class SenderKeyStateStructure extends \ProtobufMessage
     }
 
     /**
-     * Sets value of 'senderSigningKey' property.
+     * Sets value of 'senderSigningKey' property
      *
      * @param \Localstorage\SenderKeyStateStructure\SenderSigningKey $value Property value
      *
@@ -133,7 +131,7 @@ class SenderKeyStateStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns value of 'senderSigningKey' property.
+     * Returns value of 'senderSigningKey' property
      *
      * @return \Localstorage\SenderKeyStateStructure\SenderSigningKey
      */
@@ -143,7 +141,7 @@ class SenderKeyStateStructure extends \ProtobufMessage
     }
 
     /**
-     * Appends value to 'senderMessageKeys' list.
+     * Appends value to 'senderMessageKeys' list
      *
      * @param \Localstorage\SenderKeyStateStructure\SenderMessageKey $value Value to append
      *
@@ -155,7 +153,7 @@ class SenderKeyStateStructure extends \ProtobufMessage
     }
 
     /**
-     * Clears 'senderMessageKeys' list.
+     * Clears 'senderMessageKeys' list
      *
      * @return null
      */
@@ -165,7 +163,7 @@ class SenderKeyStateStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns 'senderMessageKeys' list.
+     * Returns 'senderMessageKeys' list
      *
      * @return \Localstorage\SenderKeyStateStructure\SenderMessageKey[]
      */
@@ -175,7 +173,7 @@ class SenderKeyStateStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns 'senderMessageKeys' iterator.
+     * Returns 'senderMessageKeys' iterator
      *
      * @return ArrayIterator
      */
@@ -185,7 +183,7 @@ class SenderKeyStateStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns element from 'senderMessageKeys' list at given offset.
+     * Returns element from 'senderMessageKeys' list at given offset
      *
      * @param int $offset Position in list
      *
@@ -197,7 +195,7 @@ class SenderKeyStateStructure extends \ProtobufMessage
     }
 
     /**
-     * Returns count of 'senderMessageKeys' list.
+     * Returns count of 'senderMessageKeys' list
      *
      * @return int
      */
